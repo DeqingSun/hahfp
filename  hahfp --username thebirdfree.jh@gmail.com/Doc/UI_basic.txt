@@ -1,0 +1,19 @@
+power on시 ha mode 로 동작
+PDL 접속 동작 없음, (송신기/핸드폰에서 접속?)
+SLC reconnect : talk single
+
+
+페어링 모드 진입 
+	대기상태에서 talk double
+	페어링 to : 60sec
+
+LNR : talk 2sec
+Audio transfer : talk 2sec
+Answer : talk single
+Terminate : talk single
+Reject : talk 2sec
+
+
+todo : 20120812
+Streeo2010SDK Base로 기본 버튼/LED UI mapping
+loopback mode 구현 중

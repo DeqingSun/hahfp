@@ -1,0 +1,11 @@
+
+VARIANTS :=  debug all all_debug
+
+# Include DEBUG
+CFLAGS_debug := -DDEBUG_PRINT_ENABLED
+
+# Include include all CVC variants and stereo mode
+CFLAGS_all := -DCVC_ALL
+
+# Include include everything and debug
+CFLAGS_all_debug := -DCVC_ALL -DDEBUG_PRINT_ENABLED

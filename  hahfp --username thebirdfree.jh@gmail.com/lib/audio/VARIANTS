@@ -1,0 +1,17 @@
+
+VARIANTS :=  debug tts vp ms tts_debug vp_debug ms_debug
+
+# Include DEBUG
+CFLAGS_debug := -DDEBUG_PRINT_ENABLED
+
+#Include TTS support
+CFLAGS_tts := -DTTS
+
+#Include TTS support and Voice Prompts support
+CFLAGS_vp := -DTTS -DVP
+
+#Include TTS support and Debug
+CFLAGS_tts_debug := -DTTS -DDEBUG_PRINT_ENABLED
+
+#Include TTS support, Voice Prompts support and Debug
+CFLAGS_vp_debug := -DTTS -DVP -DDEBUG_PRINT_ENABLED

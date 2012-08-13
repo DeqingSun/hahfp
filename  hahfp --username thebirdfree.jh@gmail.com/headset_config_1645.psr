@@ -1,0 +1,93 @@
+#######################################
+## BC4 HS Configurator               ##
+## Generated PSR File                ##
+## Version = MONO R2 2009 A2DP SDK   ##
+#######################################
+
+//PSKEY_LOCAL_SUPPORTED_FEATURES            
+&00ef -
+
+//PSKEY_LOCAL_SUPPORTED_FEATURES            
+&00ef -
+
+//USR  0 - PSKEY_BATTERY_CONFIG             
+&028a - 
+
+//USR  1 - PSKEY_BUTTON_CONFIG              
+&028b - 
+
+//USR  2 - PSKEY_BUTTON_PATTERN_CONFIG      
+&028c - 
+
+//USR  3 - PSKEY_HFP_SUPPORTED_FEATURES     
+&028d - 
+
+//USR  4 - PSKEY_INPUT_PIO_BLOCK            
+&028e - 
+
+//USR  5 - PSKEY_HFP_1_5_SUPPORTED_FEATURES 
+&028f - 
+
+//USR  6 - PSKEY_TIMEOUTS                   
+&0290 - 
+
+//USR  7 - PSKEY_TRI_COLOUR_LEDS            
+&0291 - 
+
+//USR  9 - PSKEY_LENGTHS                    
+&0293 -
+
+//USR 11 - PSKEY_TTS_CONFIG                 
+&0295 - 
+
+//USR 13 - PSKEY_RADIO_CONFIG               
+&0297 - 
+
+//USR 15 - PSKEY_FEATURE_BLOCK              
+&0299 -
+
+//USR 16 - PSKEY_SPEAKER_GAIN_MAPPING       
+&029a - 
+
+//USR 17 - PSKEY_HFP_OAR_PARAMETERS         
+&029b - 
+
+//USR 18 - PSKEY_LED_FILTERS                
+&029c - 
+
+//USR 19 - PSKEY_USER_TONES                 
+&029d - 
+
+//USR 20 - PSKEY_LED_STATES                 
+&029e - 
+
+//USR 22 - PSKEY_LED_EVENTS                 
+&02a0 - 
+
+//USR 23 - PSKEY_EVENTS_A                   
+&02a1 - 
+
+//USR 24 - PSKEY_EVENTS_B                   
+&02a2 =  0B01 0800 3FFE 0B05 0800 3FFE 0C01 1000 3FFE 0C05 1000 3FFE 0A01 1800 1F50 0E01 1001 1340 1101 0801 0300 1202 1001 0600 0501 0801 0040 0D03 1800 000E 6201 1801 0006 6303 1801 0006 140B 0800 7FFF 460B 1800 4001 8608 0000 400A 8704 0000 400A 9101 0002 0F7E 5902 0400 2048 5A08 0400 204A 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+
+//USR 25 - PSKEY_RSSI                       
+&02a3 - 
+
+//USR 26 - PSKEY_TONES                      
+&02a4 -
+
+//USR 27 - PSKEY_PIO_BLOCK                  
+&02a5 - 
+
+//USR 29 - PSKEY_ENERGY_PARAMS              
+&02a7 - 
+
+//USR 31 - PSKEY_CONFIGURATION_ID           
+&02a9 =  0000
+
+//PSKEY_CODEC_PIO - MIC BIAS                
+&01b9 =  00FE
+
+//PSKEY_LOCAL_DEVICE_NAME                   
+&0108 =  5343 2D52 4F4D 4F4E 482D 4145 5344 5445 312D 3436 0035
+

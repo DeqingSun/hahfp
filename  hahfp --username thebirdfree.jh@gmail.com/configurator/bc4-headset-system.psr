@@ -1,0 +1,47 @@
+//This file contains the common system keys that are needed 
+//for the BC4-Headset Rom device. 
+
+// PSKEY_DEVICE_NAME
+&0108 = 4342 2d34 5348
+
+// PSKEY_HOST_INTERFACE - none
+&01f9 = 0000
+
+// PSKEY_HCI_NOP_DISABLE - disable the hci nop event
+&00f2 = 0001
+
+// PSKEY_HOSTIO_MAP_SCO_PCM - map sco over pcm
+&01ab = 0001
+
+// PSKEY_HOSTIO_MAP_SCO_CODEC - use internal codec
+&01b0 = 0001
+
+// PSKEY_ANA_FREQ - generally either 16Mhz (3e80) or 26Mhz (6590)
+&01fe=6590
+
+// PSKEY_PIO_PROTECT_MASK - enable application to access all pios
+&0202 = 0000
+
+// PSKEY_DEEP_SLEEP_STATE - Always use deep sleep when available
+&0229 = 0001
+
+// PSKEY_USE_EXTERNAL_CLOCK - don't use external clock
+&023b = 0000
+
+// PSKEY_CLOCK_REQUEST_ENABLE - don't use external clock
+&0246 = 0000
+
+// PSKEY_LOCAL_SUPPORT_FEATURES - disable 3/5 slot packets; park mode, and enable afh
+&00ef = fefc 000f 0808 0000
+
+// PSKEY_BCSP_LM_MODE_PS_BLOCK - enable link establishment 
+&0192 = 0001 0000 00fa
+
+// PSKEY_PCM_MIN_CPU_CLOCK - 16Mhz (full rate)
+&024D = 0000
+
+// PSKEY_ONCHIP_HCI_CLIENT - true
+&03cc = 0001
+
+// PSKEY_FIXED_PIN
+&35b = 0030 0030 0030 0030

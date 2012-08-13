@@ -1,0 +1,5 @@
+<workspace>
+ <project path="headset.xip" />
+ <project path="cvc_headset/cvc_headset.xip" />
+ <project path="a2dp_headset/sbc_decoder.xip" />
+</workspace>

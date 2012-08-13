@@ -1,0 +1,7 @@
+
+VARIANTS := debug
+
+# GOEP including debug print
+CFLAGS_debug := -DOBEX_DEBUG
+
+

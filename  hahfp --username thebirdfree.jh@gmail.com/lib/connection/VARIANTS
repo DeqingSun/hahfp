@@ -1,0 +1,7 @@
+
+VARIANTS := l2cap rfcomm rfcomm_no_inquiry debug
+
+CFLAGS_l2cap := -DCL_EXCLUDE_RFCOMM -DCL_EXCLUDE_SYNC
+CFLAGS_rfcomm := -DCL_EXCLUDE_L2CAP
+CFLAGS_rfcomm_no_inquiry := -DCL_EXCLUDE_L2CAP -DCL_EXCLUDE_INQUIRY
+CFLAGS_debug := -DCONNECTION_DEBUG_LIB  # -DDEBUG_PRINT_ENABLED  flags for building debug version of connection lib

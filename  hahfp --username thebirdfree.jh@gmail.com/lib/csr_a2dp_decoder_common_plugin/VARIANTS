@@ -1,0 +1,11 @@
+
+VARIANTS :=  debug stereo stereo_debug
+
+# Include DEBUG
+CFLAGS_debug := -DDEBUG_PRINT_ENABLED
+
+# Include all non-debug functionality
+CFLAGS_stereo := -DENABLE_STEREO -DINCLUDE_MP3 -DINCLUDE_AAC -DINCLUDE_FASTSTREAM
+
+# Include all functionality (inc. debug)
+CFLAGS_stereo_debug := -DDEBUG_PRINT_ENABLED -DENABLE_STEREO -DINCLUDE_MP3 -DINCLUDE_AAC -DINCLUDE_FASTSTREAM
