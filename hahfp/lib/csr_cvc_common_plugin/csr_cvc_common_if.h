@@ -375,9 +375,7 @@ typedef enum
 
    CVSD_CVC_1_MIC_HANDSFREE      =  2,
    
-   CVSD_NO_DSP                   =  4,
-
-   LOOPBACK_NO_DSP				 =  8
+   CVSD_NO_DSP                   =  4
 
 }CVC_PLUGIN_TYPE_T;
 

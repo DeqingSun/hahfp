@@ -37,7 +37,6 @@ extern const CvcPluginTaskdata csr_cvsd_cvc_2mic_headset_plugin ;
 
 
 extern const CvcPluginTaskdata csr_cvsd_no_dsp_plugin;
-extern const CvcPluginTaskdata loopback_plugin;
 
 /* internal message ids */
 #define MESSAGE_FORCE_TONE_COMPLETE 	0x0001

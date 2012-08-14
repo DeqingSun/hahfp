@@ -31,7 +31,8 @@ NOTES
 #include <audio_plugin_if.h>
 	
 #include <csr_cvc_common_plugin.h>
-    
+#include <hearing_aid_sim_plugin.h>
+
     #define NODSPCVSD		(TaskData *)&csr_cvsd_no_dsp_plugin
 
 #ifdef INCLUDE_DSP
@@ -696,14 +697,14 @@ void audioHandleSyncDisconnectInd ( const HFP_AUDIO_DISCONNECT_IND_T * pInd )
 void audioEnterLoopbackMode(void)
 {
 	/* go into loopback mode */
-	AudioConnect ( (TaskData *)&loopback_plugin,
+	AudioConnect ( (TaskData *)&hearing_aid_sim_plugin,
 				   NULL ,
 				   0 ,
 				   theHeadset.codec_task ,
 				   15 ,
-				   16000 ,
+				   44100 ,
 				   TRUE,
-				   AUDIO_MODE_LOOPBACK,
+				   AUDIO_MODE_CONNECTED,
 				   AUDIO_ROUTE_INTERNAL,
 				   LBIPMPowerLevel(),
 				   NULL,

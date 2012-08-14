@@ -1,0 +1,8 @@
+
+VARIANTS :=  debug no_dsp
+
+# Include DEBUG
+CFLAGS_debug := -DDEBUG_PRINT_ENABLED
+
+# Bypass kalimba
+CFLAGS_no_dsp := -DBYPASS_KALIMBA

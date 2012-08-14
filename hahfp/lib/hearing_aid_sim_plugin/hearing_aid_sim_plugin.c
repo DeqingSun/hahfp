@@ -17,9 +17,8 @@ NOTES
 #include <stream.h> /*for the ringtone_note*/
 
 #include "audio_plugin_if.h" /*the messaging interface*/
-#include "csr_cvc_common_plugin.h"
-#include "csr_cvc_common.h"
-#include "csr_cvc_common_if.h"
+#include "hearing_aid_sim_plugin.h"
+#include "hearing_aid_sim.h"
 	/*the task message handler*/
 static void message_handler (Task task, MessageId id, Message message) ;
 
@@ -27,14 +26,7 @@ static void message_handler (Task task, MessageId id, Message message) ;
 static void handleAudioMessage ( Task task , MessageId id, Message message ) 	;
 static void handleInternalMessage ( Task task , MessageId id, Message message ) 	;
 	
-	/*the plugin task*/
-const CvcPluginTaskdata csr_cvsd_cvc_1mic_headset_plugin = {{message_handler},CVSD_CVC_1_MIC_HEADSET, SCO_ENCODING_CVSD, 0, AUDIO_CODEC_CVSD, 0};
-
-const CvcPluginTaskdata csr_cvsd_cvc_2mic_headset_plugin = {{message_handler},CVSD_CVC_2_MIC_HEADSET, SCO_ENCODING_CVSD, 1, AUDIO_CODEC_CVSD, 0};
-
-const CvcPluginTaskdata csr_cvsd_cvc_1mic_handsfree_plugin = {{message_handler},CVSD_CVC_1_MIC_HANDSFREE, SCO_ENCODING_CVSD, 0, AUDIO_CODEC_CVSD, 0};
-
-const CvcPluginTaskdata csr_cvsd_no_dsp_plugin = {{message_handler},CVSD_NO_DSP, SCO_ENCODING_CVSD, 0, AUDIO_CODEC_CVSD, 0};
+const TaskData hearing_aid_sim_plugin = {message_handler};
 
 /****************************************************************************
 DESCRIPTION
@@ -85,7 +77,7 @@ static void handleAudioMessage ( Task task , MessageId id, Message message )
 			} 
 			else
 			{		/*connect the audio*/
-				CsrCvcPluginConnect(  (CvcPluginTaskdata*)task,
+				HearingAidSimPluginConnect( task,
                                       connect_message->audio_sink , 
 				                      connect_message->sink_type  ,
          							  connect_message->codec_task ,
@@ -107,28 +99,9 @@ static void handleAudioMessage ( Task task , MessageId id, Message message )
     		}
 			else
 			{		
-				CsrCvcPluginDisconnect((CvcPluginTaskdata*)task) ;
+				HearingAidSimPluginDisconnect(task) ;
 			}
 		}	
-		break ;
-		
-		case (AUDIO_PLUGIN_SET_MODE_MSG ):
-		{
-            AUDIO_PLUGIN_SET_MODE_MSG_T * mode_message = (AUDIO_PLUGIN_SET_MODE_MSG_T *)message ;			
-			
-            if (AUDIO_BUSY)
-            {
-                MAKE_AUDIO_MESSAGE ( AUDIO_PLUGIN_SET_MODE_MSG) ;
-                message->mode   = mode_message->mode ;
-                message->params = mode_message->params ;
-        
-        		MessageSendConditionally ( task, AUDIO_PLUGIN_SET_MODE_MSG , message ,(const uint16 *)&AUDIO_BUSY ) ;
-    	    }
-            else
-            {
-				CsrCvcPluginSetMode((CvcPluginTaskdata*)task, mode_message->mode , mode_message->params) ;
-            }
-		}
 		break ;
 		
 		case (AUDIO_PLUGIN_SET_VOLUME_MSG ): 
@@ -144,7 +117,7 @@ static void handleAudioMessage ( Task task , MessageId id, Message message )
             }
             else
             {
-                CsrCvcPluginSetVolume ( (CvcPluginTaskdata*)task, volume_message->volume ) ;
+                HearingAidSimPluginSetVolume ( task, volume_message->volume ) ;
             }			
 		}		
 		break ;
@@ -172,9 +145,10 @@ static void handleAudioMessage ( Task task , MessageId id, Message message )
 			}
 			else
 			{
+				break;
 				PRINT(("TONE:start\n"));				
                 AUDIO_BUSY = (TaskData*) task;    
-        		CsrCvcPluginPlayTone ((CvcPluginTaskdata*)task, tone_message->tone, tone_message->tone_volume, tone_message->stereo ) ;		     				
+        		HearingAidSimPluginPlayTone ( task, tone_message->tone, tone_message->tone_volume ) ;		     				
 			}
 							     
 		}
@@ -184,35 +158,11 @@ static void handleAudioMessage ( Task task , MessageId id, Message message )
 		{
 			if (AUDIO_BUSY)
 			{
-				CsrCvcPluginStopTone((CvcPluginTaskdata*)task) ;
+				HearingAidSimPluginStopTone(task) ;
 			}
 		}
 		break ;	
         
-        case (AUDIO_PLUGIN_MIC_SWITCH_MSG ):
-#ifdef CVC_ALL		
-        {
-            if (AUDIO_BUSY)
-            {
-                MessageSendConditionally ( task, AUDIO_PLUGIN_MIC_SWITCH_MSG , 0 ,(const uint16 *)&AUDIO_BUSY ) ;
-            }
-            else
-            {
-                CsrCvcPluginMicSwitch((CvcPluginTaskdata*)task) ;
-            }
-        }
-#endif		
-        break ;
-		
-		case (AUDIO_PLUGIN_SET_POWER_MSG ):
-		{
-			AUDIO_PLUGIN_SET_POWER_MSG_T * power_message = (AUDIO_PLUGIN_SET_POWER_MSG_T *)message ;
-			
-			CsrCvcPluginSetPower((CvcPluginTaskdata*)task, power_message->power) ;
-		}
-		break ;
-        
-
 		default:
 		{
 		}
@@ -233,21 +183,11 @@ static void handleInternalMessage ( Task task , MessageId id, Message message )
             PRINT(("CVC: Tone End\n"));
             AUDIO_BUSY = NULL ;    
             
-            CsrCvcPluginToneComplete((CvcPluginTaskdata*)task) ;            
+            HearingAidSimPluginToneComplete(task) ;            
         }    
 		break ;
 		
-        case MESSAGE_FORCE_TONE_COMPLETE:
-        {
-            CsrCvcPluginToneForceCompleteNoDsp((CvcPluginTaskdata*)task);
-        }
-        break;
-		
 		default:
-		{
-				/*route the cvc messages to the relavent handler*/
-			CsrCvcPluginInternalMessage((CvcPluginTaskdata*)task , id , message ) ;
-		}
 		break ;
 	}	
 }

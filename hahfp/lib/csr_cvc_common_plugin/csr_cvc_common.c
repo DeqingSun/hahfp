@@ -42,8 +42,6 @@ static void DisconnectMicNoDsp ( void );
 static void DisconnectSpeakerNoDsp ( bool );
 static void ConnectMicNoDsp ( void );
 static void ConnectSpeakerNoDsp ( void ) ;
-static void ConnectLoopbackNoDsp ( void );
-static void DisconnectLoopbackNoDsp ( void );
 #ifdef CVC_ALL
 static void ConnectSecondMicNoDsp ( void );
 static void DisconnectSecondMicNoDsp ( void );
@@ -141,7 +139,7 @@ void CsrCvcPluginConnect( CvcPluginTaskdata *task,
     CVC->mic_switch      = mic_switch;
     CVC->tone_stereo     = stereo;
 	 /* check if this is the no dsp plugin or should be started in low power mode */
-	 CVC->no_dsp = (CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == CVSD_NO_DSP || (CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == LOOPBACK_NO_DSP || power <= LPIBM_THRESHOLD;
+	 CVC->no_dsp = (CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == CVSD_NO_DSP || power <= LPIBM_THRESHOLD;
 
 
 	PRINT(("CVC: connect [%x] [%x]\n", CVC->cvc_running , (int)CVC->audio_sink));
@@ -258,18 +256,12 @@ void CsrCvcPluginDisconnect( CvcPluginTaskdata *task )
 	if (CVC->no_dsp)
 	{
 	    PRINT(("CVC: NO DSP: disconnect\n"));
-		if((CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == LOOPBACK_NO_DSP)
-		{
-			DisconnectLoopbackNoDsp();
-		}
-		else
-		{
-			DisconnectSpeakerNoDsp(FALSE) ;
-			DisconnectMicNoDsp() ;
+
+		DisconnectSpeakerNoDsp(FALSE) ;
+		DisconnectMicNoDsp() ;
 #ifdef CVC_ALL        
-	        DisconnectSecondMicNoDsp() ;
+        DisconnectSecondMicNoDsp() ;
 #endif        
-		}
 
 		CodecSetOutputGainNow( CVC->codec_task, CVC->volume , left_and_right_ch );
 	}
@@ -434,11 +426,6 @@ void CsrCvcPluginSetModeNoDsp ( AUDIO_MODE_T mode , const void * params )
             DisconnectSpeakerNoDsp(FALSE) ;
         }
         break ;
-		case AUDIO_MODE_LOOPBACK:
-		{
-			ConnectLoopbackNoDsp();
-		}
-		break;
         default :
         {    
             PRINT(("NODSP: Set Mode Invalid [%x]\n" , mode )) ;
@@ -598,11 +585,6 @@ void CsrCvcPluginPlayTone (CvcPluginTaskdata *task, ringtone_note * tone , uint1
 		{
 			DisconnectSpeakerNoDsp(FALSE) ;
 		}	
-
-		if ( (CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == LOOPBACK_NO_DSP )
-		{
-			DisconnectLoopbackNoDsp();
-		}
         
 	    lSink = StreamAudioSink(AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, stereo ? AUDIO_CHANNEL_A_AND_B : AUDIO_CHANNEL_A);
 		
@@ -677,15 +659,8 @@ DESCRIPTION
 	Connect the audio stream (Speaker and Microphone)
 */
 static void CvcConnectAudio (CvcPluginTaskdata *task)
-{   
-	if((CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == LOOPBACK_NO_DSP)
-	{
-        CodecSetOutputGainNow( CVC->codec_task, 0 , left_and_right_ch ); 
-		CsrCvcPluginSetModeNoDsp ( CVC->mode , NULL );
-		CodecSetOutputGainNow( CVC->codec_task, CVC->volume, left_and_right_ch );
-		return;
-	}
-    else if ( CVC->audio_sink)
+{             
+    if ( CVC->audio_sink )
     {	        
        bool r1 =0, r2 = 0;
        bool r3 =0, r4 = 0;
@@ -908,10 +883,7 @@ void CsrCvcPluginToneComplete( CvcPluginTaskdata *task )
 			( CVC->mode != AUDIO_MODE_MUTE_SPEAKER))
 		{
 			/* reconnect sco audio if present */
-			if((CVC_PLUGIN_TYPE_T)task->cvc_plugin_variant == LOOPBACK_NO_DSP)
-				CsrCvcPluginSetModeNoDsp (CVC->mode , NULL );
-			else
-				ConnectSpeakerNoDsp();
+			ConnectSpeakerNoDsp();
 			
 			/* check to see if the sco is still valid, if it is not then we will have received the
 			   message before the tone has completed playing due to some other issue, therefore
@@ -1053,55 +1025,6 @@ static void DisconnectSpeakerNoDsp ( bool tone )
 	StreamDisconnect(StreamSourceFromSink(CVC->audio_sink), speaker_sink);
     SinkClose(speaker_sink);
 }
-
-static void ConnectLoopbackNoDsp ( void )
-{
-	Source lSource0, lSource1;
-	Sink lSink0, lSink1;
-
-	lSource0 = StreamAudioSource(AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_A);
-	lSink0 = StreamAudioSink(AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_A);
-
-	lSource1 = StreamAudioSource(AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_B);
-	lSink1 = StreamAudioSink(AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_B);
-	
-	PanicFalse(SinkConfigure(lSink1, STREAM_CODEC_OUTPUT_RATE,	CVC->dac_rate));
-	PanicFalse(SinkSynchronise(lSink0, lSink1));
-	
-	PanicFalse(SourceConfigure(lSource1, STREAM_CODEC_INPUT_RATE, CVC->dac_rate));
-	PanicFalse(SourceSynchronise(lSource0, lSource1));
-			
-	
-	StreamConnect(lSource0, lSink0 );	
-	StreamConnect(lSource0, lSink1 );	
-	
-	SourceConfigure(lSource0,STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1);	
-	SourceConfigure(lSource1,STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1);	
-	
-	CodecSetInputGainNow( CVC->codec_task, 10, left_ch);
-	CodecSetInputGainNow( CVC->codec_task, 10, right_ch);
-}
-
-static void DisconnectLoopbackNoDsp ( void )
-{
-	Sink sink = StreamAudioSink(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0, AUDIO_CHANNEL_A);
-	Source source = StreamAudioSource(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0, AUDIO_CHANNEL_A);
-	
-	StreamDisconnect(NULL, sink);
-	SinkClose(sink);
-	
-	sink = StreamAudioSink(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0, AUDIO_CHANNEL_B);
-	StreamDisconnect(NULL, sink);
-	SinkClose(sink);
-	
-	StreamDisconnect(source, NULL);
-	SourceClose(source);
-	
-	source = StreamAudioSource(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0, AUDIO_CHANNEL_B);
-	StreamDisconnect(source, NULL);
-	SourceClose(source);
-}
-
 
 /****************************************************************************
 DESCRIPTION

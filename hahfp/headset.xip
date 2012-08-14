@@ -72,14 +72,14 @@
    <property key="buildtransport" >4</property>
    <property key="characters" >1</property>
    <property key="debugtransport" >[SPITRANS=USB SPIPORT=0]</property>
-   <property key="defines" >DEBUG_PRINT_ENABLED,ENABLE_AVRCPx,BC5_MULTIMEDIA, ENABLE_PBAPx, ROM_LEDS, INCLUDE_DSP, INCLUDE_CVC, THREE_WAY_CALLING</property>
+   <property key="defines" >xDEBUG_PRINT_ENABLED,ENABLE_AVRCPx,BC5_MULTIMEDIA, ENABLE_PBAPx, ROM_LEDS, INCLUDE_DSP, INCLUDE_CVC, THREE_WAY_CALLING</property>
    <property key="execution_mode" >0</property>
    <property key="firmware" >0</property>
    <property key="firmwareimage" ></property>
    <property key="flashsize" >3</property>
    <property key="hardware" >8</property>
    <property key="library_version" >HAHFP_Lib</property>
-   <property key="libs" >avrcp, power,connection, bdaddr, hfp_min_cfm,region,service,codec_nowolfson, csr_tone_plugin, audio_vp, csr_cvc_common_plugin_all_debug,csr_voice_prompts_plugin_file_only_dsp,csr_a2dp_decoder_common_plugin_stereo,a2dp, csr_common_example_plugin, goep, goep_apphdrs, pbap_common, pbapc, sdp_parse,md5</property>
+   <property key="libs" >avrcp, power,connection, bdaddr, hfp_min_cfm,region,service,codec_nowolfson, csr_tone_plugin, audio_vp, csr_cvc_common_plugin_all,csr_voice_prompts_plugin_file_only_dsp,csr_a2dp_decoder_common_plugin_stereo,a2dp, csr_common_example_plugin, goep, goep_apphdrs, pbap_common, pbapc, sdp_parse,md5, hearing_aid_sim_plugin</property>
    <property key="messages" >1</property>
    <property key="output" ></property>
    <property key="panic" >1</property>
