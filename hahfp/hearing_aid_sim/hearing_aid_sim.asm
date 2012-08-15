@@ -186,8 +186,8 @@
          &$audio_out_upsample_mix.local_buffer,
                                        // Resample buffer size
          LENGTH($audio_out_upsample_mix.local_buffer),
-         (48000 / 8000),               // Upsample ratio
-         ((48000.0/44100.0)-1);        // Interp ratio
+         (16000 / 8000),               // Upsample ratio
+         ((16000.0/16000.0)-1);        // Interp ratio
    .ENDBLOCK;
 
    .BLOCK $audio_out_dc_remove_op_left;
