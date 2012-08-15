@@ -33,7 +33,7 @@ DESCRIPTION
             /*The main system messages*/
         #define DEBUG_MAIN
                 /*The button manager */
-        #define DEBUG_BUT_MAN
+        #define DEBUG_BUT_MANx
             /*The low level button parsing*/
         #define DEBUG_BUTTONSx
             /*The call manager*/
@@ -41,7 +41,7 @@ DESCRIPTION
             /*The multipoint manager*/
         #define DEBUG_MULTI_MANx
             /*headset_audio.c*/
-        #define DEBUG_AUDIOx
+        #define DEBUG_AUDIO
          /* headset_slc.c */
         #define DEBUG_SLCx
             /*The charger */

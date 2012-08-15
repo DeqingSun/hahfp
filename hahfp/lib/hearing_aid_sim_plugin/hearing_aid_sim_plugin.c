@@ -145,7 +145,6 @@ static void handleAudioMessage ( Task task , MessageId id, Message message )
 			}
 			else
 			{
-				break;
 				PRINT(("TONE:start\n"));				
                 AUDIO_BUSY = (TaskData*) task;    
         		HearingAidSimPluginPlayTone ( task, tone_message->tone, tone_message->tone_volume ) ;		     				

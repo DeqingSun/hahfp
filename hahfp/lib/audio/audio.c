@@ -239,10 +239,12 @@ void AudioPlayTone ( const ringtone_note * tone , bool can_queue , Task codec_ta
 	
 		if ( AUDIO.plugin )
 	    {
+		    PRINT(("AUD: Tone to plugin\n"));
 		    MessageSendConditionally ( AUDIO.plugin, AUDIO_PLUGIN_PLAY_TONE_MSG, message , (const uint16 *)&AUDIO_BUSY ) ;
 	    }
     	else
 	    {    
+		    PRINT(("AUD: csr_tone_plugin\n"));
 			MessageSendConditionally( (TaskData*)&csr_tone_plugin, AUDIO_PLUGIN_PLAY_TONE_MSG, message , (const uint16 *)&AUDIO_BUSY ) ;
 	    }
 	}

@@ -49,8 +49,8 @@ static void connect_streams(void)
     PanicFalse( SourceSynchronise(audio_source_a, audio_source_b) );
 
     /* Set up codec gains */
-    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 6) );
-    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 6) );
+    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 4) );
+    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 4) );
     PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
     PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
     PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
@@ -122,6 +122,8 @@ void HearingAidSimPluginConnect( Task task,
     /* Find the codec file in the file system */
     FILE_INDEX index = FileFind( FILE_ROOT, (const char *)kal, strlen(kal) );
 
+	AUDIO_BUSY = (TaskData*) task;	  
+
     /* Did we find the desired file? */
     PanicFalse( index != FILE_NONE );
 
@@ -138,6 +140,8 @@ void HearingAidSimPluginConnect( Task task,
 #ifndef BYPASS_KALIMBA
     /* Start the Kalimba */
     PanicFalse( KalimbaSendMessage(KALIMBA_MSG_GO,0,0,0,0) ); 
+	PRINT(("HA DSP Load\n"));
+	AUDIO_BUSY = NULL;
 #endif
 }
 
@@ -164,15 +168,15 @@ void HearingAidSimPluginPlayTone (Task task, ringtone_note * tone , uint16 tone_
     Source lSource ;  
     Sink lSink ; 
 
+#ifdef BYPASS_KALIMBA
 	disconnect_streams();
-        
+    
     lSink = StreamAudioSink(AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_A_AND_B);
 	
 	PanicFalse(SinkConfigure(lSink, STREAM_CODEC_OUTPUT_RATE, 8000));	
-
-	if (0)	{	
-		lSink = StreamKalimbaSink(3);
-	}
+#else
+	lSink = StreamKalimbaSink(3);
+#endif
     
     /*request an indication that the tone has completed / been disconnected*/
     MessageSinkTask ( lSink , task );
@@ -189,25 +193,17 @@ void HearingAidSimPluginPlayTone (Task task, ringtone_note * tone , uint16 tone_
 
 void HearingAidSimPluginStopTone ( Task task ) 
 {
+#ifdef BYPASS_KALIMBA
 	Sink speaker_sink;
-	if (1)
-	{
-		speaker_sink = StreamAudioSink(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0,  AUDIO_CHANNEL_A_AND_B);
-		MessageSinkTask ( speaker_sink, NULL ) ;
-	}
-	else
-	{
-		speaker_sink = StreamAudioSink(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0, AUDIO_CHANNEL_A_AND_B);
-	}
+	speaker_sink = StreamAudioSink(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0,  AUDIO_CHANNEL_A_AND_B);
+	MessageSinkTask ( speaker_sink, NULL ) ;
 	StreamDisconnect(NULL, speaker_sink);
 	SinkClose(speaker_sink);
 	
 	connect_streams();
-
-	if(0)
-	{
-		StreamDisconnect( 0 , StreamKalimbaSink(3) ) ; 
-	}
+#else
+	StreamDisconnect( 0 , StreamKalimbaSink(3) ) ; 
+#endif
 }
 
       
@@ -218,17 +214,15 @@ DESCRIPTION
 */
 void HearingAidSimPluginToneComplete( Task task ) 
 {
+#ifdef BYPASS_KALIMBA
     Sink speaker_sink = StreamAudioSink(AUDIO_HARDWARE_CODEC,AUDIO_INSTANCE_0, AUDIO_CHANNEL_A_AND_B);
     MessageSinkTask ( speaker_sink, NULL ) ;
     SinkClose(speaker_sink);
 
 	connect_streams();
+#else
+    MessageSinkTask (StreamKalimbaSink(3) , NULL);
+#endif
     AUDIO_BUSY = NULL ;
-
-	if(0)
-	{	/* DSP mode */
-	   /* We no longer want to receive stream indications */
-	   MessageSinkTask (StreamKalimbaSink(3) , NULL);
-	}
 }
 

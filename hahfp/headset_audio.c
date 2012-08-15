@@ -188,7 +188,8 @@ void audioHandleRouting ( void )
             /* sco no longer valid so disconnect sco */
             AudioDisconnect();
             /* clear sco_sink value to indicate no routed audio */
-            theHeadset.sco_sink = 0;                    
+            theHeadset.sco_sink = 0;   
+			theHeadset.dsp_plugin = NULL;
         }
     }
 
@@ -239,6 +240,7 @@ void audioHandleRouting ( void )
         AudioDisconnect();
         /* clear sco_sink value to indicate no routed audio */
         theHeadset.sco_sink = 0; 
+		theHeadset.dsp_plugin = NULL;
     }
     /* are there any suspended a2dp streaming connections?, if there is no sco_sink then this can be restarted */
     else if(((!theHeadset.sco_sink)&&(!stateAG1)&&(!stateAG2))&&
@@ -351,6 +353,7 @@ void audioHandleRouting ( void )
                         AudioDisconnect();
                         /* clear sco_sink value to indicate no routed audio */
                         theHeadset.sco_sink = 0;                    
+						theHeadset.dsp_plugin = NULL;
                     }
                     /* if no audio routed then connect it up, it could already be routed to intended sco */
                     if(!theHeadset.sco_sink)
@@ -374,6 +377,7 @@ void audioHandleRouting ( void )
                         AudioDisconnect();
                         /* clear sco_sink value to indicate no routed audio */
                         theHeadset.sco_sink = 0;                    
+						theHeadset.dsp_plugin = NULL;
                  }
                  /* if no audio routed then connect it up, it could already be routed to intended sco */
                  if(!theHeadset.sco_sink)
@@ -397,6 +401,7 @@ void audioHandleRouting ( void )
                 AudioDisconnect();
                 /* clear sco_sink value to indicate no routed audio */
                 theHeadset.sco_sink = 0;                    
+				theHeadset.dsp_plugin = NULL;
             }
             /* if no audio routed then connect it up, it could already be routed to intended sco */
             if(!theHeadset.sco_sink)
@@ -419,6 +424,7 @@ void audioHandleRouting ( void )
                 AudioDisconnect();
                 /* clear sco_sink value to indicate no routed audio */
                 theHeadset.sco_sink = 0;                    
+				theHeadset.dsp_plugin = NULL;
             }
             /* if no audio routed then connect it up, it could already be routed to intended sco */
             if(!theHeadset.sco_sink)
@@ -437,11 +443,14 @@ void audioHandleRouting ( void )
             AudioDisconnect();
             /* clear sco_sink value to indicate no routed audio */
             theHeadset.sco_sink = 0;                    
+			theHeadset.dsp_plugin = NULL;
         }
     }    
 	
-	if(theHeadset.sco_sink == 0 )
+	if(theHeadset.dsp_plugin == NULL)
+	{
 		audioEnterLoopbackMode();
+	}
 }
 
 /****************************************************************************
@@ -670,6 +679,7 @@ void audioHandleSyncDisconnectInd ( const HFP_AUDIO_DISCONNECT_IND_T * pInd )
             AudioDisconnect();
             /* clear sco_sink value to indicate no routed audio */
             theHeadset.sco_sink = 0;                    
+			theHeadset.dsp_plugin = NULL;
         }
     
         /* deroute the audio */
@@ -696,13 +706,14 @@ void audioHandleSyncDisconnectInd ( const HFP_AUDIO_DISCONNECT_IND_T * pInd )
 
 void audioEnterLoopbackMode(void)
 {
+	theHeadset.dsp_plugin = (TaskData *)&hearing_aid_sim_plugin;
 	/* go into loopback mode */
 	AudioConnect ( (TaskData *)&hearing_aid_sim_plugin,
 				   NULL ,
 				   0 ,
 				   theHeadset.codec_task ,
 				   15 ,
-				   44100 ,
+				   16000 ,
 				   TRUE,
 				   AUDIO_MODE_CONNECTED,
 				   AUDIO_ROUTE_INTERNAL,
@@ -760,9 +771,9 @@ void audioHfpConnectAudio (hfp_link_priority priority )
 	    	AUD_DEBUG(("AUD: plugin [%d] [%d], sink [%x]\n" , theHeadset.features.audio_plugin 
                                                             , theHeadset.profile_data[index].audio.codec_selected
                                                             , (uint16)theHeadset.sco_sink)) ;
-			/* disconnect loopback plugin */
-			AudioDisconnect();
-
+			if(theHeadset.dsp_plugin)
+				AudioDisconnect();
+			theHeadset.dsp_plugin = plugin;
             /* connect audio using the audio plugin selected above */            
     		AudioConnect ( plugin,
            				   theHeadset.sco_sink  ,
@@ -868,8 +879,9 @@ void A2dpRouteAudio(uint8 Index, Sink sink)
                            codec_settings->seid,
                            theHeadset.a2dp_audio_connect_params.clock_mismatch)) ;
 
-				/* disconnect loopback plugin */
-				AudioDisconnect();
+				if(theHeadset.dsp_plugin)
+					AudioDisconnect();
+				theHeadset.dsp_plugin = getA2dpPlugin(codec_settings->seid);
 
                 /* connect the audio via the audio plugin */	
                 AudioConnect(   getA2dpPlugin(codec_settings->seid),

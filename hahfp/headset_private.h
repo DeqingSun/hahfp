@@ -526,6 +526,8 @@ typedef struct
 	Configuration_t			 *conf;
 	
 	   /*global vars*/	
+    TaskData    			 *dsp_plugin;
+
     Sink            	     sco_sink;
 
 	bdaddr					 *confirmation_addr;
