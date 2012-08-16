@@ -65,6 +65,7 @@
   <file path="headset_csr_features.h" />
  </folder>
  <file path="headset.mak" />
+ <file path="leds.led" />
  <properties currentconfiguration="Release" >
   <configuration name="Release" >
    <property key="buildMatch" >(file):(line):</property>
@@ -72,8 +73,8 @@
    <property key="buildtransport" >4</property>
    <property key="characters" >1</property>
    <property key="debugtransport" >[SPITRANS=LPT SPIPORT=1]</property>
-   <property key="defines" >xDEBUG_PRINT_ENABLED,ENABLE_AVRCPx,BC5_MULTIMEDIA, ENABLE_PBAPx, ROM_LEDS, INCLUDE_DSP, INCLUDE_CVC, THREE_WAY_CALLING</property>
-   <property key="execution_mode" >0</property>
+   <property key="defines" >xDEBUG_PRINT_ENABLED,ENABLE_AVRCPx,BC5_MULTIMEDIA, INCLUDE_DSP, INCLUDE_CVC, THREE_WAY_CALLING</property>
+   <property key="execution_mode" >1</property>
    <property key="firmware" >0</property>
    <property key="firmwareimage" ></property>
    <property key="flashsize" >3</property>

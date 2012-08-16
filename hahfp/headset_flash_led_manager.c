@@ -68,9 +68,9 @@ static const ledStatePattern_t ledStatePatterns [ HEADSET_NUM_STATES ] =
 {
 	               /*normal ,               lowbatt ,                   fullbatt ,               mute */	
 /*limbo*/	         { 0, 0 , 0 , 0 } ,
-/*connectable*/	     { BLUE_TWO_FLASHES_RPT, RED_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT } ,
+/*connectable*/	     { RED_ON_RPT, RED_BLINK_RPT , RED_ON_RPT , RED_ON_RPT } ,
 /*conndiscoverable*/ { RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST } ,
-/*connected*/	     { BLUE_THREE_FLASHES_RPT, RED_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT } ,
+/*connected*/	     { BLUE_LONG_ON_RPT, RED_LONG_ON_RPT , BLUE_LONG_ON_RPT , BLUE_LONG_ON_RPT } ,
 /*outgoing*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
 /*incoming*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
 /*active*/	         { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST } ,
@@ -79,8 +79,8 @@ static const ledStatePattern_t ledStatePatterns [ HEADSET_NUM_STATES ] =
 /*twc on hold*/	     { BLUE_TWO_FLASHES_RPT, RED_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT } ,
 /*twc multicall*/	 { BLUE_THREE_FLASHES_RPT, RED_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT } ,
 /*incoming on hold*/ { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
-/*active no sco*/	 { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST }
-			
+/*active no sco*/	 { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST },
+/*streaming*/	 { RED_BLUE_BOTH_SHORT_ON_RPT,RED_SHORT_ON_RPT ,RED_BLUE_BOTH_SHORT_ON_RPT, RED_BLUE_BOTH_SHORT_ON_RPT}		
 } ;
 									
 

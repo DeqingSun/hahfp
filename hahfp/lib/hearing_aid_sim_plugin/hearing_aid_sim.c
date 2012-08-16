@@ -49,8 +49,8 @@ static void connect_streams(void)
     PanicFalse( SourceSynchronise(audio_source_a, audio_source_b) );
 
     /* Set up codec gains */
-    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 12) );
-    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 12) );
+    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 14) );
+    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 14) );
     PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
     PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
     PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, has_volume) );

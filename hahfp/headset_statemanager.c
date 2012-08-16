@@ -658,7 +658,10 @@ void stateManagerEnterLimboState ( void )
     uint8 index;
     
     SM_DEBUG(("SM: Enter Limbo State[%d]\n" , theHeadset.conf->timeouts.AutoPowerOnTimeout_s)); 
-      
+
+    /* exit from loopback mode */
+    audioExitLoopbackMode();
+    
     /*Cancel inquiry if in progress*/
     slcStopInquiry();
 

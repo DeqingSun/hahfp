@@ -723,6 +723,13 @@ void audioEnterLoopbackMode(void)
 
 }
 
+void audioExitLoopbackMode(void)
+{
+    /* disable loopback */
+	if(theHeadset.dsp_plugin == (TaskData *)&hearing_aid_sim_plugin)
+        AudioDisconnect();
+}
+
 /****************************************************************************
 NAME    
     audioHfpConnectAudio

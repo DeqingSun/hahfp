@@ -2,8 +2,8 @@
 //generated led functions
 
 //define some special led pins
-led 0 BLUE
-led 1 RED
+led 1 BLUE
+led 0 RED
 
 //define some patterns to be used
 
@@ -97,5 +97,23 @@ pattern LEDS_EVENT_POWER_OFF
 	RED OFF 100
 	RED ON 100
 	RED OFF 100
-	
 
+pattern RED_ON_RPT RPT
+    RED ON 0
+	
+pattern RED_BLINK_RPT RPT
+    RED OFF 500
+    RED ON 500
+
+pattern BLUE_LONG_ON_RPT  RPT
+    BLUE ON  100
+    BLUE OFF 9900
+	
+pattern RED_LONG_ON_RPT  RPT
+    RED ON  100
+    RED OFF 9900
+
+pattern RED_BLUE_BOTH_SHORT_ON_RPT  RPT
+    RED BLUE ON  100
+    RED BLUE OFF 2400
+	
