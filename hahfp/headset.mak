@@ -7,16 +7,27 @@
 ######################################################################################################
 
 # ensure we always run the rules for each kalimba app to get the latest version
-.PHONY : image/cvc_headset/cvc_headset.kap \
+.PHONY : image/cvc_headset_2mic/cvc_headset_2mic.kap \
+	 image/cvc_headset_2mic/000 \
      image/hearing_aid_sim/hearing_aid_sim.kap \
 	 image/sbc_decoder/sbc_decoder.kap
 
-#  1 mic CVC
-image/cvc_headset/cvc_headset.kap : 
-	$(mkdir) image/cvc_headset
-	$(copyfile) cvc_headset\image\cvc_headset\cvc_headset.kap $@
+# 2 mic CVC
+image/cvc_headset_2mic/cvc_headset_2mic.kap : 
+	$(mkdir) image/cvc_headset_2mic
+	$(copyfile) cvc_headset_2mic\image\cvc_headset_2mic\cvc_headset_2mic.kap $@
 
-image.fs : image/cvc_headset/cvc_headset.kap
+image.fs : image/cvc_headset_2mic/cvc_headset_2mic.kap
+
+file := $(wildcard cvc_headset_2mic\image\cvc_headset_2mic\000)
+ifneq ($(strip $(file)),)
+
+   image/cvc_headset_2mic/000 : 
+	$(mkdir) image/cvc_headset_2mic
+	$(copyfile) cvc_headset_2mic\image\cvc_headset_2mic\000 $@
+   image.fs : image/cvc_headset_2mic/000
+
+endif
 
 image/hearing_aid_sim/hearing_aid_sim.kap : 
 	$(mkdir) image/hearing_aid_sim

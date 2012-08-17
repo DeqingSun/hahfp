@@ -16,13 +16,13 @@ TRANSPORT : 3
 
 DEVICE : None
 
-BAUD RATE : 1
+BAUD RATE : 0
 
 USB TIMEOUT : 0
 
-SPI DEVICE : 0
+SPI DEVICE : 1
 
-MODE OF SPI: 2
+MODE OF SPI: 1
 
 #######################################
 ##Config Settings######################

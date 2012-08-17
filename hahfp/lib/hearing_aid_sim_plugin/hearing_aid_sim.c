@@ -40,6 +40,9 @@ static void connect_streams(void)
     Source audio_source_a = StreamAudioSource( AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_A );
     Source audio_source_b = StreamAudioSource( AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_B );
 
+    PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, 0) );
+    PanicFalse( SinkConfigure(audio_sink_b, STREAM_CODEC_OUTPUT_GAIN, 0) );
+	
     /* Configure 44.1kHz for both channels and synchronise left and right channels */
     PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_RATE, has_rate) );
     PanicFalse( SinkConfigure(audio_sink_b, STREAM_CODEC_OUTPUT_RATE, has_rate) );
@@ -47,14 +50,6 @@ static void connect_streams(void)
     PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_RATE, has_rate) );
     PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_RATE, has_rate) );
     PanicFalse( SourceSynchronise(audio_source_a, audio_source_b) );
-
-    /* Set up codec gains */
-    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 14) );
-    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 14) );
-    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
-    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
-    PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
-    PanicFalse( SinkConfigure(audio_sink_b, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
 
 #ifdef BYPASS_KALIMBA
     /* Plug Left ADC directly into left DAC */
@@ -71,6 +66,13 @@ static void connect_streams(void)
     /* Plug port 1 into Right DAC */
     PanicFalse( StreamConnect(StreamKalimbaSource(1), audio_sink_b) );
 #endif
+    /* Set up codec gains */
+    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 14) );
+    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 14) );
+    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
+    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
+    PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
+    PanicFalse( SinkConfigure(audio_sink_b, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
 }
 
 static void disconnect_streams(void)

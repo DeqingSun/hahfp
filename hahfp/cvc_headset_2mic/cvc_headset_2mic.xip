@@ -1,0 +1,23 @@
+<project buildenvironment="{6907f3f0-0ed4-11d8-be02-0050dadfe87d}" buildenvironmentname="kalimba" executionenvironmentoption="BC03MM" buildenvironmentoption="" executionenvironmentname="kalimba bccmd" executionenvironment="{2ca81310-0ecd-11d8-be02-0050dadfe87d}" >
+ <file path="cvc_headset_2mic_config.h" />
+ <file path="cvc_headset_2mic_config.asm" >
+  <properties>
+   <configuration name="Flash" />
+  </properties>
+ </file>
+ <file path="cvc_headset_2mic_main.asm" />
+ <properties currentconfiguration="Flash" >
+  <configuration name="Flash" >
+   <property key="ADPCM_MODE" >0</property>
+   <property key="NUM_COMPRESSION_CHANNELS" >1</property>
+   <property key="bootstrap" >1</property>
+   <property key="debugtransport" >[LPT1]</property>
+   <property key="defines" >BLD_FLASH_LVL2,BLD_FLASH_LVL1</property>
+   <property key="hardware" >2</property>
+   <property key="libs" >core,frame_sync,cbops,spi_comm,math,cvc_headset_2mic_flash,audio_proc,plc100_flash,mtsf_flash</property>
+   <property key="output" >cvc_headset_2mic</property>
+   <property key="sco_mode" >1</property>
+   <property key="separator_flags" >0</property>
+  </configuration>
+ </properties>
+</project>

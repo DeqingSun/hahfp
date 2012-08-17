@@ -1,6 +1,6 @@
 <workspace>
  <project path="headset.xip" />
- <project path="cvc_headset/cvc_headset.xip" />
  <project path="a2dp_headset/sbc_decoder.xip" />
  <project path="hearing_aid_sim/hearing_aid_sim.xip" />
+ <project path="cvc_headset_2mic/cvc_headset_2mic.xip" />
 </workspace>
