@@ -67,8 +67,8 @@ static void connect_streams(void)
     PanicFalse( StreamConnect(StreamKalimbaSource(1), audio_sink_b) );
 #endif
     /* Set up codec gains */
-    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 14) );
-    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 14) );
+    PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_INPUT_GAIN, 18) );
+    PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_INPUT_GAIN, 18) );
     PanicFalse( SourceConfigure(audio_source_a, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
     PanicFalse( SourceConfigure(audio_source_b, STREAM_CODEC_MIC_INPUT_GAIN_ENABLE, 1) );
     PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, has_volume) );

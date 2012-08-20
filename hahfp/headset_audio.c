@@ -712,7 +712,7 @@ void audioEnterLoopbackMode(void)
 				   NULL ,
 				   0 ,
 				   theHeadset.codec_task ,
-				   15 ,
+				   12 ,
 				   16000 ,
 				   TRUE,
 				   AUDIO_MODE_CONNECTED,
