@@ -61,7 +61,7 @@ DESCRIPTION
             /*tones*/
         #define DEBUG_TONESx
             /*Volume*/
-        #define DEBUG_VOLUMEx
+        #define DEBUG_VOLUME
             /*State manager*/
         #define DEBUG_STATES
           	/*authentication*/

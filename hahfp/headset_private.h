@@ -527,6 +527,8 @@ typedef struct
 	
 	   /*global vars*/	
     TaskData    			 *dsp_plugin;
+	uint16					 ha_volume;
+	bool				     ha_mode_only_enable;
 
     Sink            	     sco_sink;
 

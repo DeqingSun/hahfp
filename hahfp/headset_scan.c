@@ -129,7 +129,13 @@ RETURNS
 void headsetEnableConnectable( void )
 {
     hci_scan_enable scan = hci_scan_enable_off;
-	
+
+	if(theHeadset.ha_mode_only_enable){
+		ConnectionWriteScanEnable(scan);
+		theHeadset.page_scan_enabled = FALSE;
+		theHeadset.inquiry_scan_enabled = FALSE;
+		return;
+	}
 
     /* Set the page scan params */
     ConnectionWritePagescanActivity(theHeadset.radio->page_scan_interval, theHeadset.radio->page_scan_window);
@@ -160,7 +166,14 @@ RETURNS
 */
 void headsetDisableConnectable( void )
 {
-    hci_scan_enable scan;
+    hci_scan_enable scan = hci_scan_enable_off;
+
+	if(theHeadset.ha_mode_only_enable){
+		ConnectionWriteScanEnable(scan);
+		theHeadset.page_scan_enabled = FALSE;
+		theHeadset.inquiry_scan_enabled = FALSE;
+		return;
+	}
 
     /* Make sure that if we're inquiry scanning we don't disable it */
     if (theHeadset.inquiry_scan_enabled)
@@ -189,6 +202,13 @@ RETURNS
 void headsetEnableDiscoverable( void )
 {
     hci_scan_enable scan = hci_scan_enable_off;
+
+	if(theHeadset.ha_mode_only_enable){
+		ConnectionWriteScanEnable(scan);
+		theHeadset.page_scan_enabled = FALSE;
+		theHeadset.inquiry_scan_enabled = FALSE;
+		return;
+	}
 
     /* Set the inquiry scan params */
     ConnectionWriteInquiryscanActivity(theHeadset.radio->inquiry_scan_interval, theHeadset.radio->inquiry_scan_window);
@@ -219,7 +239,14 @@ RETURNS
 */
 void headsetDisableDiscoverable( void )
 {
-    hci_scan_enable scan;
+    hci_scan_enable scan = hci_scan_enable_off;
+
+	if(theHeadset.ha_mode_only_enable){
+		ConnectionWriteScanEnable(scan);
+		theHeadset.page_scan_enabled = FALSE;
+		theHeadset.inquiry_scan_enabled = FALSE;
+		return;
+	}
     
     /* Make sure that if we're page scanning we don't disable it */
     if (theHeadset.page_scan_enabled)

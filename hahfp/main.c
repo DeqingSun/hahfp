@@ -568,6 +568,16 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 						
         break ;                        
         case (EventEnterPairing):
+#if 0			
+			if(theHeadset.ha_mode_only_enable)
+			{
+                lIndicateEvent = FALSE ;
+				break;
+			}
+#else			
+			/* auto disable ha_mode */
+			theHeadset.ha_mode_only_enable = FALSE;
+#endif
             MAIN_DEBUG(("HS: EnterPair [%d]\n" , lState )) ;
             /*go into pairing mode*/ 
             if (( lState != headsetLimbo) && (lState != headsetConnDiscoverable ))
@@ -622,7 +632,12 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			MAIN_DEBUG(("HS: Pairing Reject Res\n" )) ;
 			headsetPairingRejectRes();
 		break;
-        case ( EventEstablishSLC ) :         
+        case ( EventEstablishSLC ) :    
+			if(theHeadset.ha_mode_only_enable)
+			{
+				lIndicateEvent = FALSE ;
+				break;
+			}
             
             /* check we are not already connecting before starting */
             {
@@ -1418,6 +1433,29 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
        break;
        
        case EventToggleIntelligentPowerManagement:
+			/* reuse for ha only mode toggle */
+			if(theHeadset.ha_mode_only_enable)
+			{
+				uint8 index;
+				theHeadset.ha_mode_only_enable = FALSE;
+				headsetDisconnectAllSlc();
+				/* disconnect any a2dp signalling channels */
+				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
+				{
+					/* is a2dp connected? */
+					if(theHeadset.a2dp_link_data->connected[index])
+					{
+						/* disconnect signalling channel */
+						A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
+					}
+				}  
+			}
+			else
+			{
+				theHeadset.ha_mode_only_enable = TRUE;
+				MessageSend( &theHeadset.task , EventEstablishSLC, 0 ) ;
+			}
+#if 0		
            MAIN_DEBUG(("HS : Toggle LBIPM\n")) ;
            if(theHeadset.lbipmEnable)
            {
@@ -1427,7 +1465,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
            {
                MessageSend( &theHeadset.task , EventEnableIntelligentPowerManagement , 0 ) ;
            }
-
+#endif
        break; 
        
 #ifdef ENABLE_AVRCP       

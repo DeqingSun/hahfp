@@ -118,6 +118,27 @@ void VolumeUp ( void )
     uint16 lOldVol = 0;
     uint16 lNewVol = 0;
 
+	/* check ha mode first */
+	if(audioIsLoopbackMode())
+	{
+        lOldVol = theHeadset.ha_volume;
+        /* obtain new volume level */
+        lNewVol = theHeadset.audioData.gVolMaps[lOldVol].IncVol ;
+
+		if(lOldVol == lNewVol) /* max volume */
+			MessageSend ( &theHeadset.task , EventVolumeMax , 0 );
+		else
+		{
+			AudioSetVolume ( lNewVol , theHeadset.codec_task ) ;
+			/* play tone if applicable */
+			if(theHeadset.audioData.gVolMaps[lNewVol].Tone)
+				TonesPlayTone(theHeadset.audioData.gVolMaps[lNewVol].Tone ,theHeadset.features.QueueVolumeTones, FALSE);
+			theHeadset.ha_volume = lNewVol;
+		}			
+		VOL_DEBUG(("HA_VOL: VolUp[%d][%d]\n",lOldVol, lNewVol))  ;
+		return;
+	}
+
     /* check for a2dp streaming before checking for hpf profiles */
     if(!CheckVolumeA2dp(increase_volume) && theHeadset.conf->no_of_profiles_connected)
     {
@@ -150,7 +171,29 @@ void VolumeDown ( void )
 {
     uint16 lOldVol = 0;
     uint16 lNewVol = 0;
+
   
+	/* check ha mode first */
+	if(audioIsLoopbackMode())
+	{
+	  lOldVol = theHeadset.ha_volume;
+	  /* obtain new volume level */
+	  lNewVol = theHeadset.audioData.gVolMaps[lOldVol].DecVol ;
+
+	  if(lOldVol == lNewVol) /* max volume */
+		  MessageSend ( &theHeadset.task , EventVolumeMax , 0 );
+	  else
+	  {
+		  AudioSetVolume ( lNewVol , theHeadset.codec_task ) ;
+		  /* play tone if applicable */
+		  if(theHeadset.audioData.gVolMaps[lNewVol].Tone)
+			  TonesPlayTone(theHeadset.audioData.gVolMaps[lNewVol].Tone ,theHeadset.features.QueueVolumeTones, FALSE);
+		  theHeadset.ha_volume = lNewVol;
+	  } 		  
+	  VOL_DEBUG(("HA_VOL: VolDwn[%d][%d]\n",lOldVol, lNewVol))  ;
+	  return;
+	}
+	
     /* check for a2dp streaming before checking for hpf profiles */
     if(!CheckVolumeA2dp(decrease_volume) && theHeadset.conf->no_of_profiles_connected)
     {

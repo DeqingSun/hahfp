@@ -82,6 +82,7 @@ RETURNS
 */
 void audioHandleSyncDisconnectInd ( const HFP_AUDIO_DISCONNECT_IND_T * pInd ) ;
 
+bool audioIsLoopbackMode(void);
 void audioEnterLoopbackMode(void);
 void audioExitLoopbackMode(void);
 

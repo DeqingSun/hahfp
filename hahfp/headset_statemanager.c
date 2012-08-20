@@ -592,6 +592,8 @@ void stateManagerPowerOn( void )
 		stateManagerEnterConnectableState( TRUE );
 
 		/* go into loopback mode */
+		theHeadset.ha_mode_only_enable = TRUE;
+		theHeadset.ha_volume = 12;
 		audioEnterLoopbackMode();
         
         if(theHeadset.features.PairIfPDLLessThan || theHeadset.features.AutoReconnectPowerOn)

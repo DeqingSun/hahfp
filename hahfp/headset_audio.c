@@ -704,6 +704,11 @@ void audioHandleSyncDisconnectInd ( const HFP_AUDIO_DISCONNECT_IND_T * pInd )
     
 }
 
+bool audioIsLoopbackMode(void)
+{
+	return (theHeadset.dsp_plugin == (TaskData *)&hearing_aid_sim_plugin);
+}
+
 void audioEnterLoopbackMode(void)
 {
 	theHeadset.dsp_plugin = (TaskData *)&hearing_aid_sim_plugin;
@@ -712,7 +717,7 @@ void audioEnterLoopbackMode(void)
 				   NULL ,
 				   0 ,
 				   theHeadset.codec_task ,
-				   12 ,
+				   theHeadset.ha_volume ,
 				   16000 ,
 				   TRUE,
 				   AUDIO_MODE_CONNECTED,
@@ -726,7 +731,7 @@ void audioEnterLoopbackMode(void)
 void audioExitLoopbackMode(void)
 {
     /* disable loopback */
-	if(theHeadset.dsp_plugin == (TaskData *)&hearing_aid_sim_plugin)
+	if(audioIsLoopbackMode())
         AudioDisconnect();
 }
 
