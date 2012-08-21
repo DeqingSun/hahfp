@@ -578,6 +578,9 @@ void stateManagerPowerOn( void )
     	MessageCancelAll ( &theHeadset.task , EventLimboTimeout ) ;
             
     	PioSetPowerPin ( TRUE ) ;
+
+		/* go into loopback mode */
+		theHeadset.ha_mode_only_enable = TRUE;
     
     	if ( theHeadset.PIO->PowerOnPIO !=0xF )
     	{
@@ -592,7 +595,6 @@ void stateManagerPowerOn( void )
 		stateManagerEnterConnectableState( TRUE );
 
 		/* go into loopback mode */
-		theHeadset.ha_mode_only_enable = TRUE;
 		theHeadset.ha_volume = 12;
 		audioEnterLoopbackMode();
         

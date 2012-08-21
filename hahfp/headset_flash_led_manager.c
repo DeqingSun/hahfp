@@ -53,10 +53,11 @@ FILE NAME
 */
 typedef struct
 {
-	unsigned normal:8;  
-	unsigned low_battery:8 ;
-	unsigned full_battery:8 ;
-	unsigned mute:8 ;
+	unsigned normal:5;  
+	unsigned low_battery:5 ;
+	unsigned full_battery:5 ;
+	unsigned mute:5 ;
+	unsigned ha_only:5 ;
 } ledStatePattern_t ;
  
 /*! 
@@ -66,21 +67,21 @@ typedef struct
 */
 static const ledStatePattern_t ledStatePatterns [ HEADSET_NUM_STATES ] = 
 {
-	               /*normal ,               lowbatt ,                   fullbatt ,               mute */	
-/*limbo*/	         { 0, 0 , 0 , 0 } ,
-/*connectable*/	     { RED_ON_RPT, RED_BLINK_RPT , RED_ON_RPT , RED_ON_RPT } ,
-/*conndiscoverable*/ { RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST } ,
-/*connected*/	     { BLUE_LONG_ON_RPT, RED_LONG_ON_RPT , BLUE_LONG_ON_RPT , BLUE_LONG_ON_RPT } ,
-/*outgoing*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
-/*incoming*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
-/*active*/	         { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST } ,
-/*testmode*/	     { 0, 0 , 0 , 0 } ,
-/*twc waiting*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
-/*twc on hold*/	     { BLUE_TWO_FLASHES_RPT, RED_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT } ,
-/*twc multicall*/	 { BLUE_THREE_FLASHES_RPT, RED_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT } ,
-/*incoming on hold*/ { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST } ,
-/*active no sco*/	 { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST },
-/*streaming*/	 { RED_BLUE_BOTH_SHORT_ON_RPT,RED_SHORT_ON_RPT ,RED_BLUE_BOTH_SHORT_ON_RPT, RED_BLUE_BOTH_SHORT_ON_RPT}		
+	               /*normal ,               lowbatt ,                   fullbatt ,               mute, 		ha_only,		charging */	
+/*limbo*/	         { 0, 0 , 0 , 0 ,0 } ,
+/*connectable*/	     { RED_SHORT_OFF_RPT, RED_BLINK_RPT , RED_SHORT_OFF_RPT , RED_SHORT_OFF_RPT, RED_ON_RPT} ,
+/*conndiscoverable*/ { RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST } ,
+/*connected*/	     { BLUE_LONG_ON_RPT, RED_LONG_ON_RPT , BLUE_LONG_ON_RPT , BLUE_LONG_ON_RPT, BLUE_LONG_ON_RPT } ,
+/*outgoing*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST } ,
+/*incoming*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST } ,
+/*active*/	         { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST } ,
+/*testmode*/	     { 0, 0 , 0 , 0 , 0} ,
+/*twc waiting*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST } ,
+/*twc on hold*/	     { BLUE_TWO_FLASHES_RPT, RED_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT, BLUE_TWO_FLASHES_RPT } ,
+/*twc multicall*/	 { BLUE_THREE_FLASHES_RPT, RED_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT, BLUE_THREE_FLASHES_RPT } ,
+/*incoming on hold*/ { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST } ,
+/*active no sco*/	 { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST },
+/*streaming*/	 { RED_BLUE_BOTH_SHORT_ON_RPT,RED_SHORT_ON_RPT ,RED_BLUE_BOTH_SHORT_ON_RPT, RED_BLUE_BOTH_SHORT_ON_RPT, RED_BLUE_BOTH_SHORT_ON_RPT }		
 } ;
 									
 
@@ -113,8 +114,9 @@ typedef struct ledsInfoTag
 	unsigned mute:1 ;
 	unsigned low_battery:1 ;
 	unsigned full_battery:1 ;
+	unsigned not_ha_only_mode:1 ;
 	unsigned state:6 ;	
-	unsigned reserved:7 ;			
+	unsigned reserved:6 ;			
 }ledsInfo_t ;
 
 
@@ -162,6 +164,12 @@ void ledsIndicateEvent( headsetEvents_t event )
 		case (EventMuteOff):
 			ledsInfo.mute = FALSE ;
 		break ;
+		case (EventEnableIntelligentPowerManagement) : /* this is enable ha only mode */
+			ledsInfo.not_ha_only_mode = TRUE;
+		break;
+		case (EventDisableIntelligentPowerManagement) : /* this is disable ha only mode */
+			ledsInfo.not_ha_only_mode = FALSE;
+		break;
 		default:
 		break ;
 	}		
@@ -191,20 +199,23 @@ void ledsIndicateState( headsetState state )
 	/*switch event to play based on current state*/	
 	if (ledsInfo.mute)
 	{
-		ledsPlay( ledStatePatterns[state].normal ) ;	
-	}	
-	if (ledsInfo.low_battery)
+		ledsPlay( ledStatePatterns[state].mute ) ;	
+	}else if (ledsInfo.low_battery)
 	{
 		ledsPlay( ledStatePatterns[state].low_battery ) ;
 	}
-	else if (ledsInfo.low_battery)
+	else if (!ledsInfo.not_ha_only_mode)
 	{
-		ledsPlay( ledStatePatterns[state].low_battery ) ;
+		ledsPlay( ledStatePatterns[state].ha_only ) ;
 	}
-	else
+	else if (ledsInfo.full_battery)
 	{
 		ledsPlay ( ledStatePatterns[state].full_battery ) ;
-	}	
+	}
+	else 
+	{
+		ledsPlay ( ledStatePatterns[state].normal ) ;
+	}
 }
 
 #else
