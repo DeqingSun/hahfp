@@ -125,16 +125,12 @@ void VolumeUp ( void )
         /* obtain new volume level */
         lNewVol = theHeadset.audioData.gVolMaps[lOldVol].IncVol ;
 
-		if(lOldVol == lNewVol) /* max volume */
-			MessageSend ( &theHeadset.task , EventVolumeMax , 0 );
-		else
-		{
-			AudioSetVolume ( lNewVol , theHeadset.codec_task ) ;
-			/* play tone if applicable */
-			if(theHeadset.audioData.gVolMaps[lNewVol].Tone)
-				TonesPlayTone(theHeadset.audioData.gVolMaps[lNewVol].Tone ,theHeadset.features.QueueVolumeTones, FALSE);
-			theHeadset.ha_volume = lNewVol;
-		}			
+		AudioSetVolume ( lNewVol , theHeadset.codec_task ) ;
+		/* play tone if applicable */
+		if(theHeadset.audioData.gVolMaps[lNewVol].Tone)
+			TonesPlayTone(theHeadset.audioData.gVolMaps[lNewVol].Tone ,theHeadset.features.QueueVolumeTones, FALSE);
+		theHeadset.ha_volume = lNewVol;
+
 		VOL_DEBUG(("HA_VOL: VolUp[%d][%d]\n",lOldVol, lNewVol))  ;
 		return;
 	}
@@ -180,16 +176,12 @@ void VolumeDown ( void )
 	  /* obtain new volume level */
 	  lNewVol = theHeadset.audioData.gVolMaps[lOldVol].DecVol ;
 
-	  if(lOldVol == lNewVol) /* max volume */
-		  MessageSend ( &theHeadset.task , EventVolumeMax , 0 );
-	  else
-	  {
-		  AudioSetVolume ( lNewVol , theHeadset.codec_task ) ;
-		  /* play tone if applicable */
-		  if(theHeadset.audioData.gVolMaps[lNewVol].Tone)
-			  TonesPlayTone(theHeadset.audioData.gVolMaps[lNewVol].Tone ,theHeadset.features.QueueVolumeTones, FALSE);
-		  theHeadset.ha_volume = lNewVol;
-	  } 		  
+	  AudioSetVolume ( lNewVol , theHeadset.codec_task ) ;
+	  /* play tone if applicable */
+	  if(theHeadset.audioData.gVolMaps[lNewVol].Tone)
+		  TonesPlayTone(theHeadset.audioData.gVolMaps[lNewVol].Tone ,theHeadset.features.QueueVolumeTones, FALSE);
+	  theHeadset.ha_volume = lNewVol;
+
 	  VOL_DEBUG(("HA_VOL: VolDwn[%d][%d]\n",lOldVol, lNewVol))  ;
 	  return;
 	}

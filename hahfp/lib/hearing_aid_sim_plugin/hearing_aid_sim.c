@@ -161,12 +161,8 @@ void HearingAidSimPluginDisconnect( Task task )
 
 void HearingAidSimPluginSetVolume( Task task, uint16 volume )
 {
-    Sink audio_sink_a = StreamAudioSink( AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_A );
-    Sink audio_sink_b = StreamAudioSink( AUDIO_HARDWARE_CODEC, AUDIO_INSTANCE_0, AUDIO_CHANNEL_B );
 	has_volume = volume;
-/*	CodecSetOutputGainNow( has_codec_task, volume , left_and_right_ch );*/
-	PanicFalse( SinkConfigure(audio_sink_a, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
-	PanicFalse( SinkConfigure(audio_sink_b, STREAM_CODEC_OUTPUT_GAIN, has_volume) );
+	CodecSetOutputGainNow( has_codec_task, volume , left_and_right_ch );
 }
 
 void HearingAidSimPluginPlayTone (Task task, ringtone_note * tone , uint16 tone_volume)  

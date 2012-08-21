@@ -69,7 +69,7 @@ DESCRIPTION
             /*dimming LEDs*/
         #define DEBUG_DIMx
 
-        #define DEBUG_A2DPx
+        #define DEBUG_A2DP
 
         #define DEBUG_TTSx
         #define DEBUG_FILTER_ENABLEx

@@ -1412,6 +1412,8 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 #endif
        
        case EventEnableIntelligentPowerManagement:
+		   /* reuse for ha only mode toggle */
+#if 0	   	
            MAIN_DEBUG(("HS : Enable LBIPM\n")) ;           
             /* enable LBIPM operation */
            /* only enable if not disabled for Oval */
@@ -1420,9 +1422,12 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
            AudioSetPower(LBIPMPowerLevel());
             /* and store in PS for reading at next power up */
 		   configManagerWriteSessionData () ;     
+#endif			
        break;
        
        case EventDisableIntelligentPowerManagement:
+		   /* reuse for ha only mode toggle */
+#if 0	   	
            MAIN_DEBUG(("HS : Disable LBIPM\n")) ;           
             /* disable LBIPM operation */
            theHeadset.lbipmEnable = 0;
@@ -1430,14 +1435,24 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
            AudioSetPower(LBIPMPowerLevel());
             /* and store in PS for reading at next power up */
 		   configManagerWriteSessionData () ; 
+#endif			
        break;
        
        case EventToggleIntelligentPowerManagement:
 			/* reuse for ha only mode toggle */
 			if(theHeadset.ha_mode_only_enable)
 			{
-				uint8 index;
 				theHeadset.ha_mode_only_enable = FALSE;
+				MessageSend( &theHeadset.task , EventEnableIntelligentPowerManagement, 0 ) ;
+
+                theHeadset.conf->NoOfReconnectionAttempts = theHeadset.conf->timeouts.ReconnectionAttempts ;
+                slcEstablishSLCRequest() ;
+			}
+			else
+			{
+				uint8 index;
+				theHeadset.ha_mode_only_enable = TRUE;
+				MessageSend( &theHeadset.task , EventDisableIntelligentPowerManagement, 0 ) ;
 				headsetDisconnectAllSlc();
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
@@ -1449,11 +1464,6 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 						A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
 					}
 				}  
-			}
-			else
-			{
-				theHeadset.ha_mode_only_enable = TRUE;
-				MessageSend( &theHeadset.task , EventEstablishSLC, 0 ) ;
 			}
 #if 0		
            MAIN_DEBUG(("HS : Toggle LBIPM\n")) ;
