@@ -674,7 +674,7 @@ static void configManagerReadSessionData( uint16 pConfig )
     }
 #endif	
     theHeadset.tts_language                = lTemp.tts_language;      
-    theHeadset.MultipointEnable            = lTemp.multipoint_enable; 
+    theHeadset.MultipointEnable            = TRUE; /* multipoint always on */
     theHeadset.iir_enabled                 = lTemp.iir_enable;
     theHeadset.lbipmEnable                 = lTemp.lbipm_enable;
     

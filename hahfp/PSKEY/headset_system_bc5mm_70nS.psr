@@ -69,6 +69,12 @@
 //PSKEY_INITIAL_PIO_STATE
 &03B5 -
 
+// PSKEY_HOST_INTERFACE_PIO_USB
+&0250 = 0000
+
+// PSKEY_VREG_EN_DEEP_SLEEP_LEVEL
+@21bc = 0002
+
 // --------MODE0-------------------------------------------------------- 
 // BOOTMODE_KEY_LIST_0: Overwrite :
 //                                HOST_INTRFACE  (1F9)
