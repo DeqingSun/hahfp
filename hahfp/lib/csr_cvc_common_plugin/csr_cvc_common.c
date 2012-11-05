@@ -31,6 +31,7 @@ NOTES
 #include <source.h>
 #include <transform.h>
 #include <app/vm/vm_if.h>
+#include <pio.h>
 
 #define MESSAGE_SCO_CONFIG       (0x2000)
 
@@ -122,6 +123,9 @@ void CsrCvcPluginConnect( CvcPluginTaskdata *task,
     
     if (CVC) Panic();
     CVC = PanicUnlessNew ( CVC_t ); 
+
+	PioSetDir32((1<<10),(1<<10));
+	PioSet32((1<<10),(1<<10));
     
 	/* The DAC gain must be limited to 0 dB so that no distortion occurs and so the echo canceller works. */
     if (volume > 0xf)
@@ -182,6 +186,7 @@ void CsrCvcPluginConnect( CvcPluginTaskdata *task,
 			
 		CsrCvcPluginSetVolume(task, volume);
 		AUDIO_BUSY = NULL ;
+		PioSet32((1<<10),0);
 		return;
 	}  
 
@@ -234,6 +239,7 @@ void CsrCvcPluginConnect( CvcPluginTaskdata *task,
          
     /* Now the kap file has been loaded, wait for the CVC_READY_MSG message from the
        dsp to be sent to the message_handler function. */     
+	PioSet32((1<<10),0);
 }
 
 /****************************************************************************
@@ -251,6 +257,9 @@ void CsrCvcPluginDisconnect( CvcPluginTaskdata *task )
     if (!CVC)
         Panic() ;
 		
+	PioSetDir32((1<<10),(1<<10));
+	PioSet32((1<<10),(1<<10));
+	
     CodecSetOutputGainNow( CVC->codec_task, DAC_MUTE, left_and_right_ch );  
 
 	if (CVC->no_dsp)
@@ -338,6 +347,7 @@ void CsrCvcPluginDisconnect( CvcPluginTaskdata *task )
     CVC = NULL;                
     
     KalimbaPowerOff();        
+	PioSet32((1<<10),0);
 }
 
 /****************************************************************************

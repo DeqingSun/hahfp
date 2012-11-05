@@ -61,15 +61,15 @@ DESCRIPTION
             /*tones*/
         #define DEBUG_TONESx
             /*Volume*/
-        #define DEBUG_VOLUME
+        #define DEBUG_VOLUMEx
             /*State manager*/
-        #define DEBUG_STATES
+        #define DEBUG_STATESx
           	/*authentication*/
         #define DEBUG_AUTHx
             /*dimming LEDs*/
         #define DEBUG_DIMx
 
-        #define DEBUG_A2DP
+        #define DEBUG_A2DPx
 
         #define DEBUG_TTSx
         #define DEBUG_FILTER_ENABLEx

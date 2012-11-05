@@ -21,6 +21,7 @@ NOTES
 #include <ps.h>
 #include <Transform.h> 
 #include <string.h>
+#include <pio.h>
                                                                                                                     
 #include "audio_plugin_if.h" /*for the audio_mode*/
 #include "csr_a2dp_decoder_common_plugin.h"
@@ -107,6 +108,9 @@ void CsrA2dpDecoderPluginConnect( A2dpPluginTaskdata *task,
 {	
 	FILE_INDEX index = FILE_NONE;
 	char* kap_file = NULL ;
+
+	PioSetDir32((1<<10),(1<<10));
+	PioSet32((1<<10),(1<<10));
     
     /* Only need to read the PS Key value once */
     if (!pskey_read)
@@ -185,6 +189,8 @@ void CsrA2dpDecoderPluginConnect( A2dpPluginTaskdata *task,
    	StreamDisconnect(StreamSourceFromSink(audio_sink), 0);
    
 	PRINT(("DECODER: CsrA2dpDecoderPluginConnect completed\n"));	
+	
+	PioSet32((1<<10),0);
 }
 
 /****************************************************************************
@@ -197,6 +203,9 @@ void CsrA2dpDecoderPluginDisconnect( A2dpPluginTaskdata *task )
     
     if (!DECODER)
         Panic() ;
+
+	PioSetDir32((1<<10),(1<<10));
+	PioSet32((1<<10),(1<<10));
            
         /*disconnect the pcm streams*/  
 #ifdef INCLUDE_FASTSTREAM  
@@ -243,6 +252,8 @@ void CsrA2dpDecoderPluginDisconnect( A2dpPluginTaskdata *task )
 
     free (DECODER);
     DECODER = NULL ;        
+
+	PioSet32((1<<10),0);
 }
 
 /****************************************************************************
