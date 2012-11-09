@@ -15,8 +15,6 @@ DESCRIPTION
 #ifdef INCLUDE_MP3_ENCODER_PLUGIN
 #include "csr_mp3_encoder_plugin.h"
 #endif
-#include "csr_faststream_source_plugin.h"
-#include "csr_cvsd_usb_no_dsp_plugin.h"
 
 
 Task initA2dpPlugin(uint8 seid);

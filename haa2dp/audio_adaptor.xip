@@ -68,16 +68,17 @@
   <configuration name="Release" >
    <property key="buildMatch" >(file):(line):</property>
    <property key="buildtransport" >4</property>
-   <property key="codec" >0</property>
-   <property key="debugtransport" >[SPI|LPT1|No]</property>
+   <property key="codec" >1</property>
+   <property key="debugtransport" >[SPITRANS=USB SPIPORT=0]</property>
    <property key="defines" ></property>
-   <property key="dualstream" >1</property>
+   <property key="dualstream" >0</property>
    <property key="execution_mode" >1</property>
    <property key="firmware" >0</property>
    <property key="firmwareimage" ></property>
-   <property key="flashsize" >0</property>
-   <property key="hardware" >0</property>
-   <property key="libs" >a2dp, audio, avrcp, codec, battery, bdaddr, connection, csr_tone_plugin, csr_sbc_encoder_plugin, region, service, csr_cvsd_usb_no_dsp_plugin</property>
+   <property key="flashsize" >2</property>
+   <property key="hardware" >8</property>
+   <property key="library_version" >haa2dpLib</property>
+   <property key="libs" >a2dp, audio, avrcp, codec, battery, bdaddr, connection, csr_tone_plugin, csr_sbc_encoder_plugin</property>
    <property key="mode" >1</property>
    <property key="output" ></property>
    <property key="panic" >1</property>
