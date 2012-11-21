@@ -1909,7 +1909,7 @@ case HFP_UNRECOGNISED_AT_CMD_IND:
 #ifdef ENABLE_SPP
 static void handleSppConnectInd(Task task,SPP_CONNECT_IND_T *ind)
 {
-	SppConnectResponse(task, ind->addr, TRUE, ind->sink, ind->server_channel, 0);
+	SppConnectResponse(task, &ind->addr, TRUE, ind->sink, ind->server_channel, 0);
 }
 
 static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm)
