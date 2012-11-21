@@ -40,6 +40,8 @@ NOTES
 #include <vm.h>
 #include <codec.h>
 
+#include <spps.h>
+
 /* PS keys */
 #define PS_BDADDR 			(0x001)
 #define PS_HFP_POWER_TABLE 	(0x360)
@@ -235,7 +237,10 @@ void headsetInitComplete( const HFP_INIT_CFM_T *cfm )
 #else
             /*init the configurable parameters*/
             InitUserFeatures();                   
-#endif        
+#endif   
+#ifdef ENABLE_SPP
+			SppStartService(&theHeadset.task);
+#endif
         }
 
         /* try to get a power table entry from ps if one exists after having read the user features as

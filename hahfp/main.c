@@ -71,6 +71,10 @@ NOTES
 #include <kalimba_standard_messages.h>
 #include <audio_plugin_if.h>
 
+#include <spp_common.h>
+#include <sppc.h>
+#include <spps.h>
+
 #ifdef CVC_PRODTEST
 #include <kalimba.h>
 #include <file.h>
@@ -1902,6 +1906,77 @@ case HFP_UNRECOGNISED_AT_CMD_IND:
     }
 }
 
+#ifdef ENABLE_SPP
+static void handleSppConnectInd(Task task,SPP_CONNECT_IND_T *ind)
+{
+	SppConnectResponse(task, ind->addr, TRUE, ind->sink, ind->server_channel, 0);
+}
+
+static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm)
+{
+
+}
+
+static void handleSppDisconnectInd(SPP_DISCONNECT_IND_T *ind)
+{
+	SppDisconnectResponse(ind->spp);
+}
+
+static void handleSppDisconnectCfm(SPP_DISCONNECT_CFM_T *cfm)
+{
+
+}
+
+static void handleSppMoreData(SPP_MESSAGE_MORE_DATA_T *data)
+{
+	/* parse command */
+
+	/* send response */
+}
+
+static void handleSppMoreSpace(SPP_MESSAGE_MORE_SPACE_T *space)
+{
+
+}
+
+static void handleSppMessage ( Task task, MessageId id, Message message )
+{
+    MAIN_DEBUG(("SPP = [%x]\n", id)) ;   
+    
+    switch(id)
+    {
+        /* -- Serial Port Profile Library Messages -- */
+    case SPP_START_SERVICE_CFM:
+		break;
+	case SPP_STOP_SERVICE_CFM:
+		break;
+	case SPP_CLIENT_CONNECT_CFM:
+		handleSppConnectCfm((SPP_CLIENT_CONNECT_CFM_T *)message);
+		break;
+	case SPP_SERVER_CONNECT_CFM:
+		handleSppConnectCfm((SPP_CLIENT_CONNECT_CFM_T *)message);
+		break;
+	case SPP_CONNECT_IND:
+		handleSppConnectInd(task, (SPP_CONNECT_IND_T *)message);
+		break;
+	case SPP_MESSAGE_MORE_DATA:
+		handleSppMoreData((SPP_MESSAGE_MORE_DATA_T *)message);
+		break;
+	case SPP_MESSAGE_MORE_SPACE:
+		handleSppMoreSpace((SPP_MESSAGE_MORE_SPACE_T *)message);
+		break;
+	case SPP_DISCONNECT_IND:
+		handleSppDisconnectInd((SPP_DISCONNECT_IND_T *)message);
+		break;
+	case SPP_DISCONNECT_CFM:
+		handleSppDisconnectCfm((SPP_DISCONNECT_CFM_T *)message);
+		break;
+	default:
+		break;
+    }
+}
+#endif
+
 /*************************************************************************
 NAME    
     handleCodecMessage
@@ -2067,6 +2142,13 @@ static void app_handler(Task task, MessageId id, Message message)
         handleAudioPluginMessage(task, id,  message);
 		return;
     }    
+#ifdef ENABLE_SPP
+	else if ( (id >= SPP_MESSAGE_BASE ) && (id <= SPP_MESSAGE_TOP) )
+	{	  
+		handleSppMessage(task, id,	message);
+		return;
+	}	 
+#endif
     else 
     { 
         MAIN_DEBUG(("MSGTYPE ? [%x]\n", id)) ;
