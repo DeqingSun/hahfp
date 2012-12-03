@@ -175,7 +175,7 @@ void HfpInit(Task theAppTask, const hfp_init_params *config, const char* extra_i
         ConnectionSyncRegister(&theHfp->task);
         
         /* Start registering RFCOMM channels */
-        ConnectionRfcommAllocateChannel(&theHfp->task, 0);
+        ConnectionRfcommAllocateChannel(&theHfp->task, HFP_DEFAULT_CHANNEL);
     }
 }
 

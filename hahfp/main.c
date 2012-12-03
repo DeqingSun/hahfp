@@ -1909,29 +1909,42 @@ case HFP_UNRECOGNISED_AT_CMD_IND:
 #ifdef ENABLE_SPP
 static void handleSppConnectInd(Task task,SPP_CONNECT_IND_T *ind)
 {
+	MAIN_DEBUG(("SPP_CONNECT_IND\n"));
 	SppConnectResponse(task, &ind->addr, TRUE, ind->sink, ind->server_channel, 0);
 }
 
 static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm)
 {
-
+	MAIN_DEBUG(("SPP_CLIENT_CONNECT_CFM = %d\n",cfm->status));
 }
 
 static void handleSppDisconnectInd(SPP_DISCONNECT_IND_T *ind)
 {
+	MAIN_DEBUG(("SPP_DISCONNECT_IND = %d\n",ind->status));
 	SppDisconnectResponse(ind->spp);
 }
 
 static void handleSppDisconnectCfm(SPP_DISCONNECT_CFM_T *cfm)
 {
-
+	MAIN_DEBUG(("SPP_DISCONNECT_CFM = %d\n",cfm->status));
 }
 
 static void handleSppMoreData(SPP_MESSAGE_MORE_DATA_T *data)
 {
+	uint16 i;
+	Source src = data->source;
+	uint16 size = SourceSize(src);
+	const uint8 *ptr = SourceMap(src);
+	
+	for(i=0;i<size;i++)
+	{
+		MAIN_DEBUG(("%c",ptr[i]));
+	}
 	/* parse command */
+	
 
 	/* send response */
+	SourceDrop(src,size);
 }
 
 static void handleSppMoreSpace(SPP_MESSAGE_MORE_SPACE_T *space)
@@ -1947,6 +1960,7 @@ static void handleSppMessage ( Task task, MessageId id, Message message )
     {
         /* -- Serial Port Profile Library Messages -- */
     case SPP_START_SERVICE_CFM:
+		MAIN_DEBUG(("SPP_START_SERVICE_CFM = %d\n",((SPP_START_SERVICE_CFM_T*)message)->status));
 		break;
 	case SPP_STOP_SERVICE_CFM:
 		break;
