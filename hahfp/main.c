@@ -1179,7 +1179,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			if(message == NULL)
 			{
 				bdaddr ag_addr;
-				if(HfpLinkGetBdaddr(hfp_primary_link, &ag_addr))
+				if(PsRetrieve(PSKEY_LAST_SPP_SERVER, &ag_addr, sizeof(bdaddr)))
 				{
 					theHeadset.ha_pending_msg = 'x' + theHeadset.ha_tune;
 					SppConnectRequest(task, &ag_addr, 0,0);					
@@ -1552,7 +1552,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			/* inform mode change via SPP */
 			{
 				bdaddr ag_addr;
-				if(HfpLinkGetBdaddr(hfp_primary_link, &ag_addr))
+				if(PsRetrieve(PSKEY_LAST_SPP_SERVER, &ag_addr, sizeof(bdaddr)))
 				{
 					if(theHeadset.ha_tune == mode_ha_only)
 						theHeadset.ha_pending_msg = 'h';
@@ -2023,6 +2023,7 @@ static void sppSend(Sink sink,char *data, uint16 length)
 
 static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm, bool is_client)
 {
+	bdaddr bd_addr;
 	MAIN_DEBUG(("SPP_CLIENT_CONNECT_CFM = %d\n",cfm->status));
 	if(cfm->status == spp_connect_success)
 	{
@@ -2030,6 +2031,11 @@ static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm, bool is_client)
 		{
 			if(theHeadset.ha_pending_msg) 
 				sppSend(cfm->sink,(char*)&theHeadset.ha_pending_msg,1);
+		}
+		else if(SinkGetBdAddr(cfm->sink,&bd_addr))
+		{
+			/* remember last spp server */
+			PsStore(PSKEY_LAST_SPP_SERVER,&bd_addr,sizeof(bdaddr));
 		}
 	}
 	else

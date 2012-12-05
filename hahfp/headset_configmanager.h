@@ -34,7 +34,7 @@ enum
  	PSKEY_ADDITIONAL_HFP_SUPPORTED_FEATURES	= 5,
  	PSKEY_TIMEOUTS                  		= 6,
  	PSKEY_TRI_COL_LEDS        				= 7,
- 	PSKEY_SW_VERSION_NUMBER    				= 8,
+ 	PSKEY_LAST_SPP_SERVER    				= 8,
 	PSKEY_LENGTHS                    		= 9,
  	PSKEY_CODEC_NEGOTIATION    				= 10,
  	PSKEY_TTS                				= 11, 

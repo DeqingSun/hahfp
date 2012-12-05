@@ -122,11 +122,8 @@ void DutHandleLocalAddr(CL_DM_LOCAL_BD_ADDR_CFM_T *cfm)
 {
     char new_name[32];
     
-	uint16 buffer[] = { 0,0,0,0 };
     uint16 i = 0 ;
  
-	PsRetrieve(PSKEY_SW_VERSION_NUMBER, buffer, sizeof(buffer) );
-	     
     new_name[i++] = hex((cfm->bd_addr.nap & 0xF000) >> 12);
     new_name[i++] = hex((cfm->bd_addr.nap & 0x0F00) >> 8);
     new_name[i++] = hex((cfm->bd_addr.nap & 0x00F0) >> 4);
@@ -142,36 +139,7 @@ void DutHandleLocalAddr(CL_DM_LOCAL_BD_ADDR_CFM_T *cfm)
     new_name[i++] = hex((cfm->bd_addr.lap & 0x0000F0) >> 4);
     new_name[i++] = hex((cfm->bd_addr.lap & 0x00000F) >> 0);
 
-    new_name[i++] = ' ' ;	
-             
-	new_name[i++] = hex((buffer[0] & 0xF000) >> 12) ;	
-	new_name[i++] = hex((buffer[0] & 0x0F00) >> 8 ) ;	
-	new_name[i++] = hex((buffer[0] & 0x00F0) >> 4 ) ;	
-	new_name[i++] = hex((buffer[0] & 0x000F) >> 0 ) ;	
-		     
-	new_name[i++] = hex((buffer[1] & 0xF000) >> 12) ;	
-	new_name[i++] = hex((buffer[1] & 0x0F00) >> 8 ) ;	
-	new_name[i++] = ' ' ;	
-	new_name[i++] = hex((buffer[1] & 0x00F0) >> 4 ) ;	
-	new_name[i++] = hex((buffer[1] & 0x000F) >> 0 ) ;	
-		     
-	new_name[i++] = hex((buffer[2] & 0xF000) >> 12) ;	
-	new_name[i++] = hex((buffer[2] & 0x0F00) >> 8 ) ;	
-	new_name[i++] = hex((buffer[2] & 0x00F0) >> 4 ) ;	
-	new_name[i++] = hex((buffer[2] & 0x000F) >> 0 ) ;	
-	  
-	/* Some customers do not use the final word in their version number
-	   so omit it if not present */
-	if(buffer[3] != 0)
-	{
-		new_name[i++] = ' ' ;	
-	
-		new_name[i++] = hex((buffer[3] & 0xF000) >> 12) ;	
-		new_name[i++] = hex((buffer[3] & 0x0F00) >> 8 ) ;	
-		new_name[i++] = hex((buffer[3] & 0x00F0) >> 4 ) ;	
-		new_name[i++] = hex((buffer[3] & 0x000F) >> 0 ) ;	
-	}
-	
+
         /*terminate the string*/
     new_name[i] = 0;
    
