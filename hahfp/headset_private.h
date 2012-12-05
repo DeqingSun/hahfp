@@ -536,6 +536,8 @@ typedef struct
     TaskData    			 *dsp_plugin;
 	uint16					 ha_volume;
 	ha_mode_t				 ha_mode;
+	uint16					 ha_tune;
+	uint8					 ha_pending_msg;
 
     Sink            	     sco_sink;
 

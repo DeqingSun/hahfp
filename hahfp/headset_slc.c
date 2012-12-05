@@ -1684,4 +1684,12 @@ void headsetHandleRemoteName(CL_DM_REMOTE_NAME_COMPLETE_T *msg)
 
 	/* store Tx Addr */
 	PsStore(PSKEY_HA_TX_ADDR,&(msg->bd_addr),sizeof(bdaddr));
+
+	/* force to Rx mode */
+	if(theHeadset.ha_mode != mode_rx_only)
+	{
+		theHeadset.ha_mode = mode_rx_only;
+		MessageSend( &theHeadset.task , EventModeRxOnly, 0 ) ;
+	}
+	
 }

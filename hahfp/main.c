@@ -1154,11 +1154,37 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 		case EventAudioMessage3:
 		case EventAudioMessage4:
 		{
-			uint16 pio_out = id - EventAudioMessage1;
-			pio_out = pio_out;
+			theHeadset.ha_tune = id - EventAudioMessage1;
 			/* pio out */
+			if(theHeadset.ha_mode == mode_ha_only)
+			{
+				if(theHeadset.ha_tune == 0)
+				{
+				}
+				else
+				{
+				}
+			}
+			else
+			{
+				if(theHeadset.ha_tune == 0)
+				{
+				}
+				else
+				{
+				}
+			}
 
 			/* if hfp is connected, inform audio change */
+			if(message == NULL)
+			{
+				bdaddr ag_addr;
+				if(HfpLinkGetBdaddr(hfp_primary_link, &ag_addr))
+				{
+					theHeadset.ha_pending_msg = 'x' + theHeadset.ha_tune;
+					SppConnectRequest(task, &ag_addr, 0,0);					
+				}
+			}
 #if 0			
 			if (&theHeadset.sco_sink)
 			{
@@ -1458,20 +1484,20 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 	   case EventModeRxOnly:
 	   	break;
 	   case EventModeNormalBt:
-		   MessageCancelAll( &theHeadset.task , EventConnectTx) ;
-		   MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(5)) ;
-		{
-			bdaddr bd_addr;
-		   if(!theHeadset.a2dp_link_data->connected[a2dp_primary] && theHeadset.a2dp_link_data->connected[a2dp_secondary])	/* not connected, connect to Tx */
-		   	{
-			   if(PsRetrieve(PSKEY_HA_TX_ADDR, &bd_addr, sizeof(bdaddr)))
-			   	{
-				   A2dpSignallingConnectRequest(&bd_addr);
-			   	}
-		   	}
-		}
 	   	break;
 	   case EventConnectTx:
+			MessageCancelAll( &theHeadset.task , EventConnectTx) ;
+			MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(5)) ;
+			{
+				bdaddr bd_addr;
+				if(!theHeadset.a2dp_link_data->connected[a2dp_primary] && theHeadset.a2dp_link_data->connected[a2dp_secondary])  /* not connected, connect to Tx */
+				{
+					if(PsRetrieve(PSKEY_HA_TX_ADDR, &bd_addr, sizeof(bdaddr)))
+					{
+						A2dpSignallingConnectRequest(&bd_addr);
+					}
+				}
+			}
 	   	break;
        
        case EventToggleIntelligentPowerManagement:
@@ -1486,7 +1512,6 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				MessageSend( &theHeadset.task , EventModeRxOnly, 0 ) ;
 				/* connect to Tx */
 				MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(3)) ;
-
 			}
 			else if(theHeadset.ha_mode == mode_rx_only)
 			{
@@ -1522,6 +1547,21 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 						A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
 					}
 				}  
+			}
+
+			/* inform mode change via SPP */
+			{
+				bdaddr ag_addr;
+				if(HfpLinkGetBdaddr(hfp_primary_link, &ag_addr))
+				{
+					if(theHeadset.ha_tune == mode_ha_only)
+						theHeadset.ha_pending_msg = 'h';
+					else if(theHeadset.ha_tune == mode_rx_only)
+						theHeadset.ha_pending_msg = 'm';
+					if(theHeadset.ha_tune == mode_normal_bt)
+						theHeadset.ha_pending_msg = 'c';
+					SppConnectRequest(task, &ag_addr, 0,0);					
+				}
 			}
 #if 0		
            MAIN_DEBUG(("HS : Toggle LBIPM\n")) ;
@@ -1967,9 +2007,35 @@ static void handleSppConnectInd(Task task,SPP_CONNECT_IND_T *ind)
 	SppConnectResponse(task, &ind->addr, TRUE, ind->sink, ind->server_channel, 0);
 }
 
-static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm)
+static void sppSend(Sink sink,char *data, uint16 length)
+{
+	if(!SinkIsValid(sink))
+		return;
+	
+    if (SinkClaim(sink, length) != 0xFFFF)
+    {
+        uint8 * sink_base = SinkMap(sink);
+
+        memmove(sink_base, data, length);
+        SinkFlush(sink, length);
+    }
+}
+
+static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm, bool is_client)
 {
 	MAIN_DEBUG(("SPP_CLIENT_CONNECT_CFM = %d\n",cfm->status));
+	if(cfm->status == spp_connect_success)
+	{
+		if(is_client)
+		{
+			if(theHeadset.ha_pending_msg) 
+				sppSend(cfm->sink,(char*)&theHeadset.ha_pending_msg,1);
+		}
+	}
+	else
+	{
+		theHeadset.ha_pending_msg = 0;
+	}
 }
 
 static void handleSppDisconnectInd(SPP_DISCONNECT_IND_T *ind)
@@ -1981,20 +2047,72 @@ static void handleSppDisconnectInd(SPP_DISCONNECT_IND_T *ind)
 static void handleSppDisconnectCfm(SPP_DISCONNECT_CFM_T *cfm)
 {
 	MAIN_DEBUG(("SPP_DISCONNECT_CFM = %d\n",cfm->status));
+	theHeadset.ha_pending_msg = 0;
 }
 
 static void handleSppMoreData(SPP_MESSAGE_MORE_DATA_T *data)
 {
 	uint16 i;
 	Source src = data->source;
+	Sink sink = StreamSinkFromSource(src);
 	uint16 size = SourceSize(src);
 	const uint8 *ptr = SourceMap(src);
+	uint16 *param;
 	
 	for(i=0;i<size;i++)
 	{
 		MAIN_DEBUG(("%c",ptr[i]));
 	}
 	/* parse command */
+	if(size == 1)
+	{
+		switch(ptr[0])
+		{
+		case 's':
+			if(theHeadset.ha_mode == mode_ha_only)
+				sppSend(sink,"h",1);
+			else if(theHeadset.ha_mode == mode_rx_only)
+				sppSend(sink,"m",1);
+			else if(theHeadset.ha_mode == mode_normal_bt)
+				sppSend(sink,"c",1);
+			break;
+		case 't':
+			if(theHeadset.ha_tune == 0)
+				sppSend(sink,"x",1);
+			else if(theHeadset.ha_tune == 1)
+				sppSend(sink,"y",1);
+			break;
+		/* setting ack */	
+		case 'x':
+			if(theHeadset.ha_pending_msg)
+				SppDisconnectRequest(data->spp);
+			else	
+			{
+				param = malloc(sizeof(uint16));
+				*param = 'x';
+				sppSend(sink,"x",1);
+				MessageSend(&theHeadset.task,EventAudioMessage1,param);
+			}
+			break;
+		case 'y':
+			if(theHeadset.ha_pending_msg)
+				SppDisconnectRequest(data->spp);
+			else	
+			{
+				param = malloc(sizeof(uint16));
+				*param = 'y';
+				sppSend(sink,"y",1);
+				MessageSend(&theHeadset.task,EventAudioMessage2,param);
+			}
+			break;
+		case 'z':
+			if(theHeadset.ha_pending_msg)
+				SppDisconnectRequest(data->spp);
+			else
+				sppSend(sink,"z",1);
+			break;
+		}
+	}
 	
 
 	/* send response */
@@ -2019,10 +2137,10 @@ static void handleSppMessage ( Task task, MessageId id, Message message )
 	case SPP_STOP_SERVICE_CFM:
 		break;
 	case SPP_CLIENT_CONNECT_CFM:
-		handleSppConnectCfm((SPP_CLIENT_CONNECT_CFM_T *)message);
+		handleSppConnectCfm((SPP_CLIENT_CONNECT_CFM_T *)message,TRUE);
 		break;
 	case SPP_SERVER_CONNECT_CFM:
-		handleSppConnectCfm((SPP_CLIENT_CONNECT_CFM_T *)message);
+		handleSppConnectCfm((SPP_CLIENT_CONNECT_CFM_T *)message,FALSE);
 		break;
 	case SPP_CONNECT_IND:
 		handleSppConnectInd(task, (SPP_CONNECT_IND_T *)message);
