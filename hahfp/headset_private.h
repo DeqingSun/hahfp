@@ -501,6 +501,13 @@ typedef enum
     rssi_connecting
 } rssi_action_t;
 
+typedef enum
+{
+	mode_ha_only,
+	mode_rx_only,
+	mode_normal_bt
+}ha_mode_t;
+
 /* Headset data */
 typedef struct
         
@@ -528,7 +535,7 @@ typedef struct
 	   /*global vars*/	
     TaskData    			 *dsp_plugin;
 	uint16					 ha_volume;
-	bool				     ha_mode_only_enable;
+	ha_mode_t				 ha_mode;
 
     Sink            	     sco_sink;
 

@@ -448,5 +448,7 @@ RETURNS
 */
 uint8 GetNumberOfConnectedDevices(void);
 
+void headsetHandleRemoteName(CL_DM_REMOTE_NAME_COMPLETE_T *msg);
+
 #endif /* _HEADSET_SLC_H_ */
 

@@ -98,6 +98,13 @@ pattern LEDS_EVENT_POWER_OFF
 	RED ON 100
 	RED OFF 100
 
+pattern BLUE_ON_RPT RPT
+    BLUE ON 0
+	
+pattern BLUE_BLINK_RPT RPT
+    BLUE OFF 500
+    BLUE ON 500
+
 pattern RED_ON_RPT RPT
     RED ON 0
 	

@@ -206,6 +206,10 @@ static void handleCLMessage ( Task task, MessageId id, Message message )
 		case CL_DM_LOCAL_BD_ADDR_CFM:
             DutHandleLocalAddr((CL_DM_LOCAL_BD_ADDR_CFM_T *)message);
 		break ;
+
+		case CL_DM_REMOTE_NAME_COMPLETE:
+			headsetHandleRemoteName((CL_DM_REMOTE_NAME_COMPLETE_T*)message);	
+		break;
           
         case CL_DM_ROLE_CFM:
             slcHandleRoleConfirm((CL_DM_ROLE_CFM_T *)message);
@@ -580,7 +584,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			}
 #else			
 			/* auto disable ha_mode */
-			theHeadset.ha_mode_only_enable = FALSE;
+			theHeadset.ha_mode = mode_normal_bt;
 #endif
             MAIN_DEBUG(("HS: EnterPair [%d]\n" , lState )) ;
             /*go into pairing mode*/ 
@@ -637,7 +641,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			headsetPairingRejectRes();
 		break;
         case ( EventEstablishSLC ) :    
-			if(theHeadset.ha_mode_only_enable)
+			if(theHeadset.ha_mode != mode_normal_bt)
 			{
 				lIndicateEvent = FALSE ;
 				break;
@@ -1150,12 +1154,19 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 		case EventAudioMessage3:
 		case EventAudioMessage4:
 		{
+			uint16 pio_out = id - EventAudioMessage1;
+			pio_out = pio_out;
+			/* pio out */
+
+			/* if hfp is connected, inform audio change */
+#if 0			
 			if (&theHeadset.sco_sink)
 			{
 				uint16 * lParam = PanicUnlessMalloc ( sizeof(uint16)) ;
 				*lParam = (id -  EventAudioMessage1) ; /*0,1,2,3*/
 				AudioSetMode ( AUDIO_MODE_CONNECTED , (void *) lParam) ;
 			}
+#endif				
 		}
 		break ;
         case  EventCancelHSPIncomingCall:
@@ -1441,22 +1452,65 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 		   configManagerWriteSessionData () ; 
 #endif			
        break;
+
+	   case EventModeHaOnly:
+	   	break;
+	   case EventModeRxOnly:
+	   	break;
+	   case EventModeNormalBt:
+		   MessageCancelAll( &theHeadset.task , EventConnectTx) ;
+		   MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(5)) ;
+		{
+			bdaddr bd_addr;
+		   if(!theHeadset.a2dp_link_data->connected[a2dp_primary] && theHeadset.a2dp_link_data->connected[a2dp_secondary])	/* not connected, connect to Tx */
+		   	{
+			   if(PsRetrieve(PSKEY_HA_TX_ADDR, &bd_addr, sizeof(bdaddr)))
+			   	{
+				   A2dpSignallingConnectRequest(&bd_addr);
+			   	}
+		   	}
+		}
+	   	break;
+	   case EventConnectTx:
+	   	break;
        
        case EventToggleIntelligentPowerManagement:
+			/* mode_ha_only --> mode_rx_only --> mode_normal_bt --> mode_ha_only
+			                     connect to tx        disconnect tx/SLC       disconnect all
+			 */
+			
 			/* reuse for ha only mode toggle */
-			if(theHeadset.ha_mode_only_enable)
+			if(theHeadset.ha_mode == mode_ha_only)
 			{
-				theHeadset.ha_mode_only_enable = FALSE;
-				MessageSend( &theHeadset.task , EventEnableIntelligentPowerManagement, 0 ) ;
+				theHeadset.ha_mode = mode_rx_only;
+				MessageSend( &theHeadset.task , EventModeRxOnly, 0 ) ;
+				/* connect to Tx */
+				MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(3)) ;
 
-                theHeadset.conf->NoOfReconnectionAttempts = theHeadset.conf->timeouts.ReconnectionAttempts ;
-                slcEstablishSLCRequest() ;
+			}
+			else if(theHeadset.ha_mode == mode_rx_only)
+			{
+				uint8 index;
+				theHeadset.ha_mode = mode_normal_bt;
+				MessageSend( &theHeadset.task , EventModeNormalBt, 0 ) ;
+				/* disconnect any a2dp signalling channels */
+				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
+				{
+					/* is a2dp connected? */
+					if(theHeadset.a2dp_link_data->connected[index])
+					{
+						/* disconnect signalling channel */
+						A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
+					}
+				}  
+
+				MessageSendLater( &theHeadset.task, EventEstablishSLC, 0 ,D_SEC(3));
 			}
 			else
 			{
 				uint8 index;
-				theHeadset.ha_mode_only_enable = TRUE;
-				MessageSend( &theHeadset.task , EventDisableIntelligentPowerManagement, 0 ) ;
+				theHeadset.ha_mode = mode_ha_only;
+				MessageSend( &theHeadset.task , EventModeHaOnly, 0 ) ;
 				headsetDisconnectAllSlc();
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)

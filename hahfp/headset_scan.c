@@ -130,7 +130,7 @@ void headsetEnableConnectable( void )
 {
     hci_scan_enable scan = hci_scan_enable_off;
 
-	if(theHeadset.ha_mode_only_enable){
+	if(theHeadset.ha_mode == mode_ha_only){
 		ConnectionWriteScanEnable(scan);
 		theHeadset.page_scan_enabled = FALSE;
 		theHeadset.inquiry_scan_enabled = FALSE;
@@ -168,7 +168,7 @@ void headsetDisableConnectable( void )
 {
     hci_scan_enable scan = hci_scan_enable_off;
 
-	if(theHeadset.ha_mode_only_enable){
+	if(theHeadset.ha_mode == mode_ha_only){
 		ConnectionWriteScanEnable(scan);
 		theHeadset.page_scan_enabled = FALSE;
 		theHeadset.inquiry_scan_enabled = FALSE;
@@ -203,7 +203,7 @@ void headsetEnableDiscoverable( void )
 {
     hci_scan_enable scan = hci_scan_enable_off;
 
-	if(theHeadset.ha_mode_only_enable){
+	if(theHeadset.ha_mode == mode_ha_only){
 		ConnectionWriteScanEnable(scan);
 		theHeadset.page_scan_enabled = FALSE;
 		theHeadset.inquiry_scan_enabled = FALSE;
@@ -241,7 +241,7 @@ void headsetDisableDiscoverable( void )
 {
     hci_scan_enable scan = hci_scan_enable_off;
 
-	if(theHeadset.ha_mode_only_enable){
+	if(theHeadset.ha_mode == mode_ha_only){
 		ConnectionWriteScanEnable(scan);
 		theHeadset.page_scan_enabled = FALSE;
 		theHeadset.inquiry_scan_enabled = FALSE;

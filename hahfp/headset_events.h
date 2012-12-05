@@ -209,6 +209,11 @@ typedef enum headsetEventsTag
 /*0x91*/    EventToggleIntelligentPowerManagement,
 /*0x92*/    EventEnterBootMode2
 
+			,EventModeHaOnly
+			,EventModeRxOnly
+			,EventModeNormalBt
+			,EventConnectTx
+
 #ifdef ENABLE_AVRCP
             ,EventAvrcpPlayPause,
             EventAvrcpStop,

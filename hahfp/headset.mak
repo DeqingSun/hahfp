@@ -9,7 +9,6 @@
 # ensure we always run the rules for each kalimba app to get the latest version
 .PHONY : image/cvc_headset_2mic/cvc_headset_2mic.kap \
 	 image/cvc_headset_2mic/000 \
-     image/hearing_aid_sim/hearing_aid_sim.kap \
 	 image/sbc_decoder/sbc_decoder.kap
 
 # 2 mic CVC
@@ -28,12 +27,6 @@ ifneq ($(strip $(file)),)
    image.fs : image/cvc_headset_2mic/000
 
 endif
-
-image/hearing_aid_sim/hearing_aid_sim.kap : 
-	$(mkdir) image/hearing_aid_sim
-	$(copyfile) hearing_aid_sim\image\hearing_aid_sim\hearing_aid_sim.kap $@
-
-image.fs : image/hearing_aid_sim/hearing_aid_sim.kap
 
 ######################################################################################################
 ##### A2DP DECODER VERSIONS

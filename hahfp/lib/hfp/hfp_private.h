@@ -277,6 +277,7 @@ typedef struct
     hfp_optional_indicators     optional_indicators;        /* Optional indicators the HF may not want to receive   */
     unsigned                    link_loss_time:8;           /* The time in minutes to try and reconnect for         */
     unsigned                    link_loss_interval:8;       /* The time in seconds between reconnect attempts       */
+	unsigned					block_incoming_slc:1;
     unsigned                    num_supported_profiles:3;   /* The total number of profiles supported               */
     unsigned                    initialised:1;              /* Initialisation flag (set when init is complete)      */
     unsigned                    disable_nrec:1;             /* Disable Noise Reduction/Echo cancellation on AG      */

@@ -2014,7 +2014,7 @@ hfp_link_priority HfpLinkPriorityFromAudioSink(Sink sco_sink);
 */
 bool HfpLinkLoss(void);
 
-
+void HfpBlockIncomingSlc(bool enable);
 
 extern const hfp_audio_params default_esco_audio_params;
 extern const hfp_audio_params default_sco_audio_params;

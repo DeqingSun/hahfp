@@ -1665,4 +1665,23 @@ uint8 GetNumberOfConnectedDevices(void)
 }
         
         
-        
+void headsetHandleRemoteName(CL_DM_REMOTE_NAME_COMPLETE_T *msg)
+{
+	const char TargetName[] = "HAHFP_TX";
+	uint16 i;
+	
+	if(msg->status != hci_success)
+		return;
+
+	if(msg->size_remote_name != strlen(TargetName))
+		return;
+
+	for(i=0;i<msg->size_remote_name;i++)
+	{
+		if(msg->remote_name[i] != TargetName[i])
+			return;
+	}
+
+	/* store Tx Addr */
+	PsStore(PSKEY_HA_TX_ADDR,&(msg->bd_addr),sizeof(bdaddr));
+}

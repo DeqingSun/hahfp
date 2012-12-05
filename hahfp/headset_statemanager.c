@@ -579,9 +579,10 @@ void stateManagerPowerOn( void )
             
     	PioSetPowerPin ( TRUE ) ;
 
-		/* go into loopback mode */
-		theHeadset.ha_mode_only_enable = TRUE;
-    
+		/* go into ha mode */
+		theHeadset.ha_mode = mode_ha_only;
+    	MessageSend(&theHeadset.task, EventModeHaOnly, 0);
+		
     	if ( theHeadset.PIO->PowerOnPIO !=0xF )
     	{
         	PioSetPio ( theHeadset.PIO->PowerOnPIO , TRUE) ;

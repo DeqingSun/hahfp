@@ -794,3 +794,9 @@ bool HfpLinkLoss(void)
     
     return FALSE;
 }
+
+void HfpBlockIncomingSlc(bool enable)
+{
+	theHfp->block_incoming_slc = enable;
+}
+

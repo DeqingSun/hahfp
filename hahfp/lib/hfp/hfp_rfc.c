@@ -79,6 +79,9 @@ void hfpHandleRfcommConnectInd(const CL_RFCOMM_CONNECT_IND_T *ind)
             }
         }
     }
+
+	if(theHfp->block_incoming_slc)
+		message->accepted = FALSE;
     
     /* Set up the link */
     if(message->accepted)

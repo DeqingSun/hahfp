@@ -865,7 +865,7 @@ void handleA2DPMessage( Task task, MessageId id, Message message )
 		{
 	        A2DP_DEBUG(("A2DP_SIGNALLING_CHANNEL_CONNECT_IND : \n"));
             /* before accepting check there isn't already a signalling channel connected to another AG */		
-            if ((theHeadset.features.EnableA2dpStreaming)&&
+            if ((theHeadset.features.EnableA2dpStreaming)&& theHeadset.ha_mode == mode_normal_bt &&
                 ((!theHeadset.a2dp_link_data->connected[a2dp_primary])||
                 (!theHeadset.a2dp_link_data->connected[a2dp_secondary])))
         	{
@@ -890,6 +890,7 @@ void handleA2DPMessage( Task task, MessageId id, Message message )
 	    	handleA2DPSignallingConnected(((A2DP_SIGNALLING_CONNECT_CFM_T*)message)->status, 
 	    								  ((A2DP_SIGNALLING_CONNECT_CFM_T*)message)->device_id, 
                                           ((A2DP_SIGNALLING_CONNECT_CFM_T*)message)->addr);
+			ConnectionReadRemoteName(task, &((A2DP_SIGNALLING_CONNECT_CFM_T*)message)->addr);
 	    break;
         
         /* indication of a signalling channel disconnection having occured */

@@ -54,7 +54,7 @@ enum
  	PSKEY_RSSI_PAIRING             			= 25,
 	PSKEY_TONES                     		= 26,
     PSKEY_PIO_BLOCK              			= 27,
-    PSKEY_UNUSED28   						= 28,
+    PSKEY_HA_TX_ADDR   						= 28,
     PSKEY_FILTER                 			= 29,
  	PSKEY_PHONE_NUMBER						= 30,
 	PSKEY_CONFIGURATION_ID					= 31
