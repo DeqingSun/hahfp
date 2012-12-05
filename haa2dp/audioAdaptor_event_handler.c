@@ -54,8 +54,6 @@ DESCRIPTION
     static const char *s_comm_action_names[] =
     {
         "None",
-        "Call",
-        "EndCall",
         "Stream",
         "EndStream",
         "Connect",        

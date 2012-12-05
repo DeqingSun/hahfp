@@ -41,16 +41,15 @@ typedef struct
 } EnterMessage;
 
 /* Messages sent on state entry */
-static const EnterMessage enter_messages_sMFB[] = { { 1, 0, 0, 0, BUTTON_DEVICE_CONNECT_REQ },
-												{ 0, 1, 800, 0, BUTTON_CONNECT_SECOND_DEVICE_REQ } };
+static const EnterMessage enter_messages_sMFB[] = { { 0, 1, 800, 0, BUTTON_DEVICE_DISCOVER_REQ } };
 
-static const EnterMessage enter_messages_sVREG[] = { { 1, 0, 0, 1, BUTTON_PWR_RELEASE } };
+static const EnterMessage enter_messages_sVREG[] = { { 1, 0, 0, 1, BUTTON_PWR_OFF_REQ } };
 
 static const struct
 {
 	uint16 count; const EnterMessage *send;
 } enter_messages[] = {
-	{ 2, enter_messages_sMFB },
+	{ 1, enter_messages_sMFB },
 	{ 1, enter_messages_sVREG }
 };
 
@@ -153,12 +152,11 @@ typedef struct
 
 static const TimedMessage timed_messages_sMFB[] =
 {
-	{ 0, 2000, 0, 1, 0, BUTTON_DEVICE_DISCOVER_REQ },
 	{ 0, 10000, 0, 0, 0, BUTTONS_CLEAR_PDL_REQ }
 };
 static const TimedMessage timed_messages_sVREG[] =
 {
-	{ 0, 4000, 0, 0, 1, BUTTON_PWR_OFF_REQ }
+	{ 0, 4000, 0, 0, 1, BUTTON_PWR_RELEASE }
 };
 
 static const struct
@@ -167,7 +165,7 @@ static const struct
 	const TimedMessage *send;
 } timed_messages[] =
 {
-	{ 2, timed_messages_sMFB },
+	{ 1, timed_messages_sMFB },
 	{ 1, timed_messages_sVREG }
 };
 

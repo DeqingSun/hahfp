@@ -38,6 +38,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 {
     switch(id)
     {
+#if 0        
         case BUTTON_DEVICE_CONNECT_REQ:
         {
             DEBUG(("BUTTON_DEVICE_CONNECT_REQ\n"));    
@@ -57,6 +58,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 
             break;
         }
+#endif        
         case BUTTON_DEVICE_DISCOVER_REQ:
         {
             DEBUG(("BUTTON_DEVICE_DISCOVER_REQ\n"));
@@ -90,6 +92,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
         case BUTTON_PWR_OFF_REQ:
         {
             DEBUG(("BUTTON_PWR_OFF_REQ\n"));
+			break;
             if (the_app->audioAdaptorPoweredOn)
             {
                 MessageSend(&the_app->task, APP_POWEROFF_REQ, NULL);
@@ -109,6 +112,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
             }
             break;
         }
+#if 0        
         case BUTTON_CONNECT_SECOND_DEVICE_REQ:
         {
 #ifdef DUAL_STREAM
@@ -122,6 +126,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 #endif /* DUAL_STREAM */
             break;
         }
+#endif        
 #if defined DEV_PC_1645_USB || defined DEV_PC_1645_ANALOGUE || defined RED_PC_142
         case CHARGER_RAW:
         {

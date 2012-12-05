@@ -67,23 +67,18 @@ charger_debounce 4 15
 
 debounce 2 20
 
-message BUTTON_DEVICE_CONNECT_REQ
-    MFB release
-    
 message BUTTON_DEVICE_DISCOVER_REQ
-    MFB held_release 2000 
+    MFB double 800
 
 message BUTTONS_CLEAR_PDL_REQ
     MFB held 10000
 
-message BUTTON_PWR_OFF_REQ
+message BUTTON_PWR_RELEASE
     VREG held 4000
     
-message BUTTON_PWR_RELEASE
+message BUTTON_PWR_OFF_REQ
     VREG release
      
-message BUTTON_CONNECT_SECOND_DEVICE_REQ
-    MFB double 800
     
     #ifdef DEMO_MODE	
     message BUTTON_MODE_FASTSTREAM

@@ -566,7 +566,7 @@ void profileSlcStartConnectionProcess (void)
 {
     setAppState(AppStateIdle);
     
-/*#if 0    */
+#if 0 
     if (configureGetBdaddrMostRecentDevice(&the_app->connect_bdaddr))
     {    /* Attempt to connect to last known device */
         the_app->auto_connect_in_progress = TRUE;
@@ -579,7 +579,7 @@ void profileSlcStartConnectionProcess (void)
         scanMakeDiscoverable();
         kickCommAction(CommActionDiscover);
     }
-/*#endif*/
+#endif
     
     scanMakeConnectable();
     

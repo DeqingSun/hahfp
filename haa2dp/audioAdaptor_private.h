@@ -40,7 +40,7 @@ DESCRIPTION
 #define ENABLE_DEBUG_CONN
 #define ENABLE_DEBUG_SCAN
 #define ENABLE_DEBUG_STREAM
-#define ENABLE_DEBUG_CODECx
+#define ENABLE_DEBUG_CODEC
 
 #if defined ENABLE_DEBUG && defined ENABLE_DEBUG_MAIN
     #define DEBUG(x)    {printf x;}
