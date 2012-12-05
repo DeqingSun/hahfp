@@ -224,14 +224,14 @@ typedef enum headsetEventsTag
             EventAvrcpRewindPress,
             EventAvrcpRewindRelease
 #endif       
-
+			,EventTop
 } headsetEvents_t; 
 
 
 #ifdef ENABLE_AVRCP
 #define EVENTS_LAST_EVENT EventAvrcpRewindRelease
 #else
-#define EVENTS_LAST_EVENT EventEnterBootMode2
+#define EVENTS_LAST_EVENT EventTop
 #endif
 
 

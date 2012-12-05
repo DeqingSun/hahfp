@@ -263,7 +263,7 @@ void headsetHandleAuthenticateCfm(const CL_SM_AUTHENTICATE_CFM_T *cfm)
 	{
         uint8  lAttributes [attribute_a2dp_clock_mismatch + 1] ;
         /* set HFP available flag */
-        lAttributes[attribute_profiles_supported] = headset_hfp;
+        lAttributes[attribute_profiles_supported] = 0; /*headset_hfp;*/
    		/* Default volume */
 		lAttributes[attribute_hfp_volume] = (uint8) theHeadset.features.DefaultVolume ;		
         /* set a2dp volume and supported codecs */        
@@ -274,7 +274,7 @@ void headsetHandleAuthenticateCfm(const CL_SM_AUTHENTICATE_CFM_T *cfm)
 		ConnectionSmPutAttribute(ATTRIBUTE_PSKEY_BASE, &cfm->bd_addr, ATTRIBUTE_SIZE ,  lAttributes ); 
 		
 		/* Shuffle the PDL around the device */
-		ConnectionSmUpdateMruDevice( &cfm->bd_addr ) ;
+/*		ConnectionSmUpdateMruDevice( &cfm->bd_addr ) ;*/
 	}
 	
 	/* Reset pairing info if we timed out on confirmation */

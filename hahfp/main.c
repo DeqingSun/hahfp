@@ -1490,7 +1490,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(5)) ;
 			{
 				bdaddr bd_addr;
-				if(!theHeadset.a2dp_link_data->connected[a2dp_primary] && theHeadset.a2dp_link_data->connected[a2dp_secondary])  /* not connected, connect to Tx */
+				if(!theHeadset.a2dp_link_data->connected[a2dp_primary] && !theHeadset.a2dp_link_data->connected[a2dp_secondary])  /* not connected, connect to Tx */
 				{
 					if(PsRetrieve(PSKEY_HA_TX_ADDR, &bd_addr, sizeof(bdaddr)))
 					{
@@ -1518,6 +1518,8 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				uint8 index;
 				theHeadset.ha_mode = mode_normal_bt;
 				MessageSend( &theHeadset.task , EventModeNormalBt, 0 ) ;
+				MessageCancelAll( &theHeadset.task , EventConnectTx) ;
+				headsetEnableConnectable();
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
 				{
@@ -1536,6 +1538,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				uint8 index;
 				theHeadset.ha_mode = mode_ha_only;
 				MessageSend( &theHeadset.task , EventModeHaOnly, 0 ) ;
+				headsetDisableConnectable();
 				headsetDisconnectAllSlc();
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)

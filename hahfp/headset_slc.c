@@ -933,14 +933,14 @@ void slcAttemptConnection(void)
         {
             SLC_DEBUG(("SLC: slcAttConn, HFP listId = %d\n",gSlcData.gListID)) ;
             HfpSlcConnectRequest(&ag_addr,hfp_handsfree_and_headset, hfp_handsfree_all);
-        }
-        
-        /* does device support A2DP and is the feature to reconnect A2DP enabled? */
-        if (theHeadset.features.EnableA2dpStreaming &&(psdata[attribute_profiles_supported] & headset_a2dp))
-        {  
-            SLC_DEBUG(("SLC: slcAttConn, A2DP listId = %d\n",gSlcData.gListID)) ;
-            /* attempt connection to device supporting A2DP */
-            A2dpSignallingConnectRequest(&ag_addr);
+
+	        /* does device support A2DP and is the feature to reconnect A2DP enabled? */
+	        if (theHeadset.features.EnableA2dpStreaming &&(psdata[attribute_profiles_supported] & headset_a2dp))
+	        {  
+	            SLC_DEBUG(("SLC: slcAttConn, A2DP listId = %d\n",gSlcData.gListID)) ;
+	            /* attempt connection to device supporting A2DP */
+	            A2dpSignallingConnectRequest(&ag_addr);
+	        }
         }
     }   
     
