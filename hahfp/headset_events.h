@@ -209,6 +209,7 @@ typedef enum headsetEventsTag
 /*0x91*/    EventToggleIntelligentPowerManagement,
 /*0x92*/    EventEnterBootMode2
 
+			,EventTuneChanged
 			,EventModeHaOnly
 			,EventModeRxOnly
 			,EventModeNormalBt

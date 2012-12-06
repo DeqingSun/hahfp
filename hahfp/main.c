@@ -223,6 +223,9 @@ static void handleCLMessage ( Task task, MessageId id, Message message )
    
 }
 
+#define PIO_MS1	(1<<10)
+#define PIO_MS2	(1<<11)
+
 /*************************************************************************
 NAME    
     handleUEMessage
@@ -1149,32 +1152,47 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
         }
         break;
 
-		case EventAudioMessage1:
-		case EventAudioMessage2:
-		case EventAudioMessage3:
-		case EventAudioMessage4:
-		{
-			theHeadset.ha_tune = id - EventAudioMessage1;
+		case EventTuneChanged:
 			/* pio out */
 			if(theHeadset.ha_mode == mode_ha_only)
 			{
 				if(theHeadset.ha_tune == 0)
 				{
+					PioSetDir32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
+					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
 				}
 				else
 				{
+					PioSetDir32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
+					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS2);
 				}
 			}
 			else
 			{
 				if(theHeadset.ha_tune == 0)
 				{
+					PioSetDir32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
+					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS1);
 				}
 				else
 				{
+					PioSetDir32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
+					PioSet32(PIO_MS2 | PIO_MS1, 0);
 				}
 			}
+			break;
 
+		case EventAudioMessage1:
+		case EventAudioMessage2:
+		case EventAudioMessage3:
+		case EventAudioMessage4:
+		{
+			theHeadset.ha_tune = id - EventAudioMessage1;
+
+            MAIN_DEBUG(("Tune changed %d\n",theHeadset.ha_tune)) ; 
+
+			MessageSend(task,EventTuneChanged,0);
+			
 			/* if hfp is connected, inform audio change */
 			if(message == NULL)
 			{
@@ -1182,6 +1200,8 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				if(PsRetrieve(PSKEY_LAST_SPP_SERVER, &ag_addr, sizeof(bdaddr)))
 				{
 					theHeadset.ha_pending_msg = 'x' + theHeadset.ha_tune;
+					/* reduce Page timeout */
+/*					ConnectionSetPageTimeout(4800);*/
 					SppConnectRequest(task, &ag_addr, 0,0);					
 				}
 			}
@@ -1480,10 +1500,13 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
        break;
 
 	   case EventModeHaOnly:
+           MAIN_DEBUG(("MODE HA\n")) ;
 	   	break;
 	   case EventModeRxOnly:
+           MAIN_DEBUG(("MODE RX\n")) ;
 	   	break;
 	   case EventModeNormalBt:
+           MAIN_DEBUG(("MODE BT\n")) ;
 	   	break;
 	   case EventConnectTx:
 			MessageCancelAll( &theHeadset.task , EventConnectTx) ;
@@ -1552,6 +1575,8 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				}  
 			}
 
+			MessageSend(task,EventTuneChanged,0);
+
 			/* inform mode change via SPP */
 			{
 				bdaddr ag_addr;
@@ -1563,6 +1588,9 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 						theHeadset.ha_pending_msg = 'm';
 					if(theHeadset.ha_tune == mode_normal_bt)
 						theHeadset.ha_pending_msg = 'c';
+
+					/* reduce Page timeout */
+/*					ConnectionSetPageTimeout(4800);*/
 					SppConnectRequest(task, &ag_addr, 0,0);					
 				}
 			}
@@ -2043,6 +2071,7 @@ static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm, bool is_client)
 	}
 	else
 	{
+/*		ConnectionSetPageTimeout(0);*/
 		theHeadset.ha_pending_msg = 0;
 	}
 }
