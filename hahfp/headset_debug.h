@@ -65,7 +65,7 @@ DESCRIPTION
             /*State manager*/
         #define DEBUG_STATESx
           	/*authentication*/
-        #define DEBUG_AUTHx
+        #define DEBUG_AUTH
             /*dimming LEDs*/
         #define DEBUG_DIMx
 

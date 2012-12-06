@@ -2040,8 +2040,14 @@ static void handleSppConnectInd(Task task,SPP_CONNECT_IND_T *ind)
 
 static void sppSend(Sink sink,char *data, uint16 length)
 {
+	uint16 i;
 	if(!SinkIsValid(sink))
 		return;
+
+	for(i=0;i<length;i++)
+	{
+		MAIN_DEBUG(("SND: %c\n",data[i]));
+	}
 	
     if (SinkClaim(sink, length) != 0xFFFF)
     {
@@ -2055,13 +2061,24 @@ static void sppSend(Sink sink,char *data, uint16 length)
 static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm, bool is_client)
 {
 	bdaddr bd_addr;
-	MAIN_DEBUG(("SPP_CLIENT_CONNECT_CFM = %d\n",cfm->status));
+	if(is_client)
+	{
+		MAIN_DEBUG(("SPP_CLIENT_CONNECT_CFM = %d (%d)\n",cfm->status,theHeadset.ha_pending_msg));
+	}
+	else
+	{
+		MAIN_DEBUG(("SPP_SERVER_CONNECT_CFM = %d\n",cfm->status));
+	}
+	
 	if(cfm->status == spp_connect_success)
 	{
 		if(is_client)
 		{
 			if(theHeadset.ha_pending_msg) 
+			{
 				sppSend(cfm->sink,(char*)&theHeadset.ha_pending_msg,1);
+				SppDisconnectRequest(cfm->spp);
+			}
 		}
 		else if(SinkGetBdAddr(cfm->sink,&bd_addr))
 		{
@@ -2069,7 +2086,7 @@ static void handleSppConnectCfm(SPP_CLIENT_CONNECT_CFM_T *cfm, bool is_client)
 			PsStore(PSKEY_LAST_SPP_SERVER,&bd_addr,sizeof(bdaddr));
 		}
 	}
-	else
+	else if(cfm->status != spp_connect_pending)
 	{
 /*		ConnectionSetPageTimeout(0);*/
 		theHeadset.ha_pending_msg = 0;
@@ -2096,62 +2113,57 @@ static void handleSppMoreData(SPP_MESSAGE_MORE_DATA_T *data)
 	uint16 size = SourceSize(src);
 	const uint8 *ptr = SourceMap(src);
 	uint16 *param;
-	
-	for(i=0;i<size;i++)
+
+	while(size)
 	{
-		MAIN_DEBUG(("%c",ptr[i]));
-	}
-	/* parse command */
-	if(size == 1)
-	{
-		switch(ptr[0])
+		/* parse command */
+		for(i=0;i<size;i++)
 		{
-		case 's':
-			if(theHeadset.ha_mode == mode_ha_only)
-				sppSend(sink,"h",1);
-			else if(theHeadset.ha_mode == mode_rx_only)
-				sppSend(sink,"m",1);
-			else if(theHeadset.ha_mode == mode_normal_bt)
-				sppSend(sink,"c",1);
-			break;
-		case 't':
-			if(theHeadset.ha_tune == 0)
-				sppSend(sink,"x",1);
-			else if(theHeadset.ha_tune == 1)
-				sppSend(sink,"y",1);
-			break;
-		/* setting ack */	
-		case 'x':
-			if(theHeadset.ha_pending_msg)
-				SppDisconnectRequest(data->spp);
-			else	
+			MAIN_DEBUG(("RCV: %c\n",ptr[i]));
+
+			switch(ptr[i])
 			{
-				param = malloc(sizeof(uint16));
-				*param = 'x';
-				sppSend(sink,"x",1);
-				MessageSend(&theHeadset.task,EventAudioMessage1,param);
-			}
-			break;
-		case 'y':
-			if(theHeadset.ha_pending_msg)
-				SppDisconnectRequest(data->spp);
-			else	
-			{
-				param = malloc(sizeof(uint16));
-				*param = 'y';
-				sppSend(sink,"y",1);
-				MessageSend(&theHeadset.task,EventAudioMessage2,param);
-			}
-			break;
-		case 'z':
-			if(theHeadset.ha_pending_msg)
-				SppDisconnectRequest(data->spp);
-			else
+			case 's':
+				if(theHeadset.ha_mode == mode_ha_only)
+					sppSend(sink,"h",1);
+				else if(theHeadset.ha_mode == mode_rx_only)
+					sppSend(sink,"m",1);
+				else if(theHeadset.ha_mode == mode_normal_bt)
+					sppSend(sink,"c",1);
+				break;
+			case 't':
+				if(theHeadset.ha_tune == 0)
+					sppSend(sink,"x",1);
+				else if(theHeadset.ha_tune == 1)
+					sppSend(sink,"y",1);
+				break;
+			/* setting ack */	
+			case 'x':
+				{
+					param = malloc(sizeof(uint16));
+					*param = 'x';
+					sppSend(sink,"x",1);
+					MessageSend(&theHeadset.task,EventAudioMessage1,param);
+				}
+				break;
+			case 'y':
+				{
+					param = malloc(sizeof(uint16));
+					*param = 'y';
+					sppSend(sink,"y",1);
+					MessageSend(&theHeadset.task,EventAudioMessage2,param);
+				}
+				break;
+			case 'z':
 				sppSend(sink,"z",1);
-			break;
+				break;
+			}
 		}
+		SourceDrop(src,size);
+		
+		size = SourceSize(src);
+		ptr = SourceMap(src);
 	}
-	
 
 	/* send response */
 	SourceDrop(src,size);
