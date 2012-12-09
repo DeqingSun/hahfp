@@ -57,8 +57,6 @@ void CsrSbcEncoderPluginConnect( Sink audio_sink , Task codec_task , uint16 volu
 
 	typedef struct
 	{
-		unsigned source_type:4;
-		unsigned reserved:4;
 		uint8 content_protection;
 		uint32 voice_rate;
 		unsigned bitpool:8;
@@ -134,13 +132,6 @@ void CsrSbcEncoderPluginConnect( Sink audio_sink , Task codec_task , uint16 volu
 	    StreamConnectDispose(StreamSourceFromSink(SBC->media_sink[1]));
 	}
 	
-	/* select the source type */
-	if(sbc_codecData->source_type == SourceUsb)
-	{
-		/* Select the source type */
-		PanicFalse(KalimbaSendMessage(KALIMBA_ENCODER_SELECT, 0x0001, 0, 0, 0));
-	}
-	else
 	{
 		/* For analogue input source */
 		StreamDisconnect(StreamPcmSource(0), StreamPcmSink(0));

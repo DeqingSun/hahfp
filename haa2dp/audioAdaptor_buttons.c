@@ -18,6 +18,8 @@ static InternalState pio_encode(uint16 pressed)
 	switch(pressed)
 	{
 		case (1UL<<0) : return sMFB;
+		case (1UL<<1) : return sVUP;
+		case (1UL<<2) : return sVDN;
 		default : return Unknown;
 	}
 }
@@ -43,14 +45,21 @@ typedef struct
 /* Messages sent on state entry */
 static const EnterMessage enter_messages_sMFB[] = { { 0, 1, 800, 0, BUTTON_DEVICE_DISCOVER_REQ } };
 
-static const EnterMessage enter_messages_sVREG[] = { { 1, 0, 0, 1, BUTTON_PWR_OFF_REQ } };
+static const EnterMessage enter_messages_sVREG[] = { { 0, 0, 0, 1, BUTTON_PWR_ON_REQ },
+												{ 1, 0, 0, 1, BUTTON_PWR_OFF_REQ } };
+
+static const EnterMessage enter_messages_sVUP[] = { { 0, 0, 0, 0, VOLUME_UP } };
+
+static const EnterMessage enter_messages_sVDN[] = { { 0, 0, 0, 0, VOLUME_DN } };
 
 static const struct
 {
 	uint16 count; const EnterMessage *send;
 } enter_messages[] = {
 	{ 1, enter_messages_sMFB },
-	{ 1, enter_messages_sVREG }
+	{ 2, enter_messages_sVREG },
+	{ 1, enter_messages_sVUP },
+	{ 1, enter_messages_sVDN }
 };
 
 static void send_pio_enter_messages(PioState *pioState, InternalState state)
@@ -150,14 +159,6 @@ typedef struct
 	MessageId id;
 } TimedMessage;
 
-static const TimedMessage timed_messages_sMFB[] =
-{
-	{ 0, 10000, 0, 0, 0, BUTTONS_CLEAR_PDL_REQ }
-};
-static const TimedMessage timed_messages_sVREG[] =
-{
-	{ 0, 4000, 0, 0, 1, BUTTON_PWR_RELEASE }
-};
 
 static const struct
 {
@@ -165,8 +166,10 @@ static const struct
 	const TimedMessage *send;
 } timed_messages[] =
 {
-	{ 1, timed_messages_sMFB },
-	{ 1, timed_messages_sVREG }
+	{ 0, 0 },
+	{ 0, 0 },
+	{ 0, 0 },
+	{ 0, 0 }
 };
 
 static void send_pio_timed_message(PioState *pioState, const TimedMessage *p, int hold_repeat)
@@ -446,12 +449,12 @@ void pioInit(PioState *pioState, Task client)
 	pioState->ext_states.pio_raw_bits = 0;
 
 	(void) MessagePioTask(&pioState->task);
-	PioDebounce((1UL<<0), 2, 20);
+	PioDebounce((1UL<<0)|(1UL<<1)|(1UL<<2), 2, 20);
 
 	(void) MessageChargerTask(&pioState->task);
 	ChargerDebounce(CHARGER_CONNECT_EVENT|CHARGER_VREG_EVENT, 4, 15);
 
-	m->state = pio_get & ((1UL<<0));
+	m->state = pio_get & ((1UL<<0)|(1UL<<1)|(1UL<<2));
 	m->time  = 0;
 	MessageSend(&pioState->task, MESSAGE_PIO_CHANGED, m);
 	n->charger_connected = chg_en;

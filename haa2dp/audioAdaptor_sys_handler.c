@@ -16,6 +16,7 @@ DESCRIPTION
 #include <string.h>
 #include <panic.h>
 #include <stdlib.h>
+#include <codec.h>
 
 
 #define VISTA_MSG_FILTER_DELAY 125    /* Used to filter DSP messages caused by Skype on Vista "blipping" mic stream */
@@ -58,20 +59,6 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 
             break;
         }
-#endif        
-        case BUTTON_DEVICE_DISCOVER_REQ:
-        {
-            DEBUG(("BUTTON_DEVICE_DISCOVER_REQ\n"));
-            /* If it is clearing pdl, no discovering attempts are allowed */
-            if (!the_app->clearing_pdl && the_app->audioAdaptorPoweredOn)
-            {
-                MAKE_APP_MESSAGE(APP_DEVICE_DISCOVER_REQ);
-                message->disconnect_current = TRUE;
-                MessageSend(&the_app->task, APP_DEVICE_DISCOVER_REQ, message);
-                the_app->PowerOffIsEnabled  = TRUE;
-            }
-            break;
-        }
         case BUTTONS_CLEAR_PDL_REQ:
         {
             DEBUG(("BUTTONS_CLEAR_PDL_REQ\n"));    
@@ -89,20 +76,51 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
             }
             break;
         }
+#endif        
+		case VOLUME_UP:
+			if(the_app->adc_volume < 0x1f)
+			{
+				the_app->adc_volume++;
+				CodecSetInputGain(the_app->codecTask, the_app->adc_volume, left_and_right_ch);
+			}
+			break;
+		case VOLUME_DN:
+			if(the_app->adc_volume > 0x05)
+			{
+				the_app->adc_volume--;
+				CodecSetInputGain(the_app->codecTask, the_app->adc_volume, left_and_right_ch);
+			}
+			break;
+        case BUTTON_DEVICE_DISCOVER_REQ:
+        {
+            DEBUG(("BUTTON_DEVICE_DISCOVER_REQ\n"));
+            /* If it is clearing pdl, no discovering attempts are allowed */
+            if (!the_app->clearing_pdl && the_app->audioAdaptorPoweredOn)
+            {
+                MAKE_APP_MESSAGE(APP_DEVICE_DISCOVER_REQ);
+                message->disconnect_current = TRUE;
+                MessageSend(&the_app->task, APP_DEVICE_DISCOVER_REQ, message);
+                the_app->PowerOffIsEnabled  = TRUE;
+            }
+            break;
+        }
         case BUTTON_PWR_OFF_REQ:
         {
             DEBUG(("BUTTON_PWR_OFF_REQ\n"));
-			break;
             if (the_app->audioAdaptorPoweredOn)
             {
                 MessageSend(&the_app->task, APP_POWEROFF_REQ, NULL);
             }
-            else
+			break;
+		case BUTTON_PWR_ON_REQ:
+            DEBUG(("BUTTON_PWR_ON_REQ\n"));
+            if (!the_app->audioAdaptorPoweredOn)
             {
                 MessageSend(&the_app->task, APP_POWERON_REQ, NULL);
             }                
             break;
         }
+#if 0        
         case BUTTON_PWR_RELEASE:
         {
             DEBUG(("BUTTON_PWR_RELEASE\n"));
@@ -112,7 +130,6 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
             }
             break;
         }
-#if 0        
         case BUTTON_CONNECT_SECOND_DEVICE_REQ:
         {
 #ifdef DUAL_STREAM

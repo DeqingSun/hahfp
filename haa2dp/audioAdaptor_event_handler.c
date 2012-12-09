@@ -631,7 +631,7 @@ static void handleAppInitCfm(void)
             /* Automatically power on connection of audio adaptor as soon as init is complete */
             profileSlcStartConnectionProcess();
             
-            if (chargerIsConnected())
+/*            if (chargerIsConnected())*/
             {
                 the_app->PowerOffIsEnabled = TRUE;
             }
@@ -693,7 +693,7 @@ static void handleAppPowerOffReq(void)
 
         /* Now just waiting for switch off */
         /* Set a timeout so that we will turn off eventually anyway */
-        MessageSendLater ( &the_app->task , APP_LIMBO_TIMEOUT , 0 , D_SEC(5) ) ;
+        MessageSendLater ( &the_app->task , APP_LIMBO_TIMEOUT , 0 , D_SEC(3) ) ;
         
         /* Reset the power on/off flags */
         the_app->PowerOffIsEnabled     = FALSE;

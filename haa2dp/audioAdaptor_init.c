@@ -182,7 +182,7 @@ void initCodec(void)
 #else
     CodecInitCsrInternal( &the_app->task ) ;
 #endif
-    
+    the_app->adc_volume = 0x10;	/* default value */
 }
 
 

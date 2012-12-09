@@ -62,8 +62,9 @@ void codecMsgHandleLibMessage(MessageId id, Message message )
             if(((CODEC_INIT_CFM_T *)message)->status == codec_success)
             {   
         #ifdef ENABLE_EXTERNAL_ADC
-                CodecSetInputGain(the_app->codecTask, 0x1f, left_and_right_ch);
+                CodecSetInputGain(the_app->codecTask, the_app->adc_volume, left_and_right_ch);
         #endif
+				CodecSetInputGain(the_app->codecTask, the_app->adc_volume, left_and_right_ch);
                 CodecEnable(the_app->codecTask);
             }
             else

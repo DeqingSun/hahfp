@@ -564,7 +564,7 @@ typedef struct
     
     uint32          a2dp_sample_rate;               /*!< A2DP Sample Rate */
     
-    uint16          speaker_volume;        /* The value we got in the most recent AGHFP_SYNC_SPEAKER_VOL_IND */
+    uint16          adc_volume;
     uint16          pskey_sbc_codec_config;
     uint16          pskey_mp3_codec_config;
     uint16          pskey_faststream_codec_config;

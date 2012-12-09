@@ -11,9 +11,10 @@
 enum
 {
 	BUTTON_DEVICE_DISCOVER_REQ = 1000 /* base value */,
-	BUTTONS_CLEAR_PDL_REQ,
-	BUTTON_PWR_RELEASE,
+	BUTTON_PWR_ON_REQ,
 	BUTTON_PWR_OFF_REQ,
+	VOLUME_UP,
+	VOLUME_DN,
 	CHARGER_RAW,
 	PIO_RAW
 };
@@ -22,6 +23,8 @@ typedef enum
 {
 	sMFB,
 	sVREG,
+	sVUP,
+	sVDN,
 	Unknown
 } InternalState;
 

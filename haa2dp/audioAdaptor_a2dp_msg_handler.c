@@ -689,7 +689,6 @@ static void handleA2DPOpenCfm(devInstanceTaskData *inst, A2DP_OPEN_CFM_T *msg)
                     audio adaptor to be connected    */
                     profileSlcConnectCfm(inst, ProfileA2dp, FALSE);
                 }
-                else
                 {
                     /* Kick off streaming if no VOIP call active */
                     eventHandleSendKickCommActionMessage(CommActionStream);                    
@@ -908,7 +907,6 @@ static void handleA2DPConnectOpenCfm(devInstanceTaskData *inst, A2DP_CONNECT_OPE
                 {
                     profileSlcConnectCfm(inst, ProfileA2dp, TRUE);
                 }
-                else
                 {
                     /* Kick off streaming if no VOIP call active */
                     eventHandleSendKickCommActionMessage(CommActionStream);       
