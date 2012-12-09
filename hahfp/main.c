@@ -1164,7 +1164,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				else
 				{
 					PioSetDir32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
-					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS2);
+					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS1);
 				}
 			}
 			else
@@ -1172,7 +1172,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				if(theHeadset.ha_tune == 0)
 				{
 					PioSetDir32(PIO_MS2 | PIO_MS1, PIO_MS2 | PIO_MS1);
-					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS1);
+					PioSet32(PIO_MS2 | PIO_MS1, PIO_MS2);
 				}
 				else
 				{

@@ -581,13 +581,12 @@ void stateManagerPowerOn( void )
 
 		/* go into ha mode */
 		theHeadset.ha_mode = mode_ha_only;
+		MessageSend(&theHeadset.task,EventTuneChanged,0);
     	MessageSend(&theHeadset.task, EventModeHaOnly, 0);
 		
     	if ( theHeadset.PIO->PowerOnPIO !=0xF )
     	{
         	PioSetPio ( theHeadset.PIO->PowerOnPIO , TRUE) ;
-        	PioSetPio ( (1<<10) , FALSE) ;	/* MS1 */
-        	PioSetPio ( (1<<11) , FALSE) ;	/* MS2 */
     	}
 		
 		/* Reset sec mode config - always turn off debug keys on power on! */

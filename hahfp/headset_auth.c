@@ -184,7 +184,7 @@ RETURNS
 void headsetHandleIoCapabilityInd(const CL_SM_IO_CAPABILITY_REQ_IND_T* ind)
 {	
 	/* If not pairable should reject */
-	if(1 /*AuthCanHeadsetPair()*/)
+	if(AuthCanHeadsetPair())
 	{
 		cl_sm_io_capability local_io_capability = theHeadset.features.ManInTheMiddle ? cl_sm_io_cap_display_yes_no : cl_sm_io_cap_no_input_no_output;
 		

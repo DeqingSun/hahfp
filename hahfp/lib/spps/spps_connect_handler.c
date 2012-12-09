@@ -107,6 +107,14 @@ static void sppsConnectionHandler(Task task, MessageId id, Message message)
         case CL_RFCOMM_CONTROL_IND:
             sppForwardRfcommControlInd(spp, (CL_RFCOMM_CONTROL_IND_T*)message);
             break;
+			
+		case MESSAGE_MORE_DATA:
+			sppForwardMessageMoreData(spp, (MessageMoreData *)message);
+			break;
+			
+		case MESSAGE_MORE_SPACE:
+			sppForwardMessageMoreSpace(spp, (MessageMoreSpace *)message);
+			break;
 
         default:
             sppHandleUnexpectedMsg(spp->c.state, id);
