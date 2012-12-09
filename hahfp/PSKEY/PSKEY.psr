@@ -1,0 +1,244 @@
+//This file contains the common system keys that are needed 
+
+// PSKEY_HOST_INTERFACE - none
+&01f9 = 0000
+
+// PSKEY_HCI_NOP_DISABLE - disable the hci nop event
+&00f2 = 0001
+
+// PSKEY_HOSTIO_MAP_SCO_PCM - map sco over pcm
+&01ab = 0001
+
+// PSKEY_HOSTIO_MAP_SCO_CODEC - use internal codec
+&01b0 = 0001
+
+// PSKEY_ANA_FREQ - generally either 16Mhz (3e80) or 26Mhz (6590)
+&01fe=6590
+
+// PSKEY_PIO_PROTECT_MASK - enable application to access all pios
+&0202 = 0000
+
+// PSKEY_DEEP_SLEEP_STATE - Always use deep sleep when available
+&0229 = 0001
+
+// PSKEY_USE_EXTERNAL_CLOCK - don't use external clock
+&023b = 0000
+
+// PSKEY_CLOCK_REQUEST_ENABLE - don't use external clock
+&0246 = 0000
+
+// PSKEY_BCSP_LM_MODE_PS_BLOCK - enable link establishment 
+&0192 = 0001 0000 00fa
+
+// PSKEY_PCM_MIN_CPU_CLOCK - 16Mhz (full rate)
+&024D = 0000
+
+// PSKEY_ONCHIP_HCI_CLIENT - true
+&03cc = 0001
+
+// PSKEY_FIXED_PIN
+&035b = 0030 0030 0030 0030
+
+// PSKEY_VREG_EN_DEEP_SLEEP_LEVEL (either level)
+&21bc = 0002
+
+
+//config required for 32M operation
+//GBL_CLK_RATE2 
+&038C = 0001 
+
+//PROG_WAIT_STATES 
+&03A2 = 0002 
+ 
+//PROG_ADAPTIVE_WAIT_EN 
+&21EC = 0000 
+
+//PSKEY_CODEC_PIO
+&01b9 = 00FE
+
+//PSKEY_MIC_BIAS_PIN_VOLTAGE
+&01e8 = 000B
+ 
+//PSKEY_MIC_BIAS_PIN_CURRENT
+&01e9 = 0007 
+
+//PSKEY_INITIAL_BOOTMODE
+&03cd = 0001
+
+//PSKEY_INITIAL_PIO_STATE
+&03B5 -
+
+//PSKEY_CHARGER_CURRENT
+&039B = 000F
+
+//PSKEY_CHARGER_TRIM
+&03B7 = 000C
+
+// PSKEY_HOST_INTERFACE_PIO_USB
+&0250 = 0000
+// --------MODE0-------------------------------------------------------- 
+// BOOTMODE_KEY_LIST_0: Overwrite :
+//                                HOST_INTRFACE  (1F9)
+//								  VM_DISABLE     (25D)
+//                                USB_VM_CONTROL (3C0)
+//                                USB PRODUCT ID (01be)  
+&04B0 = 01F9 025D 03C0 02bf 03b5
+// 
+// BOOTMODE_KEY_TABLE_0+0: PSKEY_HOST_INTERFACE = USB
+&04B8 = 0002
+// BOOTMODE_KEY_TABLE_0+1: PSKEY_VM_DISABLE = TRUE
+&04B9 = 0001
+// BOOTMODE_KEY_TABLE_0+3: PSKEY_USB_VM_CONTROL = false
+&04BA = 0000
+//  BOOTMODE_KEY_TABLE_0+4: USB PID = 0xffff (DFU)
+&04BB = ffff
+//BOOTMODE_KEY_TABLE_0+5: Initial STate of PIO pins (LEDS on)
+&04BC = 0804 0804 0804 0000
+
+// --------MODE1-------------------------------------------------------- 
+// BOOTMODE_KEY_LIST_1: 
+//                                HOST_INTRFACE (1F9)
+//                                UART BAUD RATE (01be)  
+&04B1 = 01F9 01be
+// 
+// BOOTMODE_KEY_TABLE_0+0: PSKEY_HOST_INTERFACE = NONE
+&04f8 = 0000
+//  BOOTMODE_KEY_TABLE_0+1: UART BAUD RATE 9600 (min clock speed)
+&04f9 = 0027
+
+
+// ********************   EXAMPLE CVC CONFIGURATION    ********************//
+// *********** Immediate Failure with Invalid CVC security key ************//
+//
+// IMPORTANT - PLEASE READ
+//
+//
+// IT IS YOUR RESPONSIBILITY TO ENSURE THAT THIS KEY FILE IS THE VALID AND
+// PROPER KEY FILE TO BE USED WITH YOUR VERSION OF CVC IN YOUR SYSTEM.
+// PLEASE TEST AS NECESSARY TO ENSURE THIS IS THE CASE. IF YOU ENCOUNTER
+// DIFFICULTIES PLEASE CONTACT CSR BEFORE THE KEY FILE/CVC IS IMPLEMENTED
+// INTO PRODUCT.
+//
+// TO THE FULLEST EXTENT PERMITTED BY LAW CSR ACCEPTS NO RESPONSIBILITY
+// AND/OR LIABILITY FOR THE ATTEMPTED USE OF INCOMPATBLE KEY FILES WITH CVC.
+//
+// Notes: 
+//
+// GENERAL:
+// If this psr file is used as is without a valid cvc security key the
+// cvc will promptly mute the audio and switch to standby.
+//
+//
+// DEFAULT:        
+// This example setting is used for best performance. All cvc major modules are 
+// enabled. Product tuning is required to achieve maximum performance.
+//
+//**************************************************************************************//
+
+// PSKEY_DSP40 = CVC Configuration
+&2280 = 2280 0000 0095 8C20 0000 E206 8009 0000 8009 800C 0000 0000 0000 0000 0000 0000 0000 0020 0000 800C 0800 4000 26E6
+
+//***************************************************************************************//
+// PLEASE OBTAIN VALID CVC SECURITY KEY FROM CSR SALES OFFICE
+// PSKEY_DSP48 = CVC Security Key location
+// &2288 = xxxx xxxx xxxx xxxx xxxx 
+// THE VALID SECURITY KEY CAN ALSO BE ENTERED USING THE PARAMETER MANAGER TOOL TO THE
+// ABOVE LOCATION. REMEMBER TO RESET THE DSP TO APPLY THE CHANGES. 
+//***************************************************************************************//
+
+// PSKEY_BDADDR for CVC evaluation
+//&0001 = 0000 ff01 005b 0002
+
+// PSKEY_DSP48 = CVC License key
+&2288 = 3465 A979 BC24 886D 40FF
+
+#######################################
+## BC HS Configurator                ##
+## Generated PSR File                ##
+## Version = STEREO 2010 SDK         ##
+#######################################
+
+//USR  0 - PSKEY_BATTERY_CONFIG             
+&028a =  8791 9BA5 AF14 78D1 0000 0000 0032 0000
+
+//USR  1 - PSKEY_BUTTON_CONFIG              
+&028b =  01F4 07D0 0FA0 0320 1F40 0000
+
+//USR  2 - PSKEY_BUTTON_PATTERN_CONFIG      
+&028c - 
+
+//USR  4 - PSKEY_INPUT_PIO_BLOCK            
+&028e - 
+
+//USR  5 - PSKEY_HFP_1_5_SUPPORTED_FEATURES 
+&028f - 
+
+//USR  6 - PSKEY_TIMEOUTS                   
+&0290 =  0000 0003 000A 0001 0078 000A 0000 0000 0000 000F 003C 0000 0064 0005 0005 003C
+
+//USR  7 - PSKEY_TRI_COLOUR_LEDS            
+&0291 - 
+
+//USR  9 - PSKEY_LENGTHS                    
+&0293 =  0000 0001 0009 000B 0005 0027 0000 0000
+
+//USR 11 - PSKEY_TTS_CONFIG                 
+&0295 - 
+
+//USR 13 - PSKEY_RADIO_CONFIG               
+&0297 - 
+
+//USR 15 - PSKEY_FEATURE_BLOCK              
+&0299 =  12B4 1000 01E7 03A1 1C00 AA00
+
+//USR 16 - PSKEY_SPEAKER_GAIN_MAPPING       
+&029a - 
+
+//USR 17 - PSKEY_HFP_OAR_PARAMETERS         
+&029b =  0003 00B2 0001 0040 0005 0A0A 0000
+
+//USR 18 - PSKEY_LED_FILTERS                
+&029c - 
+
+//USR 19 - PSKEY_USER_TONES                 
+&029d - 
+
+//USR 20 - PSKEY_LED_STATES                 
+&029e - 
+
+//USR 22 - PSKEY_LED_EVENTS                 
+&02a0 - 
+
+//USR 23 - PSKEY_EVENTS_A                   
+&02a1 =  0106 0000 4001 0207 0000 7FFE 0304 0001 4007 1C08 0001 4007 0B01 0002 6F7E 4A02 0002 7F7E 0C01 0004 6F7E 4B02 0004 7F7E 0000 0000 0000 0608 0001 4020 0909 0001 5040 0000 0000 0000 0709 0001 4020 0509 0001 400E 0808 0001 5050 2206 0000 9FFF 2307 0000 9FFF 0000 0000 0000 0E04 0001 4300 0F08 0001 4500 9102 0100 7F7E 0000 0000 0000 3602 0001 5F78 0000 0000 0000 0000 0000 0000
+
+//USR 24 - PSKEY_EVENTS_B                   
+&02a2 =  1002 0002 4300 1101 0003 0200 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+
+//USR 25 - PSKEY_RSSI                       
+&02a3 - 
+
+//USR 26 - PSKEY_TONES                      
+&02a4 =  FF1D 1702 010B 020C 1C14 1612 030D 0502 060D 070E 0802 141A 280E 290D 2A1A 0902 0402 623A 633B 6917 FE56 0D46 2616 0E02 0F02 1002 1102 1202 3A02 3B0D 3C0E 1A18 7214 7312 7412 8950 8F0D 900E 3607
+
+//USR 27 - PSKEY_PIO_BLOCK                  
+&02a5 =  FFFF 3FFF
+
+//USR 29 - PSKEY_ENERGY_PARAMS              
+&02a7 - 
+
+//USR 30 - PSKEY_ONE_TOUCH_DIAL             
+&02a8 =  0001 0000
+
+//USR 31 - PSKEY_CONFIGURATION_ID           
+&02a9 =  0000
+
+//PSKEY_CODEC_PIO - MIC BIAS                
+&01b9 =  00FE
+
+//PSKEY_LOCAL_DEVICE_NAME                   
+&0108 =  4148 4648 0050
+
+
+
+

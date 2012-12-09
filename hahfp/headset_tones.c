@@ -42,11 +42,13 @@ VARIABLES
  */
 /****************************************************************/
 
+#define TONE_VOLUME	16
+
  
  /*Vol Min*/
 static const ringtone_note tone_B[] =
 {
-    RINGTONE_TEMPO(200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(G5,   CROTCHET), 
     
@@ -55,7 +57,7 @@ static const ringtone_note tone_B[] =
  /*Vol 2*/
 static const ringtone_note tone_C[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C6, SEMIBREVE), 
     
@@ -64,7 +66,7 @@ static const ringtone_note tone_C[] =
  /*Vol 3*/
 static const ringtone_note tone_D[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E6, SEMIBREVE), 
     
@@ -73,7 +75,7 @@ static const ringtone_note tone_D[] =
  /*Vol 4*/
 static const ringtone_note tone_E[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(G6, SEMIBREVE), 
     
@@ -82,7 +84,7 @@ static const ringtone_note tone_E[] =
  /*Vol 5*/
 static const ringtone_note tone_F[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(AS6, SEMIBREVE), 
     
@@ -91,7 +93,7 @@ static const ringtone_note tone_F[] =
  /*Vol 6*/
 static const ringtone_note tone_G[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C7, SEMIBREVE), 
     
@@ -100,7 +102,7 @@ static const ringtone_note tone_G[] =
  /*Vol 7*/
 static const ringtone_note tone_H[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(D7, SEMIBREVE), 
     
@@ -109,7 +111,7 @@ static const ringtone_note tone_H[] =
  /*Vol 8*/
 static const ringtone_note tone_I[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E7, SEMIBREVE), 
     
@@ -118,7 +120,7 @@ static const ringtone_note tone_I[] =
  /*Vol 9*/
 static const ringtone_note tone_J[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(FS7, SEMIBREVE), 
     
@@ -127,7 +129,7 @@ static const ringtone_note tone_J[] =
  /*Vol 10*/
 static const ringtone_note tone_K[] =
 {
-    RINGTONE_TEMPO(200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(GS7, CROTCHET), 
         
@@ -138,7 +140,7 @@ static const ringtone_note tone_K[] =
 /*4 note rising scale*/
 static const ringtone_note tone_L[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(GS4, CROTCHET),
     RINGTONE_NOTE(REST,DEMISEMIQUAVER),
@@ -153,7 +155,7 @@ static const ringtone_note tone_L[] =
 /*4 note falling scale*/
 static const ringtone_note tone_M[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C6, CROTCHET),
     RINGTONE_NOTE(REST,DEMISEMIQUAVER),
@@ -168,7 +170,7 @@ static const ringtone_note tone_M[] =
 /*2 tone rising scale*/    
 static const ringtone_note tone_N[] =
 {
-    RINGTONE_TEMPO(150), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(150), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E6, QUAVER),
     RINGTONE_NOTE(REST,DEMISEMIQUAVER),
@@ -179,7 +181,7 @@ static const ringtone_note tone_N[] =
 /*2 tone falling scale*/
 static const ringtone_note tone_O[] =
 {
-    RINGTONE_TEMPO(150), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(150), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A6, QUAVER),
     RINGTONE_NOTE(REST,DEMISEMIQUAVER),
@@ -190,7 +192,7 @@ static const ringtone_note tone_O[] =
 /*long low followed by short high*/
 static const ringtone_note tone_P[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, SEMIQUAVER),
     RINGTONE_NOTE(G5, SEMIBREVE),
@@ -202,7 +204,7 @@ static const ringtone_note tone_P[] =
 /*connection*/
 static const ringtone_note tone_Q[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, CROTCHET),
     RINGTONE_NOTE(GS7 , SEMIBREVE),
@@ -213,7 +215,7 @@ static const ringtone_note tone_Q[] =
 /*power*/
 static const ringtone_note tone_R[] =
 {
-    RINGTONE_TEMPO(120), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(120), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, HEMIDEMISEMIQUAVER),
     RINGTONE_NOTE(GS7 , CROTCHET),
@@ -225,7 +227,7 @@ static const ringtone_note tone_R[] =
 /*error*/
 static const ringtone_note tone_S[] =
 {
-    RINGTONE_TEMPO(120), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(120), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, HEMIDEMISEMIQUAVER),
     RINGTONE_NOTE(G5 , CROTCHET),
@@ -236,7 +238,7 @@ static const ringtone_note tone_S[] =
 /*short cfm*/
 static const ringtone_note tone_T[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, CROTCHET),
     RINGTONE_NOTE(G6 , SEMIBREVE),
@@ -247,7 +249,7 @@ static const ringtone_note tone_T[] =
 /*long cfm*/
 static const ringtone_note tone_U[] =
 {
-    RINGTONE_TEMPO(150), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(150), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, HEMIDEMISEMIQUAVER),
     RINGTONE_NOTE(G6 , MINIM),
@@ -259,7 +261,7 @@ static const ringtone_note tone_U[] =
 /*Batt Low*/
 static const ringtone_note tone_V[] =
 {
-    RINGTONE_TEMPO(120), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(120), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, HEMIDEMISEMIQUAVER),
     RINGTONE_NOTE(G6 , CROTCHET),
@@ -270,7 +272,7 @@ static const ringtone_note tone_V[] =
 /*Pair removal*/
 static const ringtone_note tone_W[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, QUAVER_TRIPLET),
     RINGTONE_NOTE(G5 , MINIM_TRIPLET),  
@@ -283,7 +285,7 @@ static const ringtone_note tone_W[] =
 /*Double*/
 static const ringtone_note tone_X[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, QUAVER_TRIPLET),
     RINGTONE_NOTE(G6 , MINIM_TRIPLET),  
@@ -304,7 +306,7 @@ static const ringtone_note tone_X[] =
 
 static const ringtone_note battery_low_tone[] =
 {
-    RINGTONE_TEMPO(240), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(240), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E6, QUAVER),
     RINGTONE_NOTE(AS6, QUAVER),
@@ -317,18 +319,18 @@ static const ringtone_note battery_low_tone[] =
 
 static const ringtone_note low_500ms_tone[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     RINGTONE_NOTE(REST, SEMIQUAVER),
-    RINGTONE_TEMPO(120), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(120), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     RINGTONE_NOTE(G5, CROTCHET),
     RINGTONE_END
 };
 
 static const ringtone_note mute_reminder_tone[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     RINGTONE_NOTE(REST, SEMIQUAVER),
-    RINGTONE_TEMPO(120), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(120), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     RINGTONE_NOTE(G5, CROTCHET),
     RINGTONE_NOTE(REST, CROTCHET),
     RINGTONE_NOTE(G5, CROTCHET),
@@ -344,7 +346,7 @@ static const ringtone_note mute_reminder_tone[] =
 
 static const ringtone_note ring_twilight[] =
 {
-    RINGTONE_TEMPO(180), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(180), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E7, QUAVER),
     RINGTONE_NOTE(F7, QUAVER),
@@ -363,7 +365,7 @@ static const ringtone_note ring_twilight[] =
 
 static const ringtone_note ring_g_s_t_q[] =
 {
-    RINGTONE_TEMPO(230), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(230), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE  (G7, CROTCHET), 
     RINGTONE_NOTE  (G7, CROTCHET),
@@ -392,7 +394,7 @@ static const ringtone_note ring_g_s_t_q[] =
 
 static const ringtone_note ring_valkyries[] =
 {
-    RINGTONE_TEMPO(240), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(240), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E5,QUAVER),                                    
     RINGTONE_NOTE_TIE(E5,SEMIQUAVER),                                                
@@ -417,7 +419,7 @@ static const ringtone_note ring_valkyries[] =
 
 static const ringtone_note ring_greensleeves[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
               
     RINGTONE_NOTE(F6,CROTCHET),                                  
     RINGTONE_NOTE(AF6,MINIM),                                            
@@ -438,7 +440,7 @@ static const ringtone_note ring_greensleeves[] =
 
 static const ringtone_note ring_two_beeps[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),                
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),                
 
     RINGTONE_NOTE(B5,SEMIQUAVER),                                    
     RINGTONE_NOTE(G5,SEMIQUAVER),                                    
@@ -460,7 +462,7 @@ static const ringtone_note ring_two_beeps[] =
 
 static const ringtone_note ring_fairground[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),            
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),            
 
     RINGTONE_NOTE(E6,CROTCHET),                                  
     RINGTONE_NOTE(D6,CROTCHET),                                          
@@ -480,7 +482,7 @@ static const ringtone_note ring_fairground[] =
 
 static const ringtone_note ring_counterpoint[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E6,CROTCHET),                                  
     RINGTONE_NOTE(D6,CROTCHET),                                          
@@ -497,7 +499,7 @@ static const ringtone_note ring_counterpoint[] =
 
 static const ringtone_note ring_major_arp[] =
 {
-    RINGTONE_TEMPO(220), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(220), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E5,QUAVER),                                    
     RINGTONE_NOTE(AF5,QUAVER),                                           
@@ -513,7 +515,7 @@ static const ringtone_note ring_major_arp[] =
 
 static const ringtone_note ring_major_scale[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E6,QUAVER),                                    
     RINGTONE_NOTE(FS6,QUAVER),                                           
@@ -529,7 +531,7 @@ static const ringtone_note ring_major_scale[] =
 
 static const ringtone_note ring_minor_arp[] =
 {
-    RINGTONE_TEMPO(220), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(220), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E5,QUAVER),                                    
     RINGTONE_NOTE(G5,QUAVER),                                            
@@ -547,7 +549,7 @@ static const ringtone_note ring_minor_arp[] =
 
 static const ringtone_note ring_harmonic_minor_scale[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E5,QUAVER),                                    
     RINGTONE_NOTE(FS5,QUAVER),                                           
@@ -565,7 +567,7 @@ static const ringtone_note ring_harmonic_minor_scale[] =
 
 static const ringtone_note ring_more_than_a_feeling[] =
 {
-    RINGTONE_TEMPO(200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(D6,QUAVER),                                    
     RINGTONE_NOTE(A6,QUAVER),                                            
@@ -582,7 +584,7 @@ static const ringtone_note ring_more_than_a_feeling[] =
 
 static const ringtone_note ring_eight_beeps[] =
 {
-    RINGTONE_TEMPO(200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(B5,QUAVER),                                    
     RINGTONE_NOTE(B5,QUAVER),                    
@@ -600,7 +602,7 @@ static const ringtone_note ring_eight_beeps[] =
 
 static const ringtone_note ring_four_beeps[] =
 {
-    RINGTONE_TEMPO(180), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(180), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
            
     RINGTONE_NOTE(B5,QUAVER),                                    
     RINGTONE_NOTE(B5,QUAVER),                    
@@ -615,7 +617,7 @@ static const ringtone_note ring_four_beeps[] =
 
 static const ringtone_note ring_bumble_bee[] =
 {
-    RINGTONE_TEMPO(70), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(70), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E7,DEMISEMIQUAVER),                                    
 
@@ -655,7 +657,7 @@ static const ringtone_note ring_bumble_bee[] =
 
 static const ringtone_note ring_aug_scale[] =
 {
-    RINGTONE_TEMPO(280), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(280), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E6,CROTCHET),                                  
     RINGTONE_NOTE(CS7,CROTCHET),                                         
@@ -669,7 +671,7 @@ static const ringtone_note ring_aug_scale[] =
 
 static const ringtone_note ring_dim_scale[] =
 {
-    RINGTONE_TEMPO(280), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(280), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
 
     RINGTONE_NOTE(E6,CROTCHET),                                  
     RINGTONE_NOTE(G6,CROTCHET),                                          
@@ -683,7 +685,7 @@ static const ringtone_note ring_dim_scale[] =
 static const ringtone_note CustomRingTone[] =
 {
     /* A sample custom ring tone */
-    RINGTONE_TEMPO(280), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(280), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     RINGTONE_NOTE(E6,CROTCHET),                                  
     RINGTONE_NOTE(G6,CROTCHET),                                          
     RINGTONE_NOTE(AS6,CROTCHET),                         
@@ -696,7 +698,7 @@ static const ringtone_note CustomRingTone[] =
 /*4 low to high 38ms*/
 static const ringtone_note tone_A1[] =
 {
-    RINGTONE_TEMPO(1600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(G5 , CROTCHET),
     RINGTONE_NOTE(D6 , CROTCHET),
@@ -708,7 +710,7 @@ static const ringtone_note tone_A1[] =
 /*4 high to low 38ms*/
 static const ringtone_note tone_A2[] =
 {
-    RINGTONE_TEMPO(1600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(B5 , CROTCHET),
     RINGTONE_NOTE(G6 , CROTCHET),
@@ -722,7 +724,7 @@ static const ringtone_note tone_A2[] =
 /*no-network-service tone - 880 Hz for 100ms*/
 static const ringtone_note tone_A3[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     RINGTONE_NOTE(B5, CROTCHET),
 
     RINGTONE_END
@@ -731,7 +733,7 @@ static const ringtone_note tone_A3[] =
 /*series of 5 high tones 94 ms*/
 static const ringtone_note tone_A4[] =
 {
-    RINGTONE_TEMPO(640), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(640), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(B6 , CROTCHET),
     RINGTONE_NOTE(B6 , CROTCHET),
@@ -745,7 +747,7 @@ static const ringtone_note tone_A4[] =
 /*low to high 100ms tones 50ms pause*/
 static const ringtone_note tone_A5[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(DS7  , CROTCHET),
     RINGTONE_NOTE(REST , QUAVER),
@@ -757,7 +759,7 @@ static const ringtone_note tone_A5[] =
 /*high to low 100ms tones 50ms pause*/
 static const ringtone_note tone_A6[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(G7   , CROTCHET),
     RINGTONE_NOTE(REST , QUAVER),
@@ -771,7 +773,7 @@ static const ringtone_note tone_A6[] =
     /*short v high 2400hz*/
 static const ringtone_note tone_S1[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(DS8   , CROTCHET),
     
@@ -781,7 +783,7 @@ static const ringtone_note tone_S1[] =
 /*series(12) of high / higher beeps*/
 static const ringtone_note tone_S2[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(B6   , CROTCHET),
     RINGTONE_NOTE(G8   , CROTCHET),    
@@ -801,7 +803,7 @@ static const ringtone_note tone_S2[] =
     /*short middle (987)  */
 static const ringtone_note tone_S3[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(B6  , CROTCHET),
     
@@ -811,7 +813,7 @@ static const ringtone_note tone_S3[] =
     /*series of 5 high beeps with pause*/
 static const ringtone_note tone_S4[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C6  , CROTCHET),
     RINGTONE_NOTE(REST  , CROTCHET),
@@ -835,7 +837,7 @@ static const ringtone_note tone_S4[] =
     /*Low / High beep  */
 static const ringtone_note tone_S5[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(B6  , CROTCHET),
     RINGTONE_NOTE(REST  , CROTCHET),
@@ -846,7 +848,7 @@ static const ringtone_note tone_S5[] =
     /* High / Low beep  */
 static const ringtone_note tone_S6[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(DS8  , CROTCHET),
     RINGTONE_NOTE(REST  , CROTCHET),
@@ -860,7 +862,7 @@ static const ringtone_note tone_S6[] =
 /*Short Middle Tone, 100ms D6*/	
 static const ringtone_note tone_Q21[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER_TRIPLET),
     RINGTONE_NOTE(D6  , MINIM),
@@ -870,7 +872,7 @@ static const ringtone_note tone_Q21[] =
 /*4 Low to High Long at Top, 100ms G5 D6 G6 300ms B6 */
 static const ringtone_note tone_Q22[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER_TRIPLET),
     RINGTONE_NOTE(G5  , CROTCHET_TRIPLET),
@@ -887,7 +889,7 @@ static const ringtone_note tone_Q22[] =
 /*4 High to Low Long at Bottom, 100ms B6 G6 D6 300ms G5 */ 		
 static const ringtone_note tone_Q23[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER_TRIPLET),
     RINGTONE_NOTE(B6  , CROTCHET_TRIPLET),
@@ -904,7 +906,7 @@ static const ringtone_note tone_Q23[] =
 /*3 Note Descending, 300ms G6 D6 G5*/	
 static const ringtone_note tone_Q24[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER_TRIPLET),
     RINGTONE_NOTE(G6  , MINIM),
@@ -920,7 +922,7 @@ static const ringtone_note tone_Q24[] =
 /*5th Down Medium-Long, 300ms D6 500ms G5*/
 static const ringtone_note tone_Q25[] =
 {
-    RINGTONE_TEMPO(200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , DEMISEMIQUAVER_TRIPLET),
     RINGTONE_NOTE(D6  , CROTCHET),
@@ -934,7 +936,7 @@ static const ringtone_note tone_Q25[] =
 /*5th Down Short-Short, 100ms D6 G5*/	
 static const ringtone_note tone_Q26[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , CROTCHET),
     RINGTONE_NOTE(D6  , SEMIBREVE),
@@ -947,7 +949,7 @@ static const ringtone_note tone_Q26[] =
 /*5th Up Short-Short, 100ms G5 D6*/
 static const ringtone_note tone_Q27[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , CROTCHET),
     RINGTONE_NOTE(G5  , SEMIBREVE),
@@ -960,7 +962,7 @@ static const ringtone_note tone_Q27[] =
 /*2 Half Second Low Tones, 500ms G5 REST G5*/
 static const ringtone_note tone_Q28[] =
 {
-    RINGTONE_TEMPO(480), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(480), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER_TRIPLET),
     RINGTONE_NOTE(G5  , SEMIBREVE),
@@ -973,7 +975,7 @@ static const ringtone_note tone_Q28[] =
 /*Short High Tone, 100ms G7*/
 static const ringtone_note tone_Q29[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , CROTCHET),
     RINGTONE_NOTE(G7  , SEMIBREVE),
@@ -984,7 +986,7 @@ static const ringtone_note tone_Q29[] =
 /*Long Low Tone, 400ms G5*/
 static const ringtone_note tone_Q2A[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER),
     RINGTONE_NOTE(G5  , SEMIBREVE),
@@ -995,7 +997,7 @@ static const ringtone_note tone_Q2A[] =
 /*Double Low Tones, 200ms G5 REST G5*/
 static const ringtone_note tone_Q2B[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER),
     RINGTONE_NOTE(G5  , MINIM),
@@ -1009,7 +1011,7 @@ static const ringtone_note tone_Q2B[] =
 
 static const ringtone_note tone_Q2C[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER),
     RINGTONE_NOTE(G6  , MINIM_TRIPLET),
@@ -1024,7 +1026,7 @@ static const ringtone_note tone_Q2C[] =
 
 static const ringtone_note tone_Q2D[] =
 {
-    RINGTONE_TEMPO(600), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(600), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , SEMIQUAVER),
     RINGTONE_NOTE(G7  , MINIM_TRIPLET),
@@ -1038,7 +1040,7 @@ static const ringtone_note tone_Q2D[] =
 /*Fairly Short High Tone, 150ms G7*/
 static const ringtone_note tone_Q2E[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , QUAVER_TRIPLET),
     RINGTONE_NOTE(G7  , MINIM),
@@ -1049,7 +1051,7 @@ static const ringtone_note tone_Q2E[] =
 /*Fairly Short Low Tone, 150ms G5*/
 static const ringtone_note tone_Q2F[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , QUAVER_TRIPLET),
     RINGTONE_NOTE(G5  , MINIM),
@@ -1060,7 +1062,7 @@ static const ringtone_note tone_Q2F[] =
 /*Medium Length Low Tone, 200ms G5*/	
 static const ringtone_note tone_Q210[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , DEMISEMIQUAVER),
     RINGTONE_NOTE(G5  , CROTCHET),
@@ -1072,7 +1074,7 @@ static const ringtone_note tone_Q210[] =
   /*Short Low-High, 80ms G5 G7*/		
 static const ringtone_note tone_Q211[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , MINIM_TRIPLET),
     RINGTONE_NOTE(G5  , SEMIBREVE),
@@ -1085,7 +1087,7 @@ static const ringtone_note tone_Q211[] =
 /*Double Octave Toggle Ring Tone, 50ms G7 G5 G7 G5 G7 G5 Repeat after 250ms*/
 static const ringtone_note tone_Q212[] =
 {
-    RINGTONE_TEMPO(100), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(100), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , HEMIDEMISEMIQUAVER_TRIPLET),
 	RINGTONE_NOTE(G7  , DEMISEMIQUAVER_TRIPLET  ),
@@ -1110,7 +1112,7 @@ static const ringtone_note tone_Q212[] =
 /*Low Low High, 100ms G5 G5 G7*/	
 static const ringtone_note tone_Q213[] =
 {
-    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(2400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST  , CROTCHET),
     RINGTONE_NOTE(G5  , SEMIBREVE),
@@ -1123,7 +1125,7 @@ static const ringtone_note tone_Q213[] =
 /*Double Low Tones (long), 300ms G5 G5*/	
 static const ringtone_note tone_Q214[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(REST, CROTCHET),
     RINGTONE_NOTE(G6 , SEMIBREVE),  
@@ -1136,7 +1138,7 @@ static const ringtone_note tone_Q214[] =
 /*Connected 48mS C6 D6 A6 */		
 static const ringtone_note tone_Q31[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C6, CROTCHET),
     RINGTONE_NOTE(D6, CROTCHET),  
@@ -1148,7 +1150,7 @@ static const ringtone_note tone_Q31[] =
 /*Connected 48mS A6 D6 C6 */		
 static const ringtone_note tone_Q32[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A6, CROTCHET),
     RINGTONE_NOTE(D6, CROTCHET),  
@@ -1160,7 +1162,7 @@ static const ringtone_note tone_Q32[] =
 /*confirmation tone 68mS C5 E5  */		
 static const ringtone_note tone_Q33[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C5, CROTCHET),
     RINGTONE_NOTE(E5, CROTCHET),  
@@ -1171,7 +1173,7 @@ static const ringtone_note tone_Q33[] =
 /*error tone 2 68mS A5 REST A5 */		
 static const ringtone_note tone_Q34[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A5, CROTCHET),
     RINGTONE_NOTE(REST, CROTCHET),  
@@ -1183,7 +1185,7 @@ static const ringtone_note tone_Q34[] =
 /*low batt 2 125mS E6 F5 */		
 static const ringtone_note tone_Q35[] =
 {
-    RINGTONE_TEMPO(480), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(480), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(E6, CROTCHET),
     RINGTONE_NOTE(F5, CROTCHET),  
@@ -1194,7 +1196,7 @@ static const ringtone_note tone_Q35[] =
 /*mute off 2 48mS A5 A4 */		
 static const ringtone_note tone_Q36[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A5, CROTCHET),
     RINGTONE_NOTE(A4, CROTCHET),  
@@ -1205,7 +1207,7 @@ static const ringtone_note tone_Q36[] =
 /*mute on 2 48mS A4 A5 */		
 static const ringtone_note tone_Q37[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A4, CROTCHET),
     RINGTONE_NOTE(A5, CROTCHET),  
@@ -1216,7 +1218,7 @@ static const ringtone_note tone_Q37[] =
 /*single tone 2 48mS A5 */		
 static const ringtone_note tone_Q38[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A5, CROTCHET),  
     
@@ -1226,7 +1228,7 @@ static const ringtone_note tone_Q38[] =
 /*shutdown tone 2 408mS A5, 136mS A4  */		
 static const ringtone_note tone_Q39[] =
 {
-    RINGTONE_TEMPO(300), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(300), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A5, MINIM),  
     RINGTONE_NOTE(A4, CROTCHET),  
@@ -1237,7 +1239,7 @@ static const ringtone_note tone_Q39[] =
 /*phone ring 48mS C6 E6 C6 E6 C6 E6 C6 E6 C6 E6 C6 REST C6 E6 C6 E6 C6 E6 C6 E6 C6 E6 C6 */		
 static const ringtone_note tone_Q3A[] =
 {
-    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(1200), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C6, CROTCHET),  
     RINGTONE_NOTE(E6, CROTCHET),  
@@ -1269,7 +1271,7 @@ static const ringtone_note tone_Q3A[] =
 /*power up tone 83mS C5 10mS REST 83mS E5 10mS REST 83mS G5 10mS REST 124mS B5 498mS REST 372mS C6 */   
 static const ringtone_note tone_Q3B[] =
 {
-    RINGTONE_TEMPO(400), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(400), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C5   , QUAVER),  
     RINGTONE_NOTE(REST , DEMISEMIQUAVER),  
@@ -1288,7 +1290,7 @@ static const ringtone_note tone_Q3B[] =
 /*vol 7/0 68mS A5 REST A5*/   
 static const ringtone_note tone_Q3C[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(A5   , CROTCHET),  
     RINGTONE_NOTE(REST   , CROTCHET),  
@@ -1300,7 +1302,7 @@ static const ringtone_note tone_Q3C[] =
 /*vol 6 68mS DS6*/   
 static const ringtone_note tone_Q3D[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(DS6   , CROTCHET),  
 
@@ -1310,7 +1312,7 @@ static const ringtone_note tone_Q3D[] =
 /*vol 5 68mS D6*/   
 static const ringtone_note tone_Q3E[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(D6   , CROTCHET),  
 
@@ -1320,7 +1322,7 @@ static const ringtone_note tone_Q3E[] =
 /*vol 4 68mS CS6*/   
 static const ringtone_note tone_Q3F[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(CS6   , CROTCHET),  
 
@@ -1330,7 +1332,7 @@ static const ringtone_note tone_Q3F[] =
 /*vol 3 68mS C6 */   
 static const ringtone_note tone_Q40[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(C6   , CROTCHET),  
 
@@ -1340,7 +1342,7 @@ static const ringtone_note tone_Q40[] =
 /*vol 2 68mS B5*/   
 static const ringtone_note tone_Q41[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(B5   , CROTCHET),  
 
@@ -1350,7 +1352,7 @@ static const ringtone_note tone_Q41[] =
 /*vol 1 68mS AS5*/   
 static const ringtone_note tone_Q42[] =
 {
-    RINGTONE_TEMPO(800), RINGTONE_VOLUME(64), RINGTONE_TIMBRE(sine),
+    RINGTONE_TEMPO(800), RINGTONE_VOLUME(TONE_VOLUME), RINGTONE_TIMBRE(sine),
     
     RINGTONE_NOTE(AS5   , CROTCHET),  
 
