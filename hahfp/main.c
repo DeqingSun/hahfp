@@ -1194,7 +1194,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 			MessageSend(task,EventTuneChanged,0);
 			
 			/* if hfp is connected, inform audio change */
-			if(message == NULL)
+			if(message == NULL && theHeadset.ha_mode == mode_normal_bt)
 			{
 				bdaddr ag_addr;
 				if(PsRetrieve(PSKEY_LAST_SPP_SERVER, &ag_addr, sizeof(bdaddr)))
@@ -1577,7 +1577,9 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 
 			MessageSend(task,EventTuneChanged,0);
 
+#if 0	/* don't send mode change event due to APP not connectable if HFP is not connected */
 			/* inform mode change via SPP */
+			if(theHeadset.ha_mode == mode_normal_bt)
 			{
 				bdaddr ag_addr;
 				if(PsRetrieve(PSKEY_LAST_SPP_SERVER, &ag_addr, sizeof(bdaddr)))
@@ -1594,6 +1596,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 					SppConnectRequest(task, &ag_addr, 0,0);					
 				}
 			}
+#endif			
 #if 0		
            MAIN_DEBUG(("HS : Toggle LBIPM\n")) ;
            if(theHeadset.lbipmEnable)
