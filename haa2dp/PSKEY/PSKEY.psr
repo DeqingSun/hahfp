@@ -1,0 +1,124 @@
+// PSKEY_HCI_NOP_DISABLE
+&00f2 = 0001// True
+// PSKEY_DEVICE_NAME
+&0108 = 4148 4648 5f50 5854
+// PSKEY_HOSTIO_MAP_SCO_PCM
+&01ab = 0001// True
+// PSKEY_HOSTIO_MAP_SCO_CODEC
+&01b0 = 0001// True
+// PSKEY_CODEC_PIO
+&01b9 = 00fe// Use hardware Mic Bias pin
+// PSKEY_MIC_BIAS_PIN_VOLTAGE
+&01e8 = 000b
+// PSKEY_MIC_BIAS_PIN_CURRENT
+&01e9 = 0007
+// PSKEY_HOST_INTERFACE
+&01f9 = 0000// No host to chip connection
+// PSKEY_PCM_MIN_CPU_CLOCK
+&024d = 0000// 16 MHz (full rate)
+// PSKEY_HOST_INTERFACE_PIO_USB
+&0250 = 0000
+// PSKEY_FIXED_PIN
+&035b = 0030 0030 0030 0030
+// PSKEY_CHARGER_CURRENT
+&039b = 000f
+// PSKEY_PROG_WAIT_STATES
+&03a2 = 0002
+// PSKEY_CHARGER_TRIM
+&03b7 = 000c
+// PSKEY_ONCHIP_HCI_CLIENT
+&03cc = 0001
+// PSKEY_INITIAL_BOOTMODE
+&03cd = 0001
+// PSKEY_VREG_EN_DEEP_SLEEP_LEVEL
+&21bc = 0002// Sleep on either level
+
+// -------------------------------------------------------------------
+//  -------   User defined configuration PS Key   --------------------
+
+// PSKEY_USR1 (Pin codes for remote device in BCD)
+&028b = 0000 1234 1111 8888 
+
+// PSKEY_USR3 (Skype & Multimedia control HID keycode configuration)
+//      Play Pause PlayPause Stop Prev Next Answer HangUp
+&028d = 9010 9020  8001      8008 8004 8002 044B   044E
+
+// PSKEY_USR4 (App event to HID command mapping)
+//      Shrt Long MicA MicI SpkA SpkI A2LL A2LR A2LD A2St A2Su HfLL HfLR HfLD HfAC HfAD HfCO HfCC ATA  CHUP ATD  BLDN BVRA AvLL AvLR AvLD Play Pause Stop Prev Next
+&028e = 0000 0000 0440 0000 0000 0000 0000 0000 0770 0000 0000 0000 0000 0222 0004 0000 0000 0000 0110 0222 0110 0110 0110 0000 0000 0000 0550 0050  0770 0990 0880
+
+// PSKEY_USR5 
+&028f -
+
+// PSKEY_USR6 
+&0290 -
+
+// PSKEY_USR8 (HID Sequence)
+//      Issues MM Pause command to 3 different applications the attempts to return focus to original app.
+//      IS=2 HAlt RS=1,0 Tab  RE   Alt  Pause IE   HAlt-Tab (Alt)Tab Alt-Tab
+//&0292 = 4002 2400 6100   002B 7000 0400 9020  5000 242B     002B     042B 
+//      Alt-Tab Pause Alt-Tab
+&0292 = 042B    9020  042B
+
+// PSKEY_USR9 (Audio Streaming Timeout)
+// Timeout specified in seconds
+&0293 = 001E  // 30secs
+
+// PSKEY_USR10 (Software version number - where single word in format "xxyz" represents version xx.y.z)
+&0294 = 0310 0001	// Version RC3.1, Product MVX
+
+// -------------------------------------------------------------------
+//  -------   User defined configuration PS Key   --------------------
+
+// PSKEY_USR0 (Profiles supported by analogue dongle (a2dp only))
+&028a = 0004
+
+// PSKEY_USR2
+&028c -   
+
+// PSKEY_USR7 (Paired device list)
+//&0291 -
+
+// PSKEY_USR11 (Audio codec enabled )
+// PSKEY_CODEC_ENABLED  
+// bit 0: mp3; bit 1: faststream 
+&0295 = 0000
+
+// PSKEY_USR12 (Audio input source type: 0: USB, 1: Analogue)
+// PSKEY_SOURCE_TYPE 
+&0296 = 0001
+
+// PSKEY_USR13 
+// PSKEY_BATTERY_CONFIG 
+&0297 = 0000 a596 b4b9 1e00 000a
+
+// PSKEY_USR14 
+// PSKEY_MP3_CODEC_CONFIGURATION
+
+// For MP3, the bitrate table is:
+//         index 1         =  0   1    2    3    4    5   6     7    8    9   10   11   12   13   14
+// bitrate_table1(kbits/s) = [0, 32,  40,  48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320];
+// bitrate_table2(kbits/s) = [0,  8,  16,  24,  32,  40,  48,  56,  64,  80,  96, 112, 128, 144, 160];
+
+// For SBC, the bitpool value is between 2 to 250.
+
+//     index 2             =  0    1      2    3    4      5  
+// sample_rate(mp3)        = [48   44.1   32   24   22.05  16 ]
+// sample_rate(sbc)        = [48   44.1   32   16 ] 
+// sample_rate(faststream) = [48   44.1   16 ] 
+
+// channel mode index      =  0              1        2             3
+// channel mode            =  joint_stereo   stereo   dual_channel  mono        
+
+// 0-7 bitrate_index(mp3)/ bitpool (SBC) (00:disable); 
+// 8-11: sample_rate_index(0xf:disable); 12: isVBRsupported; 13-15: channel mode
+&0298 = 1109 
+
+// PSKEY_USR15 
+// PSKEY_SBC_CODEC_CONFIGURATION
+&0299 = 0132 
+
+// PSKEY_USR16 
+// PSKEY_FASTSTREAM_CODEC_CONFIGURATION
+&029a = 0100 
+
