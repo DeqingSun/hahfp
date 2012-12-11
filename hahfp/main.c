@@ -1511,12 +1511,15 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 	   case EventConnectTx:
 			MessageCancelAll( &theHeadset.task , EventConnectTx) ;
 			MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(5)) ;
+			MAIN_DEBUG(("EventConnectTx\n")) ;
 			{
 				bdaddr bd_addr;
 				if(!theHeadset.a2dp_link_data->connected[a2dp_primary] && !theHeadset.a2dp_link_data->connected[a2dp_secondary])  /* not connected, connect to Tx */
 				{
+					MAIN_DEBUG(("Idle\n")) ;
 					if(PsRetrieve(PSKEY_HA_TX_ADDR, &bd_addr, sizeof(bdaddr)))
 					{
+						MAIN_DEBUG(("Tx addr\n")) ;
 						A2dpSignallingConnectRequest(&bd_addr);
 					}
 				}
@@ -1534,7 +1537,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				theHeadset.ha_mode = mode_rx_only;
 				MessageSend( &theHeadset.task , EventModeRxOnly, 0 ) ;
 				/* connect to Tx */
-				MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(3)) ;
+				MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(1)) ;
 			}
 			else if(theHeadset.ha_mode == mode_rx_only)
 			{
@@ -1546,15 +1549,11 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
 				{
-					/* is a2dp connected? */
-					if(theHeadset.a2dp_link_data->connected[index])
-					{
-						/* disconnect signalling channel */
-						A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
-					}
+					/* disconnect signalling channel */
+					A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
 				}  
 
-				MessageSendLater( &theHeadset.task, EventEstablishSLC, 0 ,D_SEC(3));
+				MessageSendLater( &theHeadset.task, EventEstablishSLC, 0 ,D_SEC(2));
 			}
 			else
 			{

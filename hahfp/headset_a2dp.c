@@ -170,7 +170,7 @@ void InitA2dp(void)
         {
             A2DP_DEBUG(("INIT: AAC not Enabled\n")); 
             /* Initialise the A2DP library */
-            A2dpInit(&theHeadset.task, A2DP_INIT_ROLE_SINK, NULL, number_of_seps, seps,theHeadset.conf->timeouts.A2dpLinkLossReconnectionTime_s);
+            A2dpInit(&theHeadset.task, A2DP_INIT_ROLE_SINK, NULL, number_of_seps, seps,0 /*theHeadset.conf->timeouts.A2dpLinkLossReconnectionTime_s*/);
         }
     }
 }
@@ -533,7 +533,7 @@ void handleA2DPSignallingDisconnected(uint16 DeviceId, a2dp_status_code status, 
     uint16 Id;
 
     /* check for successful disconnection status */
-    if((status == a2dp_success)&&(getA2dpIndex(DeviceId, &Id)))
+    if((status == a2dp_success || status == a2dp_disconnect_link_loss)&&(getA2dpIndex(DeviceId, &Id)))
     {
        	A2DP_DEBUG(("A2dp: SigDiscon DevId = %d\n",DeviceId)); 
         /* update the a2dp parameter values */

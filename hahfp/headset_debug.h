@@ -43,7 +43,7 @@ DESCRIPTION
             /*headset_audio.c*/
         #define DEBUG_AUDIO
          /* headset_slc.c */
-        #define DEBUG_SLCx
+        #define DEBUG_SLC
             /*The charger */
         #define CHARGER_DEBUGx 
             /*The battery */
@@ -63,7 +63,7 @@ DESCRIPTION
             /*Volume*/
         #define DEBUG_VOLUMEx
             /*State manager*/
-        #define DEBUG_STATESx
+        #define DEBUG_STATES
           	/*authentication*/
         #define DEBUG_AUTH
             /*dimming LEDs*/

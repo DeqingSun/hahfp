@@ -169,6 +169,9 @@ void headsetHfpInit( void )
 
     /* update HFP supported features like TWC */
     theHeadset.conf->supp_features_local = hfp_params.supported_features;
+
+	hfp_params.link_loss_time = 0;
+	hfp_params.link_loss_interval = 0;
     
     /* initialise hfp library with pskey read configuration */
     HfpInit(&theHeadset.task, &hfp_params, NULL);
