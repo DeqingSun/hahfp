@@ -183,6 +183,8 @@ void initCodec(void)
     CodecInitCsrInternal( &the_app->task ) ;
 #endif
     the_app->adc_volume = 0x10;	/* default value */
+
+	PsRetrieve(PSKEY_VOLUME,&the_app->adc_volume,sizeof(uint16));
 }
 
 

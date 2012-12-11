@@ -11,7 +11,9 @@ DESCRIPTION
 #include "audioAdaptor_charger.h"
 #include "audioAdaptor_events.h"
 #include "audioAdaptor_statemanager.h"
+#include "audioAdaptor_configure.h"
 
+#include <ps.h>
 #include <pio.h>
 #include <string.h>
 #include <panic.h>
@@ -82,6 +84,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 			{
 				the_app->adc_volume++;
 				CodecSetInputGain(the_app->codecTask, the_app->adc_volume, left_and_right_ch);
+				PsStore(PSKEY_VOLUME,&the_app->adc_volume,sizeof(uint16));
 			}
 			break;
 		case VOLUME_DN:
@@ -89,6 +92,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 			{
 				the_app->adc_volume--;
 				CodecSetInputGain(the_app->codecTask, the_app->adc_volume, left_and_right_ch);
+				PsStore(PSKEY_VOLUME,&the_app->adc_volume,sizeof(uint16));
 			}
 			break;
         case BUTTON_DEVICE_DISCOVER_REQ:

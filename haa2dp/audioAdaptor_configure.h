@@ -24,7 +24,7 @@ enum
 {
     PSKEY_LOCAL_PROFILES        = PSKEY_BASE,
     PSKEY_PIN_CODE_LIST         = 1,
-    PSKEY_UNUSED                = 2,
+    PSKEY_VOLUME                = 2,
     PSKEY_HID_CONFIG            = 3,
     PSKEY_HID_MAPPING           = 4,
     PSKEY_REMOTE_DEVICE_LIST    = 7,
