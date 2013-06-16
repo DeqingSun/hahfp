@@ -711,6 +711,9 @@ bool audioIsLoopbackMode(void)
 
 void audioEnterLoopbackMode(void)
 {
+	/* Audio Loopback mode can be disable by uncomment below line*/
+	return;
+	
 	AUD_DEBUG(("AUD: audioEnterLoopbackMode (vol=%d)\n",theHeadset.ha_volume));
 	theHeadset.dsp_plugin = (TaskData *)&hearing_aid_sim_plugin;
 	/* go into loopback mode */
