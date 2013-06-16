@@ -56,7 +56,6 @@ typedef struct
 	unsigned normal:5;  
 	unsigned low_battery:5 ;
 	unsigned full_battery:5 ;
-	unsigned mute:5 ;
 	unsigned ha_only:5 ;
 	unsigned rx_only:5 ;
 } ledStatePattern_t ;
@@ -68,21 +67,21 @@ typedef struct
 */
 static const ledStatePattern_t ledStatePatterns [ HEADSET_NUM_STATES ] = 
 {
-	               /*normal ,               lowbatt ,                   fullbatt ,               mute, 		ha_only,		rx_only */	
-/*limbo*/	         { 0, 0 , 0 , 0 ,0 ,0} ,
-/*connectable*/	     { RED_SHORT_OFF_RPT, RED_BLINK_RPT , RED_SHORT_OFF_RPT , RED_SHORT_OFF_RPT, RED_ON_RPT, BLUE_BLINK_RPT} ,
-/*conndiscoverable*/ { RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST ,RED_BLUE_ALT_RPT_FAST} ,
-/*connected*/	     { BLUE_LONG_ON_RPT, RED_LONG_ON_RPT , BLUE_LONG_ON_RPT , BLUE_LONG_ON_RPT, BLUE_LONG_ON_RPT, BLUE_ON_RPT } ,
-/*outgoing*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST,RED_BLUE_BOTH_RPT_FAST } ,
-/*incoming*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST,RED_BLUE_BOTH_RPT_FAST } ,
-/*active*/	         { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST,RED_BLUE_ALT_RPT_FAST } ,
-/*testmode*/	     { 0, 0 , 0 , 0 , 0, 0} ,
-/*twc waiting*/	     { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST,RED_BLUE_BOTH_RPT_FAST } ,
-/*twc on hold*/	     { BLUE_TWO_FLASHES_RPT, RED_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT , BLUE_TWO_FLASHES_RPT, BLUE_TWO_FLASHES_RPT,BLUE_TWO_FLASHES_RPT } ,
-/*twc multicall*/	 { BLUE_THREE_FLASHES_RPT, RED_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT , BLUE_THREE_FLASHES_RPT, BLUE_THREE_FLASHES_RPT,BLUE_THREE_FLASHES_RPT } ,
-/*incoming on hold*/ { RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST , RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST,RED_BLUE_BOTH_RPT_FAST } ,
-/*active no sco*/	 { BLUE_SHORT_ON_RPT, RED_SHORT_ON_RPT , BLUE_SHORT_ON_RPT , RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST,RED_BLUE_ALT_RPT_FAST },
-/*streaming*/	 { RED_BLUE_BOTH_SHORT_ON_RPT,RED_SHORT_ON_RPT ,RED_BLUE_BOTH_SHORT_ON_RPT, RED_BLUE_BOTH_SHORT_ON_RPT, RED_BLUE_BOTH_SHORT_ON_RPT, BLUE_ON_RPT }		
+	               	/*normal ,              			lowbatt ,                   		fullbatt ,               			ha_only,					rx_only */	
+/*limbo*/	         { 0, 0 , 0 , 0 ,0} ,
+/*connectable*/	    { LEDS_BT_MODE_RPT, 		LEDS_LOW_BATT_RPT , 	RED_ON_RPT , 			LEDS_HA_MODE_RPT, 		LEDS_RX_MODE_RPT} ,
+/*conndiscoverable*/ 	{ RED_BLUE_ALT_RPT_FAST, 	RED_BLUE_ALT_RPT_FAST , RED_BLUE_ALT_RPT_FAST, 	RED_BLUE_ALT_RPT_FAST ,	RED_BLUE_ALT_RPT_FAST} ,
+/*connected*/	    { LEDS_BT_MODE_RPT, 		LEDS_LOW_BATT_RPT , 	RED_ON_RPT , 			LEDS_HA_MODE_RPT, 		LEDS_RX_MODE_RPT } ,
+/*outgoing*/	     	{ LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT , 		LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*incoming*/	     	{ RED_BLUE_BOTH_RPT_FAST, 	LEDS_LOW_BATT_RPT , 	RED_BLUE_BOTH_RPT_FAST, LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*active*/	        { LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT ,			LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*testmode*/	     	{ 0, 0 , 0 , 0, 0} ,
+/*twc waiting*/	    { LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT , 		LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*twc on hold*/	    { LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT ,	 		LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*twc multicall*/	 	{ LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT , 		LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*incoming on hold*/ 	{ LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT , 		LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT } ,
+/*active no sco*/	 	{ LEDS_TALK_RPT, 			LEDS_LOW_BATT_RPT , 	LEDS_TALK_RPT , 		LEDS_HA_MODE_RPT,		LEDS_RX_MODE_RPT },
+/*streaming*/	 	{ LEDS_BT_MODE_RPT,			LEDS_LOW_BATT_RPT ,		RED_ON_RPT, 			LEDS_HA_MODE_RPT, 		LEDS_RX_MODE_RPT }		
 } ;
 									
 
@@ -94,7 +93,7 @@ typedef struct
 } ledEventPattern_t ;
 
 #define ev(x) (x-EVENTS_MESSAGE_BASE)
-#define NUM_LED_EVENTS (2) 
+#define NUM_LED_EVENTS (5) 
 /*! 
     @brief table of LED event patterns
 	
@@ -103,7 +102,10 @@ typedef struct
 static const ledEventPattern_t ledEventPatterns [NUM_LED_EVENTS] = 
 {
 	{ ev(EventPowerOn) , LEDS_EVENT_POWER_ON } ,
-	{ ev(EventPowerOff), LEDS_EVENT_POWER_OFF }
+	{ ev(EventPowerOff) , LEDS_EVENT_POWER_OFF } ,
+	{ ev(EventModeHaOnly) , LEDS_EVENT_HA_MODE } ,
+	{ ev(EventModeRxOnly) , LEDS_EVENT_RX_MODE } ,
+	{ ev(EventModeNormalBt) , LEDS_EVENT_BT_MODE }
 } ;
 
 
@@ -112,7 +114,6 @@ static const ledEventPattern_t ledEventPatterns [NUM_LED_EVENTS] =
 */
 typedef struct ledsInfoTag
 {
-	unsigned mute:1 ;
 	unsigned low_battery:1 ;
 	unsigned full_battery:1 ;
 	unsigned ha_mode:2 ;
@@ -139,14 +140,7 @@ static ledsInfo_t ledsInfo ;
 void ledsIndicateEvent( headsetEvents_t event )  
 {
 	int i = 0 ;
-	for (i = 0 ; i < NUM_LED_EVENTS ; i++ )
-	{
-		if (ledEventPatterns[i].event == ev(event) )
-		{
-			ledsPlay( ledEventPatterns[i].pattern ) ;
-		}
-	}
-	
+
 	/*change the stored state based upon the events recieved - 
 		used to update the state indication*/
 	switch (event)
@@ -158,12 +152,6 @@ void ledsIndicateEvent( headsetEvents_t event )
 		case (EventOkBattery) :
 			ledsInfo.low_battery = FALSE ;
 			ledsInfo.full_battery = FALSE; 							
-		break ;
-		case (EventMuteOn):
-			ledsInfo.mute = TRUE ;
-		break ;
-		case (EventMuteOff):
-			ledsInfo.mute = FALSE ;
 		break ;
 		case (EventModeHaOnly) : /* this is enable ha only mode */
 			ledsInfo.ha_mode = 1;
@@ -180,6 +168,14 @@ void ledsIndicateEvent( headsetEvents_t event )
 	
 		/*the state may need changing after this event has been received*/
 	ledsIndicateState( ledsInfo.state )  ;
+
+	for (i = 0 ; i < NUM_LED_EVENTS ; i++ )
+	{
+		if (ledEventPatterns[i].event == ev(event) )
+		{
+			ledsPlay( ledEventPatterns[i].pattern ) ;
+		}
+	}
 }
 
 
@@ -201,10 +197,7 @@ void ledsIndicateState( headsetState state )
 	ledsInfo.state = state ;
 		
 	/*switch event to play based on current state*/	
-	if (ledsInfo.mute)
-	{
-		ledsPlay( ledStatePatterns[state].mute ) ;	
-	}else if (ledsInfo.low_battery)
+	if (ledsInfo.low_battery)
 	{
 		ledsPlay( ledStatePatterns[state].low_battery ) ;
 	}

@@ -656,7 +656,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
                 
                 /* if the scroll PDL for preset number of connection attempts before giving is set
                    retrieve the number of connection attempts to use */
-                theHeadset.conf->NoOfReconnectionAttempts = theHeadset.conf->timeouts.ReconnectionAttempts ;
+                theHeadset.conf->NoOfReconnectionAttempts = 2; /*theHeadset.conf->timeouts.ReconnectionAttempts ;*/
                     
                 slcEstablishSLCRequest() ;
                 
@@ -1307,6 +1307,12 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
         /* continue the slc connection procedure, will attempt connection
            to next available device */
         case EventContinueSlcConnectRequest:
+			if(theHeadset.ha_mode != mode_normal_bt || !theHeadset.conf->NoOfReconnectionAttempts)
+			{
+				lIndicateEvent = FALSE ;
+				break;
+			}
+				
             MAIN_DEBUG(("EventContinueSlcConnectRequest\n"));
             /* attempt next connection */
    	        slcContinueEstablishSLCRequest();
@@ -1525,52 +1531,64 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
 				}
 			}
 	   	break;
+
+		case EventBlockModeChange:
+			MessageCancelAll( &theHeadset.task, EventBlockModeChange);
+			theHeadset.ha_mode_block = FALSE;
+			break;
        
        case EventToggleIntelligentPowerManagement:
-			/* mode_ha_only --> mode_rx_only --> mode_normal_bt --> mode_ha_only
-			                     connect to tx        disconnect tx/SLC       disconnect all
+			/* mode_ha_only --> mode_normal_bt --> mode_rx_only --> mode_ha_only
+			                          SLC         disconnect all/connect to tx   disconnect tx
 			 */
+			
+			if(theHeadset.ha_mode_block)
+				break;
+			 
+			theHeadset.ha_mode_block = TRUE;
+			MessageCancelAll( &theHeadset.task, EventBlockModeChange);
+			MessageSendLater( &theHeadset.task, EventBlockModeChange, 0, D_SEC(5));
 			
 			/* reuse for ha only mode toggle */
 			if(theHeadset.ha_mode == mode_ha_only)
 			{
-				theHeadset.ha_mode = mode_rx_only;
-				MessageSend( &theHeadset.task , EventModeRxOnly, 0 ) ;
-				/* connect to Tx */
-				MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(1)) ;
-			}
-			else if(theHeadset.ha_mode == mode_rx_only)
-			{
-				uint8 index;
 				theHeadset.ha_mode = mode_normal_bt;
 				MessageSend( &theHeadset.task , EventModeNormalBt, 0 ) ;
-				MessageCancelAll( &theHeadset.task , EventConnectTx) ;
 				headsetEnableConnectable();
+				MessageCancelAll( &theHeadset.task, EventEstablishSLC);
+				MessageSendLater( &theHeadset.task, EventEstablishSLC, 0 ,D_SEC(1));
+			}
+			else if(theHeadset.ha_mode == mode_normal_bt)
+			{
+				uint8 index;
+				theHeadset.ha_mode = mode_rx_only;
+				MessageCancelAll(&theHeadset.task, EventContinueSlcConnectRequest);
+				MessageSend( &theHeadset.task , EventModeRxOnly, 0 ) ;
+				headsetDisableConnectable();
+				headsetDisconnectAllSlc();
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
 				{
 					/* disconnect signalling channel */
-					A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
+					A2dpSignallingDisconnectRequest(index);
 				}  
-
-				MessageSendLater( &theHeadset.task, EventEstablishSLC, 0 ,D_SEC(2));
+				/* connect to Tx */
+				MessageCancelAll( &theHeadset.task , EventConnectTx) ;
+				MessageSendLater( &theHeadset.task , EventConnectTx, 0 , D_SEC(2)) ;
 			}
 			else
 			{
 				uint8 index;
 				theHeadset.ha_mode = mode_ha_only;
 				MessageSend( &theHeadset.task , EventModeHaOnly, 0 ) ;
+
+				MessageCancelAll( &theHeadset.task , EventConnectTx) ;
 				headsetDisableConnectable();
-				headsetDisconnectAllSlc();
 				/* disconnect any a2dp signalling channels */
 				for(index = a2dp_primary; index < (a2dp_secondary+1); index++)
 				{
-					/* is a2dp connected? */
-					if(theHeadset.a2dp_link_data->connected[index])
-					{
-						/* disconnect signalling channel */
-						A2dpSignallingDisconnectRequest(theHeadset.a2dp_link_data->device_id[index]);
-					}
+					/* disconnect signalling channel */
+					A2dpSignallingDisconnectRequest(index);
 				}  
 			}
 
@@ -1670,6 +1688,7 @@ static void handleUEMessage  ( Task task, MessageId id, Message message )
     {
         if ( id != EventLEDEventComplete )
         {
+/*			MAIN_DEBUG (( "HS : LEDManagerIndicateEvent [%x]\n", id ));	   */
             LEDManagerIndicateEvent ( id ) ;
         }           
 		

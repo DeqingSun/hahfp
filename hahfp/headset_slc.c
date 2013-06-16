@@ -1489,7 +1489,7 @@ bool slcGetNextListID(void)
        /* if no profiles are connected and multipoint is not enabled give up */
        if((!theHeadset.MultipointEnable)&&(!theHeadset.conf->no_of_profiles_connected))
        {
-            return FALSE;
+            return TRUE;
        }
        /* if multipoint is enabled then try to connect to the second device for one attempt and then
           give up */

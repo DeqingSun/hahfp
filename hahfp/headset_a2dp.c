@@ -327,6 +327,9 @@ void handleA2DPSignallingConnected(a2dp_status_code status, uint16 DeviceId, bda
   		/* Ensure the underlying ACL is encrypted */       
         ConnectionSmEncrypt( &theHeadset.task , A2dpSignallingGetSink(DeviceId) , TRUE );
 
+		/* set timeout to 5 seconds */
+		ConnectionSetLinkSupervisionTimeout(A2dpSignallingGetSink(DeviceId), 0x1f80);
+
         /* We are now connected */
 		if (stateManagerGetState() < headsetConnected)
             stateManagerEnterConnectedState(); 	
@@ -558,7 +561,9 @@ void handleA2DPSignallingDisconnected(uint16 DeviceId, a2dp_status_code status, 
 #ifdef ENABLE_AVRCP
         headsetAvrcpDisconnect(&SrcAddr);     
 #endif
-
+        /* route the audio using the appropriate codec/plugin */
+		if(status == a2dp_disconnect_link_loss)
+	 	    audioHandleRouting();
     }    
     else
        	A2DP_DEBUG(("A2dp: Sig Discon FAILED status = %d\n",status)); 

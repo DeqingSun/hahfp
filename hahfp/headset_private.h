@@ -538,6 +538,7 @@ typedef struct
 	ha_mode_t				 ha_mode;
 	uint16					 ha_tune;
 	uint8					 ha_pending_msg;
+	bool					 ha_mode_block;
 
     Sink            	     sco_sink;
 

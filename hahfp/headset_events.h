@@ -214,7 +214,8 @@ typedef enum headsetEventsTag
 			,EventModeRxOnly
 			,EventModeNormalBt
 			,EventConnectTx
-
+			,EventBlockModeChange
+			
 #ifdef ENABLE_AVRCP
             ,EventAvrcpPlayPause,
             EventAvrcpStop,
