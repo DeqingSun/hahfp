@@ -70,11 +70,11 @@
    <property key="build_merge" >1</property>
    <property key="buildtransport" >4</property>
    <property key="codec" >1</property>
-   <property key="debug" >1</property>
+   <property key="debug" >0</property>
    <property key="debugtransport" >[SPITRANS=USB SPIPORT=0]</property>
    <property key="defines" ></property>
    <property key="dualstream" >0</property>
-   <property key="execution_mode" >0</property>
+   <property key="execution_mode" >1</property>
    <property key="firmware" >0</property>
    <property key="firmwareimage" ></property>
    <property key="flashsize" >2</property>
