@@ -25,16 +25,16 @@ typedef struct
 
 static const ledStatePattern_t ledStates [ MaxAppStates ] = 
 {
-/*AppStateUninitialised*/ {LEDS_OFF,               LEDS_OFF,	           RED_ON,                     0 } ,
-/*AppStateInitialising*/  {LEDS_OFF,               LEDS_OFF,               RED_ON,                     0 } ,
-/*AppStateIdle*/          {BLUE_ONE_SEC_ON_RPT,    RED_ONE_SEC_ON_RPT,     RED_ON_BLUE_ONE_SEC_ON_RPT, 0 } ,
-/*AppStateInquiring*/     {RED_BLUE_ALT_RPT_FAST,  RED_TWO_FLASHES_RPT,    RED_BLUE_BOTH_RPT_THREE,    0 } ,
-/*AppStateSearching*/     {RED_BLUE_ALT_RPT_FAST,  RED_TWO_FLASHES_RPT,    RED_BLUE_BOTH_RPT_THREE,    0 } ,
-/*AppStateConnecting*/    {RED_BLUE_ALT_RPT,       RED_REP_BLUE_ALT_RPT,   RED_BLUE_BOTH_RPT,          0 } ,
-/*AppStateStreaming*/     {BLUE_SHORT_ON_RPT,      RED_SHORT_ON_RPT,       RED_ON_BLUE_SHORT_RPT,      0 } ,
-/*AppStateEnteringDfu*/   {RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST,     0 } ,
-/*AppStateLowBattery*/    {LEDS_OFF,               LEDS_OFF,               RED_ON,                     0 } ,
-/*AppStatePoweredOff*/    {LEDS_OFF,               LEDS_OFF,               RED_ON,                     0 } 
+/*AppStateUninitialised*/ 	{LEDS_OFF,              LEDS_OFF,	           	LEDS_CHARGING_RPT,          0 } ,
+/*AppStateInitialising*/  	{LEDS_OFF,              LEDS_OFF,               LEDS_CHARGING_RPT,          0 } ,
+/*AppStateIdle*/         	{LEDS_WAITING_RPT,    	LEDS_LOW_BATT_RPT,     	LEDS_CHARGING_RPT,			0 } ,
+/*AppStateInquiring*/    	{RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST,	RED_BLUE_ALT_RPT_FAST,    	0 } ,
+/*AppStateSearching*/    	{RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST,	RED_BLUE_ALT_RPT_FAST,    	0 } ,
+/*AppStateConnecting*/   	{RED_BLUE_ALT_RPT_FAST, RED_BLUE_ALT_RPT_FAST,	RED_BLUE_ALT_RPT_FAST,      0 } ,
+/*AppStateStreaming*/    	{LEDS_TRANSMITTING_RPT, LEDS_LOW_BATT_RPT,  	LEDS_CHARGING_RPT,      	0 } ,
+/*AppStateEnteringDfu*/   {RED_BLUE_BOTH_RPT_FAST,RED_BLUE_BOTH_RPT_FAST, RED_BLUE_BOTH_RPT_FAST,     0 } ,
+/*AppStateLowBattery*/   	{LEDS_LOW_BATT_RPT,     LEDS_LOW_BATT_RPT,      LEDS_CHARGING_RPT,          0 } ,
+/*AppStatePoweredOff*/   	{LEDS_OFF,              LEDS_OFF,               LEDS_CHARGING_RPT,          0 } 
 } ;
 
 

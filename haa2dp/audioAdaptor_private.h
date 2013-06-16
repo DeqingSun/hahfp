@@ -342,9 +342,9 @@ typedef struct
 typedef enum
 {
     ProfileNone   = 0x00,
-    ProfileA2dp   = 0x04,
-    ProfileAvrcp  = 0x08,
-    ProfileAll    = 0x0f
+    ProfileA2dp   = 0x01,
+    ProfileAvrcp  = 0x02,
+    ProfileAll    = 0x03
 } mvdProfiles;
 
 

@@ -80,6 +80,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
         }
 #endif        
 		case VOLUME_UP:
+            DEBUG(("VOLUME_UP %x\n",the_app->adc_volume));
 			if(the_app->adc_volume < 0x1f)
 			{
 				the_app->adc_volume++;
@@ -88,6 +89,7 @@ bool sysHandleButtonsMessage(MessageId id, Message message)
 			}
 			break;
 		case VOLUME_DN:
+            DEBUG(("VOLUME_DN %x\n",the_app->adc_volume));
 			if(the_app->adc_volume > 0x05)
 			{
 				the_app->adc_volume--;

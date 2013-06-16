@@ -1,7 +1,7 @@
 //define some special led pins
 
-led 0 BLUE
-led 1 RED
+led 1 BLUE
+led 0 RED
 
 
 //define some patterns to be used
@@ -11,6 +11,24 @@ pattern LEDS_OFF RPT
     
 pattern RED_ON RPT
     RED ON 0
+
+pattern LEDS_WAITING_RPT RPT
+    RED OFF 4900
+    RED ON 100
+
+pattern LEDS_TRANSMITTING_RPT RPT
+    RED BLUE OFF 4900
+    RED BLUE ON 100
+
+pattern LEDS_CHARGING_RPT RPT
+    RED ON 0
+
+pattern LEDS_FULL_CHAGE_RPT RPT
+    BLUE ON 0
+
+pattern LEDS_LOW_BATT_RPT RPT
+    BLUE OFF 100
+    BLUE ON 900
 
 pattern BLUE_ONE_SEC_ON_RPT    RPT
     BLUE ON  1000

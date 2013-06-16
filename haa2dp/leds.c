@@ -63,87 +63,115 @@ static const ledEntry_t pattern_LEDS_OFF [ 1 ] =
 /*RED_ON*/ 
 static const ledEntry_t pattern_RED_ON [ 1 ] = 
 {
+    { 0x4000 , ON  , 0    }  
+}; 
+/*LEDS_WAITING_RPT*/ 
+static const ledEntry_t pattern_LEDS_WAITING_RPT [ 2 ] = 
+{
+    { 0x4000 , OFF , 4900 }  , 
+    { 0x4000 , ON  , 100  }  
+}; 
+/*LEDS_TRANSMITTING_RPT*/ 
+static const ledEntry_t pattern_LEDS_TRANSMITTING_RPT [ 2 ] = 
+{
+    { 0xC000 , OFF , 4900 }  , 
+    { 0xC000 , ON  , 100  }  
+}; 
+/*LEDS_CHARGING_RPT*/ 
+static const ledEntry_t pattern_LEDS_CHARGING_RPT [ 1 ] = 
+{
+    { 0x4000 , ON  , 0    }  
+}; 
+/*LEDS_FULL_CHAGE_RPT*/ 
+static const ledEntry_t pattern_LEDS_FULL_CHAGE_RPT [ 1 ] = 
+{
     { 0x8000 , ON  , 0    }  
+}; 
+/*LEDS_LOW_BATT_RPT*/ 
+static const ledEntry_t pattern_LEDS_LOW_BATT_RPT [ 2 ] = 
+{
+    { 0x8000 , OFF , 100  }  , 
+    { 0x8000 , ON  , 900  }  
 }; 
 /*BLUE_ONE_SEC_ON_RPT*/ 
 static const ledEntry_t pattern_BLUE_ONE_SEC_ON_RPT [ 2 ] = 
 {
-    { 0x4000 , ON  , 1000 }  , 
-    { 0x4000 , OFF , 200  }  
+    { 0x8000 , ON  , 1000 }  , 
+    { 0x8000 , OFF , 200  }  
 }; 
 /*RED_ON_BLUE_ONE_SEC_ON_RPT*/ 
 static const ledEntry_t pattern_RED_ON_BLUE_ONE_SEC_ON_RPT [ 2 ] = 
 {
     { 0xC000 , ON  , 1000 }  , 
-    { 0x4000 , OFF , 200  }  
+    { 0x8000 , OFF , 200  }  
 }; 
 /*RED_ONE_SEC_ON_RPT*/ 
 static const ledEntry_t pattern_RED_ONE_SEC_ON_RPT [ 2 ] = 
 {
-    { 0x8000 , ON  , 1000 }  , 
-    { 0x8000 , OFF , 200  }  
+    { 0x4000 , ON  , 1000 }  , 
+    { 0x4000 , OFF , 200  }  
 }; 
 /*BLUE_SHORT_ON_RPT*/ 
 static const ledEntry_t pattern_BLUE_SHORT_ON_RPT [ 2 ] = 
 {
-    { 0x4000 , ON  , 100  }  , 
-    { 0x4000 , OFF , 2400 }  
+    { 0x8000 , ON  , 100  }  , 
+    { 0x8000 , OFF , 2400 }  
 }; 
 /*RED_SHORT_ON_RPT*/ 
 static const ledEntry_t pattern_RED_SHORT_ON_RPT [ 2 ] = 
 {
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 2400 }  
+    { 0x4000 , ON  , 100  }  , 
+    { 0x4000 , OFF , 2400 }  
 }; 
 /*RED_ON_BLUE_SHORT_RPT*/ 
 static const ledEntry_t pattern_RED_ON_BLUE_SHORT_RPT [ 2 ] = 
 {
     { 0xC000 , ON  , 100  }  , 
-    { 0x4000 , OFF , 2400 }  
+    { 0x8000 , OFF , 2400 }  
 }; 
 /*BLUE_TWO_FLASHES_RPT*/ 
 static const ledEntry_t pattern_BLUE_TWO_FLASHES_RPT [ 4 ] = 
+{
+    { 0x8000 , ON  , 100  }  , 
+    { 0x8000 , OFF , 100  }  , 
+    { 0x8000 , ON  , 100  }  , 
+    { 0x8000 , OFF , 2400 }  
+}; 
+/*RED_TWO_FLASHES_RPT*/ 
+static const ledEntry_t pattern_RED_TWO_FLASHES_RPT [ 4 ] = 
 {
     { 0x4000 , ON  , 100  }  , 
     { 0x4000 , OFF , 100  }  , 
     { 0x4000 , ON  , 100  }  , 
     { 0x4000 , OFF , 2400 }  
 }; 
-/*RED_TWO_FLASHES_RPT*/ 
-static const ledEntry_t pattern_RED_TWO_FLASHES_RPT [ 4 ] = 
-{
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 100  }  , 
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 2400 }  
-}; 
 /*RED_BLUE_ALT_RPT_FAST*/ 
 static const ledEntry_t pattern_RED_BLUE_ALT_RPT_FAST [ 4 ] = 
 {
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 100  }  , 
     { 0x4000 , ON  , 100  }  , 
-    { 0x4000 , OFF , 100  }  
+    { 0x4000 , OFF , 100  }  , 
+    { 0x8000 , ON  , 100  }  , 
+    { 0x8000 , OFF , 100  }  
 }; 
 /*RED_BLUE_ALT_RPT*/ 
 static const ledEntry_t pattern_RED_BLUE_ALT_RPT [ 4 ] = 
 {
-    { 0x8000 , ON  , 1000 }  , 
-    { 0x8000 , OFF , 1000 }  , 
     { 0x4000 , ON  , 1000 }  , 
-    { 0x4000 , OFF , 1000 }  
+    { 0x4000 , OFF , 1000 }  , 
+    { 0x8000 , ON  , 1000 }  , 
+    { 0x8000 , OFF , 1000 }  
 }; 
 /*RED_REP_BLUE_ALT_RPT*/ 
 static const ledEntry_t pattern_RED_REP_BLUE_ALT_RPT [ 8 ] = 
 {
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 100  }  , 
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 100  }  , 
-    { 0x8000 , ON  , 100  }  , 
-    { 0x8000 , OFF , 500  }  , 
-    { 0x4000 , ON  , 1000 }  , 
-    { 0x4000 , OFF , 1000 }  
+    { 0x4000 , ON  , 100  }  , 
+    { 0x4000 , OFF , 100  }  , 
+    { 0x4000 , ON  , 100  }  , 
+    { 0x4000 , OFF , 100  }  , 
+    { 0x4000 , ON  , 100  }  , 
+    { 0x4000 , OFF , 500  }  , 
+    { 0x8000 , ON  , 1000 }  , 
+    { 0x8000 , OFF , 1000 }  
 }; 
 /*RED_BLUE_BOTH_RPT_FAST*/ 
 static const ledEntry_t pattern_RED_BLUE_BOTH_RPT_FAST [ 8 ] = 
@@ -181,7 +209,7 @@ static const ledEntry_t pattern_LEDS_EVENT_POWER_ON [ 2 ] =
 }; 
 
 
-#define LED_NUM_PATTERNS ( 17 )
+#define LED_NUM_PATTERNS ( 22 )
 
 /*The LED entries*/
 static const led_t gLeds [ LED_NUM_PATTERNS ] = 
@@ -189,6 +217,16 @@ static const led_t gLeds [ LED_NUM_PATTERNS ] =
     {  { 1,  0x00 , RPT }, (ledEntry_t *) pattern_LEDS_OFF } ,
 
     {  { 1,  0x00 , RPT }, (ledEntry_t *) pattern_RED_ON } ,
+
+    {  { 2,  0x00 , RPT }, (ledEntry_t *) pattern_LEDS_WAITING_RPT } ,
+
+    {  { 2,  0x00 , RPT }, (ledEntry_t *) pattern_LEDS_TRANSMITTING_RPT } ,
+
+    {  { 1,  0x00 , RPT }, (ledEntry_t *) pattern_LEDS_CHARGING_RPT } ,
+
+    {  { 1,  0x00 , RPT }, (ledEntry_t *) pattern_LEDS_FULL_CHAGE_RPT } ,
+
+    {  { 2,  0x00 , RPT }, (ledEntry_t *) pattern_LEDS_LOW_BATT_RPT } ,
 
     {  { 2,  0x00 , RPT }, (ledEntry_t *) pattern_BLUE_ONE_SEC_ON_RPT } ,
 
